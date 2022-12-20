@@ -16,8 +16,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.Text, nullable=False)
     first_name = db.Column(db.Text, nullable=False)
     last_name = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.Text, nullable=False, default=datetime.utcnow())
-    updated_at = db.Column(db.Text, nullable=False, default=datetime.utcnow())
+    created_at = db.Column(db.Text, nullable=False, default=datetime.datetime.utcnow)
+    updated_at = db.Column(db.Text, nullable=False, default=datetime.datetime.utcnow)
 
     @property
     def password(self):
