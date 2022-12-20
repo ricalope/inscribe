@@ -19,6 +19,8 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.Text, nullable=False, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.Text, nullable=False, default=datetime.datetime.utcnow)
 
+    note = db.relationship("Note", back_populates="user", cascade="all, delete")
+
     @property
     def password(self):
         return self.hashed_password
@@ -34,5 +36,7 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'first_name': self.first_name,
+            'last_name': self.last_name
         }
