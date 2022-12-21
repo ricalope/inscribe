@@ -9,8 +9,6 @@ function DeleteNote() {
     const history = useHistory();
     const { noteId } = useParams();
 
-    console.log(noteId)
-
     const onSubmit = async () => {
         await dispatch(deleteNoteThunk(noteId))
         history.push('/notes')
