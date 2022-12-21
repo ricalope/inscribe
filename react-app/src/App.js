@@ -7,6 +7,8 @@ import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
+import Notes from './components/Notes';
+import AddNote from './components/AddNote';
 import { authenticate } from './store/session';
 
 function App() {
@@ -28,20 +30,29 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
-        <Route path='/login' exact={true}>
+        <Route exact path='/login'>
           <LoginForm />
         </Route>
-        <Route path='/sign-up' exact={true}>
+        <Route exact path='/sign-up'>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
+        <ProtectedRoute exact path='/users'>
           <UsersList/>
         </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
+        <ProtectedRoute exact path='/users/:userId'>
           <User />
         </ProtectedRoute>
-        <Route path='/' exact={true} >
+        <Route exact path='/'>
           <h1>My Home Page</h1>
+        </Route>
+        <ProtectedRoute exact path='/notes'>
+            <Notes />
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/notes/new">
+            <AddNote />
+        </ProtectedRoute>
+        <Route>
+            <h2>Page Not Found</h2>
         </Route>
       </Switch>
     </BrowserRouter>
