@@ -8,6 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import Notes from './components/Notes';
+import AddNote from './components/AddNote';
 import { authenticate } from './store/session';
 
 function App() {
@@ -44,9 +45,12 @@ function App() {
         <Route exact path='/'>
           <h1>My Home Page</h1>
         </Route>
-        <Route exact path='/notes'>
+        <ProtectedRoute exact path='/notes'>
             <Notes />
-        </Route>
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/notes/new">
+            <AddNote />
+        </ProtectedRoute>
         <Route>
             <h2>Page Not Found</h2>
         </Route>

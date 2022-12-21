@@ -7,6 +7,7 @@ function Notes() {
     const dispatch = useDispatch();
     const notesObj = useSelector(state => state.notes.allNotes)
     const notes = Object.values(notesObj)
+    console.log(notes)
 
     useEffect(() => {
         dispatch(getAllNotesThunk())
@@ -17,8 +18,8 @@ function Notes() {
             <h1>Hello from notes</h1>
             <div className="notes-inner-container">
                 {notes.map((note, idx) => (
-                    <div className="notes-card">
-                        <div key={idx} className="notes-title">
+                    <div key={idx} className="notes-card">
+                        <div className="notes-title">
                             {note.title}
                         </div>
                         <div className="notes-content">
