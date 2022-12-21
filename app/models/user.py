@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.Text, nullable=False, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.Text, nullable=False, default=datetime.datetime.utcnow)
 
-    note = db.relationship("Note", back_populates="user", cascade="all, delete")
+    note = db.relationship("Note", back_populates="user")
 
     @property
     def password(self):

@@ -15,7 +15,10 @@ class Note(db.Model):
     created_at = db.Column(db.Text, nullable=False, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.Text, nullable=False, default=datetime.datetime.utcnow)
 
-    user = db.relationship("User", back_populates="note", cascade="all, delete")
+    user = db.relationship("User", back_populates="note")
+
+    def __repr__(self):
+        return f"user_id({self.user_id}) title({self.title}) body({self.body})"
 
     def to_dict(self):
         return {

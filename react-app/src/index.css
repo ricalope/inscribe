@@ -1,1 +1,13 @@
 /* TODO Add site wide styles */
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Poppins:wght@200&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+}
+
+h1 {
+    font-family: 'Courgette';
+}

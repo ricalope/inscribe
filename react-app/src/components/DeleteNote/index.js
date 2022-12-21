@@ -1,0 +1,39 @@
+import React from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { deleteNoteThunk } from '../../store/note';
+
+
+function DeleteNote() {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const { noteId } = useParams();
+
+    console.log(noteId)
+
+    const onSubmit = async () => {
+        await dispatch(deleteNoteThunk(noteId))
+        history.push('/notes')
+    }
+
+    const onCancel = () => {
+        history.push(`/notes/${noteId}`)
+    }
+
+    return (
+        <div className="delete-note-main-container">
+            <div className="delete-header">
+                <h2>Confirm Delete Note?</h2>
+            </div>
+            <div className="delete-body">
+                <h5>Please confirm the deletion of this note</h5>
+            </div>
+            <div className="delete-buttons">
+                <button className="confirm-delete" onClick={onSubmit}>Confirm Delete</button>
+                <button className="cancel-delete" onClick={onCancel}>Cancel</button>
+            </div>
+        </div>
+    )
+}
+
+export default DeleteNote;
