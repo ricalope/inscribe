@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getAllNotesThunk } from '../../store/note';
 
 function Notes() {
@@ -7,11 +8,12 @@ function Notes() {
     const dispatch = useDispatch();
     const notesObj = useSelector(state => state.notes.allNotes)
     const notes = Object.values(notesObj)
-    console.log(notes)
 
     useEffect(() => {
-        dispatch(getAllNotesThunk())
-    }, [])
+        (async () => {
+            await dispatch(getAllNotesThunk())
+        })()
+    }, [dispatch])
 
     return (
         <div className="notes-main-container">
@@ -20,7 +22,9 @@ function Notes() {
                 {notes.map((note, idx) => (
                     <div key={idx} className="notes-card">
                         <div className="notes-title">
-                            {note.title}
+                            <Link exact="true" to={`/notes/${note.id}`}>
+                                {note.title}
+                            </Link>
                         </div>
                         <div className="notes-content">
                             {note.body}

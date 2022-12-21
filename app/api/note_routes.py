@@ -22,8 +22,7 @@ def validation_errors_to_error_messages(validation_errors):
 @note_routes.route('')
 @login_required
 def get_all_notes():
-    notes = (Note.query.filter_by(user_id=current_user.get_id())
-    .join(Note.user).options(joinedload(Note.user)))
+    notes = Note.query.filter_by(user_id=current_user.get_id())
     return jsonify([note.to_dict() for note in notes])
 
 
@@ -45,3 +44,34 @@ def post_new_note():
         return new_note.to_dict()
 
     return { "errors": validation_errors_to_error_messages(form.errors) }, 401
+
+
+@note_routes.route('/<int:id>/edit', methods=["PUT"])
+@login_required
+def edit_note_by_id(id):
+    note = Note.query.get(id)
+    form = NoteForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        note.title = form.data['title']
+        note.body = form.data['body']
+        db.session.commit()
+    return note.to_dict()
+
+
+@note_routes.route('/<int:id>')
+@login_required
+def get_note_by_id(id):
+    note = Note.query.get(id)
+    return note.to_dict()
+
+
+@note_routes.route('/<int:id>/delete', methods=["DELETE"])
+@login_required
+def delete_note_by_id(id):
+    note = Note.query.get(id)
+    db.session.delete(note)
+    db.session.commit()
+    return { "message": "successfully deleted" }
