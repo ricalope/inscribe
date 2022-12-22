@@ -1,5 +1,6 @@
 const GET_NOTEBOOKS = 'notebooks/GET_NOTEBOOKS';
 const ADD_NOTEBOOK = 'notebooks/ADD_NOTEBOOK';
+const GET_NOTEBOOK = 'notebooks/GET_NOTEBOOK';
 
 
 const getNotebooks = notebooks => ({
@@ -14,11 +15,34 @@ const addNotebook = notebook => ({
 })
 
 
+const getNotebook = notebook => ({
+    type: GET_NOTEBOOK,
+    notebook
+})
+
+
 export const getAllNotebooksThunk = () => async dispatch => {
     const res = await fetch('/api/notebooks')
     if (res.ok) {
         const data = await res.json()
         dispatch(getNotebooks(data))
+        return data
+    }
+    else if (res.status < 500) {
+        const data = await res.json()
+        if (data.errors) {
+            return data.errors
+        }
+    }
+    return ['An error has occurred. Please try again.']
+}
+
+
+export const getOneNotebookThunk = notebookId => async dispatch => {
+    const res = await fetch(`/api/notebooks/${notebookId}`)
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(getNotebook(data))
         return data
     }
     else if (res.status < 500) {
@@ -66,6 +90,11 @@ const notebooksReducer = (state = initialState, action) => {
         case ADD_NOTEBOOK: {
             const newState = { ...state, allNotebooks: { ...state.allNotebooks }, oneNotebook: {} }
             newState.allNotebooks[action.notebook.id] = action.notebook
+            return newState
+        }
+        case GET_NOTEBOOK: {
+            const newState = { ...state, allNotebooks: {}, oneNotebook: {} }
+            newState.oneNotebook[action.notebook.id] = action.notebook
             return newState
         }
         default:

@@ -42,3 +42,10 @@ def post_new_notebook():
         return new_notebook.to_dict()
 
     return { "errors": validation_errors_to_error_messages(form.errors) }, 401
+
+
+@notebook_routes.route('/<int:id>')
+@login_required
+def get_one_notebook(id):
+    notebook = Notebook.query.get(id)
+    return notebook.to_dict()

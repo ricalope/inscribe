@@ -21,20 +21,11 @@ function Notebooks() {
         <div className="notebooks-main-container">
             <h2>Notebooks</h2>
             {notebooks.map(notebook => (
-                <div className="notebooks-card">
+                <div key={notebook.id} className="notebooks-card">
                     <div className="notebooks-title">
-                        {notebook.title}
-                    </div>
-                    <div className="notebooks-notes-list">
-                        {notebook.notes.map(nb => (
-                            <div className="nb-notes-card">
-                                <div className="nb-notes-title">
-                                    <Link exact="true" to={`/notes/${nb.id}`}>
-                                        {nb.title}
-                                    </Link>
-                                </div>
-                            </div>
-                        ))}
+                        <Link exact="true" to={`/notebooks/${notebook.id}`}>
+                            {notebook.title}
+                        </Link>
                     </div>
                 </div>
             ))}
