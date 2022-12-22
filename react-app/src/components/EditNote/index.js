@@ -30,8 +30,7 @@ function EditNote() {
             title,
             body
         }
-        const edited_note = await dispatch(editNoteThunk(formData))
-        console.log(edited_note)
+        await dispatch(editNoteThunk(formData))
         history.push(`/notes/${noteId}`)
     }
 
