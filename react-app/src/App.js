@@ -12,6 +12,7 @@ import EditNote from './components/EditNote';
 import OneNote from './components/OneNote';
 import DeleteNote from './components/DeleteNote';
 import Notebooks from './components/Notebooks';
+import AddNotebook from './components/AddNotebook';
 import { authenticate } from './store/session';
 
 function App() {
@@ -62,6 +63,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute exact path="/notebooks">
             <Notebooks />
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/notebooks/new">
+            <AddNotebook />
         </ProtectedRoute>
         <Route>
             <h2>Page Not Found</h2>

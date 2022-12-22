@@ -57,7 +57,9 @@ def edit_note_by_id(id):
         note.title = form.data['title']
         note.body = form.data['body']
         db.session.commit()
-    return note.to_dict()
+        return note.to_dict()
+
+    return { "errors": validation_errors_to_error_messages(form.errors) }, 401
 
 
 @note_routes.route('/<int:id>')
