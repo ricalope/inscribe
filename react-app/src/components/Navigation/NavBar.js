@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import './Navigation.css'
 
 const NavBar = () => {
 
-    const [theme, setTheme] = useState('light')
+    const [ theme, setTheme ] = useState('light')
+
+    const sessionUser = useSelector(state => state.session.user)
 
     useEffect(() => {
         document.body.className = theme
-    }, [theme])
+    }, [ theme ])
 
     const themeChange = () => {
         if (theme === 'light') {
@@ -30,26 +33,25 @@ const NavBar = () => {
                     >
                         {theme === 'light' ? '🌚' : '🌞'}
                     </button>
-                    <div>
+                    <div id="nav-home">
                         <NavLink to='/' exact={true} activeClassName='active'>
                             Home
                         </NavLink>
                     </div>
-                    <div>
-                        <NavLink to='/login' exact={true} activeClassName='active'>
-                            Login
-                        </NavLink>
-                    </div>
-                    <div>
-                        <NavLink to='/sign-up' exact={true} activeClassName='active'>
-                            Sign Up
-                        </NavLink>
-                    </div>
-                    <div>
-                        <NavLink to='/users' exact={true} activeClassName='active'>
-                            Users
-                        </NavLink>
-                    </div>
+                    {!sessionUser && (
+                        <div>
+                            <div>
+                                <NavLink to='/login' exact={true} activeClassName='active'>
+                                    Login
+                                </NavLink>
+                            </div>
+                            <div>
+                                <NavLink to='/sign-up' exact={true} activeClassName='active'>
+                                    Sign Up
+                                </NavLink>
+                            </div>
+                        </div>
+                    )}
                     <div>
                         <NavLink to='/notes' exact={true} activeClassName='active'>
                             Notes
