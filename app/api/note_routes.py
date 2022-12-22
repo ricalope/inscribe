@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
-from sqlalchemy.orm import joinedload
 from app.models import db, Note
 from app.forms import NoteForm
 
@@ -58,7 +57,9 @@ def edit_note_by_id(id):
         note.title = form.data['title']
         note.body = form.data['body']
         db.session.commit()
-    return note.to_dict()
+        return note.to_dict()
+
+    return { "errors": validation_errors_to_error_messages(form.errors) }, 401
 
 
 @note_routes.route('/<int:id>')

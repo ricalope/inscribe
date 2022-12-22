@@ -5,13 +5,15 @@ import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/Navigation/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-// import UsersList from './components/Users/UsersList';
 import User from './components/Users/User';
 import Notes from './components/Notes';
 import AddNote from './components/AddNote';
 import EditNote from './components/EditNote';
 import OneNote from './components/OneNote';
 import DeleteNote from './components/DeleteNote';
+import Notebooks from './components/Notebooks';
+import AddNotebook from './components/AddNotebook';
+import OneNotebook from './components/OneNotebook';
 import { authenticate } from './store/session';
 
 function App() {
@@ -59,6 +61,15 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute exact path="/notes/:noteId/delete">
             <DeleteNote />
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/notebooks">
+            <Notebooks />
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/notebooks/new">
+            <AddNotebook />
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/notebooks/:notebookId">
+            <OneNotebook />
         </ProtectedRoute>
         <Route>
             <h2>Page Not Found</h2>
