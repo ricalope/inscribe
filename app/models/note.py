@@ -10,12 +10,14 @@ class Note(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+    notebook_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("notebooks.id")))
     title = db.Column(db.Text, nullable=False)
     body = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.Text, nullable=False, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.Text, nullable=False, default=datetime.datetime.utcnow)
 
     user = db.relationship("User", back_populates="note")
+    notebook = db.relationship("Notebook", back_populates="note")
 
     def __repr__(self):
         return f"user_id({self.user_id}) title({self.title}) body({self.body})"
