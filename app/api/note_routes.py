@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
-from sqlalchemy.orm import joinedload
 from app.models import db, Note
 from app.forms import NoteForm
 
