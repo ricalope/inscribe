@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getAllNotesThunk } from '../../store/note';
+import './Notes.css'
 
 function Notes() {
 

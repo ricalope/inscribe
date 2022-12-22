@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { editNoteThunk, getOneNoteThunk } from '../../store/note';
+import { editNoteThunk } from '../../store/note';
 
 
 function EditNote() {
@@ -30,8 +30,7 @@ function EditNote() {
             title,
             body
         }
-        const edited_note = await dispatch(editNoteThunk(formData))
-        console.log(edited_note)
+        await dispatch(editNoteThunk(formData))
         history.push(`/notes/${noteId}`)
     }
 

@@ -89,7 +89,6 @@ export const editNoteThunk = data => async dispatch => {
 }
 
 export const deleteNoteThunk = noteId => async dispatch => {
-    console.log(noteId)
     const res = await fetch(`/api/notes/${noteId}/delete`, {
         method: "DELETE"
     })
