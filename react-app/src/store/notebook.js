@@ -2,6 +2,7 @@ const GET_NOTEBOOKS = 'notebooks/GET_NOTEBOOKS';
 const ADD_NOTEBOOK = 'notebooks/ADD_NOTEBOOK';
 const GET_NOTEBOOK = 'notebooks/GET_NOTEBOOK';
 const DELETE_NOTEBOOK = 'notebooks/DELETE_NOTEBOOKS';
+const UPDATE_NOTEBOOK = 'notebooks/UPDATE_NOTEBOOKS';
 
 
 const getNotebooks = notebooks => ({
@@ -25,6 +26,12 @@ const getNotebook = notebook => ({
 const deleteNotebook = notebookId => ({
     type: DELETE_NOTEBOOK,
     notebookId
+})
+
+
+const updateNotebook = notebook => ({
+    type: UPDATE_NOTEBOOK,
+    notebook
 })
 
 
@@ -101,6 +108,28 @@ export const deleteNotebookThunk = notebookId => async dispatch => {
 }
 
 
+export const updateNotebookThunk = notebook => async dispatch => {
+    const { notebookId, title } = notebook
+    const res = await fetch(`/api/notebooks/${notebookId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title })
+    })
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(updateNotebook(data))
+        return data
+    }
+    else if (res.status < 500) {
+        const data = await res.json()
+        if (data.errors) {
+            return data.errors
+        }
+    }
+    return ['An error has occurred. Please try again.']
+}
+
+
 const initialState = { allNotebooks: {}, oneNotebook: {} }
 
 
@@ -118,6 +147,11 @@ const notebooksReducer = (state = initialState, action) => {
         }
         case GET_NOTEBOOK: {
             const newState = { ...state, allNotebooks: {}, oneNotebook: {} }
+            newState.oneNotebook[action.notebook.id] = action.notebook
+            return newState
+        }
+        case UPDATE_NOTEBOOK: {
+            const newState = { ...state, allNotebooks: {}, oneNotebook: { ...state.oneNotebook } }
             newState.oneNotebook[action.notebook.id] = action.notebook
             return newState
         }

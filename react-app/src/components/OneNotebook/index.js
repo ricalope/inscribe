@@ -29,6 +29,11 @@ function OneNotebook() {
                                     delete
                                 </Link>
                             </p>
+                            <p>
+                                <Link exact="true" to={`/notebooks/${nb.id}/edit`}>
+                                    rename notebook
+                                </Link>
+                            </p>
                         </div>
                         <div className="one-nb-notes-length">
                             <h5>{nb.notes.length} {nb.notes.length === 1 ? 'note' : 'notes'}</h5>
