@@ -9,7 +9,6 @@ function Notebooks() {
 
     const notebooksObj = useSelector(state => state.notebooks.allNotebooks)
     const notebooks = Object.values(notebooksObj)
-    console.log(notebooks)
 
     useEffect(() => {
         (async () => {
