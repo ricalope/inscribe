@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import LoginForm from './components/auth/LoginForm';
-import SignUpForm from './components/auth/SignUpForm';
+import LoginForm from './components/LoginForm/LoginForm';
+import SignUpForm from './components/SignupForm/SignUpForm';
 import NavBar from './components/Navigation/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import User from './components/Users/User';
@@ -16,11 +16,12 @@ import AddNotebook from './components/AddNotebook';
 import OneNotebook from './components/OneNotebook';
 import DeleteNotebook from './components/DeleteNotebook';
 import EditNotebook from './components/EditNotebook';
+import SplashPage from './components/SplashPage';
 import { authenticate } from './store/session';
 
 function App() {
-      const [  loaded, setLoaded  ] = useState(false);
-      const dispatch = useDispatch();
+    const [ loaded, setLoaded ] = useState(false);
+    const dispatch = useDispatch();
 
     const sessionUser = useSelector(state => state.session.user);
 
@@ -49,7 +50,7 @@ function App() {
                     <User />
                 </ProtectedRoute>
                 <Route exact path='/'>
-                    <h1>My Home Page</h1>
+                    {!sessionUser ? <SplashPage /> : <h1>Hello</h1>}
                 </Route>
                 <ProtectedRoute exact path='/notes'>
                     <Notes />

@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-import datetime
+from datetime import datetime
 
 
 class Note(db.Model):
@@ -13,8 +13,8 @@ class Note(db.Model):
     notebook_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("notebooks.id")))
     title = db.Column(db.Text, nullable=False)
     body = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.Text, nullable=False, default=datetime.datetime.utcnow)
-    updated_at = db.Column(db.Text, nullable=False, default=datetime.datetime.utcnow)
+    created_at = db.Column(db.Text, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.Text, nullable=False, default=datetime.utcnow)
 
     user = db.relationship("User", back_populates="note")
     notebook = db.relationship("Notebook", back_populates="note")
