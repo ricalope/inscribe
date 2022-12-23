@@ -1,4 +1,3 @@
-import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { deleteNoteThunk } from '../../store/note';
@@ -27,8 +26,12 @@ function DeleteNote() {
                 <h5>Please confirm the deletion of this note</h5>
             </div>
             <div className="delete-buttons">
-                <button className="confirm-delete" onClick={onSubmit}>Confirm Delete</button>
-                <button className="cancel-delete" onClick={onCancel}>Cancel</button>
+                <div>
+                    <button className="confirm-delete" onClick={onSubmit}>Confirm Delete</button>
+                </div>
+                <div>
+                    <button className="cancel-delete" onClick={onCancel}>Cancel</button>
+                </div>
             </div>
         </div>
     )

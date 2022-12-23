@@ -49,3 +49,14 @@ def post_new_notebook():
 def get_one_notebook(id):
     notebook = Notebook.query.get(id)
     return notebook.to_dict()
+
+
+@notebook_routes.route('/<int:id>', methods=["DELETE"])
+@login_required
+def delete_notebook_by_id(id):
+    notebook = Notebook.query.get(id)
+    if not notebook:
+        return { "message": "Note could not be found" }, 404
+    db.session.delete(notebook)
+    db.session.commit()
+    return { "message": "successfully deleted" }
