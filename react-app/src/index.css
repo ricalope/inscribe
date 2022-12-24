@@ -1,7 +1,5 @@
 /* TODO Add site wide styles */
-@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Poppins:wght@200&display=swap');
-
-* {
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Merriweather&family=Poppins:wght@200&family=Roboto&display=swap');* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -9,7 +7,7 @@
 }
 
 h1 {
-    font-family: 'Courgette';
+    font-family: 'Merriweather';
 }
 
 #root {

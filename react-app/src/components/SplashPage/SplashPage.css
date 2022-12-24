@@ -1,0 +1,41 @@
+.sp-main-container {
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    padding-right: 15px;
+}
+
+.sp-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cat-img {
+    height: 50px;
+    padding-top: .4em
+}
+
+.logo-image-header {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    padding: 2px;
+}
+
+.sp-login-div {
+    display: flex;
+    align-self: center;
+}
+
+.sp-login-button {
+    font-family: 'Roboto';
+    font-size: 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.sp-login-button:hover {
+    color: #209CEE;
+}

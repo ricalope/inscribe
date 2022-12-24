@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import LoginFormModal from '../LoginForm/LoginFormModal';
 import SignupFormModal from '../SignupForm/SignupFormModal';
+import logo from '../../assets/cat-logo.png'
+import './SplashPage.css'
 
 function SplashPage() {
 
@@ -9,19 +11,22 @@ function SplashPage() {
 
     return (
         <div className="sp-main-container">
-            <div className="sp-main-top">
-                <div className="sp-header">
-                    <div className="title">
+            <div className="sp-header">
+                <div className="logo-image-header">
+                    <div>
+                        <img src={logo} className="cat-img" alt="cat-stretching" />
+                    </div>
+                    <div>
                         <h1>Inscribe</h1>
                     </div>
-                    <div className="sp-login-div">
-                        <button
-                            className="sp-login-button"
-                            onClick={() => setShowLogin(true)}
-                        >
-                            Login
-                        </button>
-                    </div>
+                </div>
+                <div className="sp-login-div">
+                    <button
+                        className="sp-login-button"
+                        onClick={() => setShowLogin(true)}
+                    >
+                        Login
+                    </button>
                 </div>
             </div>
             <div className="sp-main-body-top">
@@ -30,7 +35,7 @@ function SplashPage() {
                 <button className="sp-body-signup" onClick={() => setShowSignup(true)}>Sign up for free</button>
                 <button className="sp-body-login" onClick={() => setShowLogin(true)}>Already have an account? Login</button>
                 {showLogin && <LoginFormModal showLogin={showLogin} setShowLogin={setShowLogin} />}
-                {showSignup && <SignupFormModal showSignup={showSignup} setShowSignup={setShowSignup} /> }
+                {showSignup && <SignupFormModal showSignup={showSignup} setShowSignup={setShowSignup} />}
             </div>
             <div className="sp-main-body-middle">
                 <div className="sp-middle-img">
@@ -55,7 +60,6 @@ function SplashPage() {
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }
