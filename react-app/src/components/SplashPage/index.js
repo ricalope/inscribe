@@ -17,7 +17,7 @@ function SplashPage() {
                         <img src={logo} className="cat-img" alt="cat-stretching" />
                     </div>
                     <div>
-                        <h1>Inscribe</h1>
+                        <h2 id="title-header">Inscribe</h2>
                     </div>
                 </div>
                 <div className="sp-login-div">
@@ -30,8 +30,8 @@ function SplashPage() {
                 </div>
             </div>
             <div className="sp-main-body-top">
-                <h2>Tame your work, organize your life.</h2>
-                <h3>Remember everything and tackle any project with your notes, tasks, and schedule all in one place.</h3>
+                <h1 id="promo-header">Tame your work, organize your life.</h1>
+                <h3 id="promo-sub">Remember everything and tackle any project with your notes, tasks, and schedule all in one place.</h3>
                 <button className="sp-body-signup" onClick={() => setShowSignup(true)}>Sign up for free</button>
                 <button className="sp-body-login" onClick={() => setShowLogin(true)}>Already have an account? Login</button>
                 {showLogin && <LoginFormModal showLogin={showLogin} setShowLogin={setShowLogin} />}

@@ -1,8 +1,25 @@
+#title-header {
+    font-family: 'Playfair';
+    font-size: 38px;
+    font-weight: 700;
+    transform: scale(1, 0.9)
+}
+
+#promo-header {
+    font-size: 50px;
+    font-weight: 500;
+}
+
+#promo-sub {
+    font-size: 23px;
+    font-weight: 300;
+}
+
 .sp-main-container {
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
-    width: 100vw;
+    min-width: 100vw;
     padding-right: 15px;
 }
 
@@ -20,7 +37,7 @@
     display: flex;
     align-items: center;
     font-size: 15px;
-    padding: 2px;
+    padding: 3px;
 }
 
 .sp-login-div {
@@ -29,7 +46,6 @@
 }
 
 .sp-login-button {
-    font-family: 'Roboto';
     font-size: 20px;
     background-color: transparent;
     border: none;
@@ -38,4 +54,35 @@
 
 .sp-login-button:hover {
     color: #209CEE;
+}
+
+.sp-main-body-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.sp-body-signup {
+    width: 22vw;
+    height: 12vh;
+    border-radius: 3px;
+    background-color: #209CEE;
+    border: none;
+    color: white;
+    font-size: 15px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.sp-body-login {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 19px;
+    text-decoration: underline;
+    font-weight: 300;
 }
