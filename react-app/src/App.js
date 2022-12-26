@@ -36,7 +36,9 @@ function App() {
         return null;
     }
 
-    return (
+    return !sessionUser ? (
+        <SplashPage />
+    ) : (
         <>
             <NavBar />
             <Switch>
@@ -49,9 +51,6 @@ function App() {
                 <ProtectedRoute exact path='/users/:userId'>
                     <User />
                 </ProtectedRoute>
-                <Route exact path='/'>
-                    {!sessionUser ? <SplashPage /> : <h1>Hello</h1>}
-                </Route>
                 <ProtectedRoute exact path='/notes'>
                     <Notes />
                 </ProtectedRoute>
@@ -87,7 +86,7 @@ function App() {
                 </Route>
             </Switch>
         </>
-    );
+    )
 }
 
 export default App;

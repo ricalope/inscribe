@@ -1,17 +1,16 @@
 /* TODO Add site wide styles */
-@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Merriweather&family=Poppins:wght@200&family=Roboto&display=swap');* {
+@import url('https://fonts.googleapis.com/css2?family=Lily+Script+One&family=Playfair+Display:wght@600&family=Rubik:wght@300;400;500;600&display=swap');
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins';
-}
-
-h1 {
-    font-family: 'Merriweather';
+    font-family: 'Rubik';
+    font-weight: 400;
 }
 
 #root {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     box-sizing: border-box;
 }
