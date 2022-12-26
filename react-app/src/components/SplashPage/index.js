@@ -1,17 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+// import { useSelector } from 'react-redux';
 import LoginFormModal from '../LoginForm/LoginFormModal';
 import SignupFormModal from '../SignupForm/SignupFormModal';
-import logo from '../../assets/cat-logo.png'
+import logo from '../../assets/cat-logo.png';
+import ghLogo from '../../assets/github-logo.png';
+import promoImage from '../../assets/promo-image.png';
+import quoteImage from '../../assets/quote-blue.png';
+import { quotesArray } from '../../utils/quotes';
 import './SplashPage.css'
 
 function SplashPage() {
 
     const [ showLogin, setShowLogin ] = useState(false);
     const [ showSignup, setShowSignup ] = useState(false);
+    const [ scrolled, setScrolled ] = useState(false);
+
+    useEffect(() => {
+        if (showLogin || showSignup) {
+            document.body.style.overflow = 'hidden'
+        }
+        window.onscroll = () => {
+            if (window.scrollY > 0) {
+                setScrolled(true)
+            }
+            else {
+                setScrolled(false)
+            }
+        }
+
+        return () => {
+            document.body.style.overflow = 'unset'
+        }
+    }, [ showLogin, showSignup ])
 
     return (
         <div className="sp-main-container">
-            <div className="sp-header">
+            <div className={scrolled ? "sp-header shadow" : "sp-header"}>
                 <div className="logo-image-header">
                     <div>
                         <img src={logo} className="cat-img" alt="cat-stretching" />
@@ -39,25 +63,60 @@ function SplashPage() {
             </div>
             <div className="sp-main-body-middle">
                 <div className="sp-middle-img">
-
+                    <img
+                        className="promo-img"
+                        src={promoImage}
+                        alt="laptop-promo"
+                    />
                 </div>
                 <div className="sp-middle-text">
-                    <div className="sp-first-text">
-                        <h3>WORK ANYWHERE</h3>
-                        <h5>Keep important info handy—your notes sync automatically to all your devices.</h5>
+                    <div className="sp text first">
+                        <h3 className="sp-h3">WORK ANYWHERE</h3>
+                        <h5 className="sp-h5">Keep important info handy—your notes sync automatically to all your devices.</h5>
                     </div>
-                    <div className="sp-second-text">
-                        <h3>REMEMBER EVERYTHING</h3>
-                        <h5>Make notes more useful by adding text, images, audio, scans, PDFs, and documents.</h5>
+                    <div className="sp text second">
+                        <h3 className="sp-h3">REMEMBER EVERYTHING</h3>
+                        <h5 className="sp-h5">Make notes more useful by adding text, images, audio, scans, PDFs, and documents.</h5>
                     </div>
-                    <div className="sp-third-text">
-                        <h3>TURN TO-DO INTO DONE</h3>
-                        <h5>Bring your notes, tasks, and schedules together to get things done more easily.</h5>
+                    <div className="sp text third">
+                        <h3 className="sp-h3">TURN TO-DO INTO DONE</h3>
+                        <h5 className="sp-h5">Bring your notes, tasks, and schedules together to get things done more easily.</h5>
                     </div>
-                    <div className="sp-fourth-text">
-                        <h3>FIND THINGS FAST</h3>
-                        <h5>Get what you need, when you need it with powerful, flexible search capabilities.</h5>
+                    <div className="sp text fourth">
+                        <h3 className="sp-h3">FIND THINGS FAST</h3>
+                        <h5 className="sp-h5">Get what you need, when you need it with powerful, flexible search capabilities.</h5>
                     </div>
+                </div>
+            </div>
+            <div className="quotes-outer-container">
+                <div className="quotes-inner-container">
+                    <div className="quote-image">
+                        <img id="quote-marks" src={quoteImage} alt="quotation-marks" />
+                    </div>
+                    <div className="quotes-content">
+                        <h3>{quotesArray[ 0 ]?.quote}</h3>
+                    </div>
+                    <div className="quotes-author">
+                        <h4>-{quotesArray[ 0 ]?.author}</h4>
+                    </div>
+                </div>
+            </div>
+            <div className="sp-footer">
+                <div className="logo-image-header" id="footer">
+                    <div>
+                        <img src={logo} className="cat-img" alt="cat-stretching" />
+                    </div>
+                    <div>
+                        <h2 id="title-header">Inscribe</h2>
+                    </div>
+                </div>
+                <div className="sp-footer-links">
+                    <a className="creator-links" href="https://github.com/ricalope">
+                        <div className="footer-image">
+                            <img id="gh-icon" src={ghLogo} alt="github logo" />
+                            <h5>Ricardo Lopez</h5>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
