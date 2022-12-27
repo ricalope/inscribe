@@ -1,0 +1,39 @@
+.signup-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 520px;
+    gap: 5px;
+}
+
+.su-form-inputs {
+    width: 250px;
+    height: 40px;
+    padding: 5px;
+    border-radius: 7px;
+    border: 2px solid rgba(32, 156, 238, 0.3);
+}
+
+#req-field {
+    font-size: 10px;
+    color: rgb(135, 135, 135);
+    padding-top: 10px;
+}
+
+#su-submit-btn {
+    width: 250px;
+    height: 40px;
+    background-color: #209CEE;
+    border: none;
+    color: white;
+    border-radius: 6px;
+}
+
+.errors-map {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 20px;
+}

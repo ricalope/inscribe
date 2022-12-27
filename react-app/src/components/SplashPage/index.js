@@ -94,10 +94,10 @@ function SplashPage() {
                         <img id="quote-marks" src={quoteImage} alt="quotation-marks" />
                     </div>
                     <div className="quotes-content">
-                        <h3>{quotesArray[ 0 ]?.quote}</h3>
+                        <h3 id="q-text">"{quotesArray[ 0 ]?.quote}"</h3>
                     </div>
                     <div className="quotes-author">
-                        <h4>-{quotesArray[ 0 ]?.author}</h4>
+                        <h4 id="q-author">-{quotesArray[ 0 ]?.author}</h4>
                     </div>
                 </div>
             </div>

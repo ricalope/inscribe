@@ -154,6 +154,14 @@
     padding: 5px;
 }
 
+#q-text {
+    font-weight: 300;
+}
+
+#q-author {
+    font-size: 16px;
+}
+
 #quote-marks {
     width: 60px;
 }

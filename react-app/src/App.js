@@ -17,6 +17,7 @@ import OneNotebook from './components/OneNotebook';
 import DeleteNotebook from './components/DeleteNotebook';
 import EditNotebook from './components/EditNotebook';
 import SplashPage from './components/SplashPage';
+import Home from './components/Home';
 import { authenticate } from './store/session';
 
 function App() {
@@ -42,12 +43,9 @@ function App() {
         <>
             <NavBar />
             <Switch>
-                <Route exact path='/login'>
-                    <LoginForm />
-                </Route>
-                <Route exact path='/sign-up'>
-                    <SignUpForm />
-                </Route>
+                <ProtectedRoute exact path="/">
+                    <Home />
+                </ProtectedRoute>
                 <ProtectedRoute exact path='/users/:userId'>
                     <User />
                 </ProtectedRoute>

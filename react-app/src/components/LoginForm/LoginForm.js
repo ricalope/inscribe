@@ -9,6 +9,7 @@ const LoginForm = () => {
     const [ errors, setErrors ] = useState([]);
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+
     const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
 
@@ -41,15 +42,16 @@ const LoginForm = () => {
         <form onSubmit={onLogin}>
             <div className="login-form-container">
                 {errors.length > 0 ? (
-                    <div className="login-errors">
+                    <div className="errors-map">
+                        The following issues were found:
                         {errors.map((error, ind) => (
-                            <div key={ind}>* {error}</div>
+                            <div key={ind} className="login-errors">* {error}</div>
                         ))}
                     </div>
                 ) :
                 (<div className="branding-div">
                     <div className="login-image">
-                        <img className="login-logo-img" src={logo} alt="cat logo" />
+                        <img className="login-logo-img" src={logo} alt="quill logo" />
                     </div>
                     <div className="login-app-title">
                         <h1 id="login-title">Inscribe</h1>
