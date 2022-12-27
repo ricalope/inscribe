@@ -19,7 +19,6 @@
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
-    min-width: 100vw;
 }
 
 .sp-header {
@@ -28,13 +27,14 @@
     top: 0px;
     display: flex;
     justify-content: space-between;
-    padding: 5px 60px;
+    padding: 5px 50px;
     background-color: white;
     z-index: 1;
+    height: 60px;
 }
 
-.cat-img {
-    height: 50px;
+.quill-img {
+    height: 40px;
     padding-top: .4em
 }
 
@@ -51,10 +51,12 @@
 }
 
 .sp-login-button {
-    font-size: 20px;
+    font-size: 18px;
     background-color: transparent;
     border: none;
     cursor: pointer;
+    font-weight: 300;
+    transform: scale(1, 0.9);
 }
 
 .sp-login-button:hover {
@@ -158,21 +160,16 @@
 
 .sp-footer {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     padding: 10px;
-    margin-top: 30px;
-}
-
-#footer {
-    border-bottom: 3px solid black;
+    margin-top: 40px;
 }
 
 .footer-image {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     gap: 10px;
-    padding: 10px;
 }
 
 #gh-icon {
@@ -183,4 +180,24 @@
 .creator-links {
     text-decoration: none;
     color: black;
+}
+
+.sp-footer-links {
+    padding-top: 25px;
+}
+
+.sp-sub-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5px;
+    border-top: 2px solid rgb(50, 50, 50);
+}
+
+#sp-sf-outer {
+    padding: 10px;
+}
+
+.legal {
+    font-size: 10px;
+    color:rgba(120, 120, 120, 0.8);
 }

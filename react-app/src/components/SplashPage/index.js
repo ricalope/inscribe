@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import { useSelector } from 'react-redux';
 import LoginFormModal from '../LoginForm/LoginFormModal';
 import SignupFormModal from '../SignupForm/SignupFormModal';
-import logo from '../../assets/cat-logo.png';
+import logo from '../../assets/quill.png';
 import ghLogo from '../../assets/github-logo.png';
 import promoImage from '../../assets/promo-image.png';
 import quoteImage from '../../assets/quote-blue.png';
@@ -38,7 +38,7 @@ function SplashPage() {
             <div className={scrolled ? "sp-header shadow" : "sp-header"}>
                 <div className="logo-image-header">
                     <div>
-                        <img src={logo} className="cat-img" alt="cat-stretching" />
+                        <img src={logo} className="quill-img" alt="quill writing" />
                     </div>
                     <div>
                         <h2 id="title-header">Inscribe</h2>
@@ -49,7 +49,7 @@ function SplashPage() {
                         className="sp-login-button"
                         onClick={() => setShowLogin(true)}
                     >
-                        Login
+                        Log in
                     </button>
                 </div>
             </div>
@@ -57,7 +57,7 @@ function SplashPage() {
                 <h1 id="promo-header">Tame your work, organize your life.</h1>
                 <h3 id="promo-sub">Remember everything and tackle any project with your notes, tasks, and schedule all in one place.</h3>
                 <button className="sp-body-signup" onClick={() => setShowSignup(true)}>Sign up for free</button>
-                <button className="sp-body-login" onClick={() => setShowLogin(true)}>Already have an account? Login</button>
+                <button className="sp-body-login" onClick={() => setShowLogin(true)}>Already have an account? Log in</button>
                 {showLogin && <LoginFormModal showLogin={showLogin} setShowLogin={setShowLogin} />}
                 {showSignup && <SignupFormModal showSignup={showSignup} setShowSignup={setShowSignup} />}
             </div>
@@ -104,7 +104,7 @@ function SplashPage() {
             <div className="sp-footer">
                 <div className="logo-image-header" id="footer">
                     <div>
-                        <img src={logo} className="cat-img" alt="cat-stretching" />
+                        <img src={logo} className="quill-img" alt="quill writing" />
                     </div>
                     <div>
                         <h2 id="title-header">Inscribe</h2>
@@ -117,6 +117,16 @@ function SplashPage() {
                             <h5>Ricardo Lopez</h5>
                         </div>
                     </a>
+                </div>
+            </div>
+            <div id="sp-sf-outer">
+                <div className="sp-sub-footer">
+                    <div className="sp-sf-copyright">
+                        <p className="legal">© 2022 Inscribe Corporation. All rights reserved.</p>
+                    </div>
+                    <div className="sf-legal">
+                        <p className="legal">Merry Christmas</p>
+                    </div>
                 </div>
             </div>
         </div>
