@@ -1,23 +1,46 @@
 .nav-main-container {
     display: flex;
+    flex-direction: column;
     background-color: black;
-    /* padding: 15px; */
-    height: 100%;
+    min-height: 100vh;
+    padding: 10px;
+    color: white;
+    width: 200px;
+    gap: 50px;
 }
 
-.nav-inner-container {
+.nav-top-container {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-top-third {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    gap: 5px;
+    gap: 50px;
 }
 
-.light-switch {
+#light-switch {
     font-size: 20px;
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+.nav-email-dropdown {
+    display: flex;
+    gap: 20px;
+}
+
+.caret-dd {
+    display: flex;
+    gap: 20px;
+    border: none;
+    background-color: transparent;
+    color: rgb(150, 150, 150);
+    cursor: pointer;
+    font-size: 13px;
 }
 
 .dark {
@@ -30,16 +53,61 @@
     color: black;
 }
 
-a > #nav-home.active {
-    background-color: white;
+.new-note {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 180px;
+    height: 30px;
+    border-radius: 25px;
+    background-color: #209CEE;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 12px;
 }
 
-/* .nav-home + .active{
-    background-color: white;
-    width: 100%;
+.nav-middle-links,
+.nav-middle-second {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.active {
-    background-color: white;
-    width:100%;
-} */
+.navlink > a {
+    color: rgb(150, 150, 150);
+    text-decoration: none;
+    font-weight: 300;
+    display: flex;
+    gap: 5px;
+}
+
+.navlink > a:hover {
+    color: #209CEE;
+}
+
+.p-link {
+    font-weight: 300;
+}
+
+.nav-inner {
+    display: flex;
+    align-content: baseline;
+    gap: 7px;
+}
+
+.nav-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 230px;
+}
+
+#gh-logo {
+    width: 20px;
+    height: 20px;
+}
+
+.dev-name {
+    font-size: 15px;
+}

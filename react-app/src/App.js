@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import LoginForm from './components/LoginForm/LoginForm';
-import SignUpForm from './components/SignupForm/SignUpForm';
+// import LoginForm from './components/LoginForm/LoginForm';
+// import SignUpForm from './components/SignupForm/SignUpForm';
 import NavBar from './components/Navigation/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import User from './components/Users/User';
@@ -18,6 +18,7 @@ import DeleteNotebook from './components/DeleteNotebook';
 import EditNotebook from './components/EditNotebook';
 import SplashPage from './components/SplashPage';
 import Home from './components/Home';
+import ComingSoon from './components/ComingSoon';
 import { authenticate } from './store/session';
 
 function App() {
@@ -78,6 +79,9 @@ function App() {
                 </ProtectedRoute>
                 <ProtectedRoute exact path="/notebooks/:notebookId/edit">
                     <EditNotebook />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/coming-soon">
+                    <ComingSoon />
                 </ProtectedRoute>
                 <Route>
                     <h2>Page Not Found</h2>
