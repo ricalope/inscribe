@@ -1,3 +1,7 @@
 .notes-main-container {
+    position: relative;
+    left: 210px;
+    max-width: 83vw;
+    word-wrap: break-word;
     padding: 5px;
 }
