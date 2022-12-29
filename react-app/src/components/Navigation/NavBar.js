@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import ghLogo from '../../assets/github-logo.png';
 import LogoutButton from '../auth/LogoutButton';
 import './Navigation.css'
 
@@ -25,58 +26,93 @@ const NavBar = () => {
 
     return (
         <div className="nav-main-container">
-            <nav>
-                <div className="nav-inner-container">
-                    <button
-                        className="light-switch"
-                        onClick={themeChange}
-                    >
-                        {theme === 'light' ? '🌚' : '🌞'}
-                    </button>
-                    <div id="nav-home">
-                        <NavLink to='/' exact={true} activeClassName='active'>
-                            Home
-                        </NavLink>
+            <div className="nav-top-third">
+                <div className="nav-top-container">
+                    <div className="nav-light-switch">
+                        <button id="light-switch" onClick={themeChange}>
+                            {theme === 'light' ? '🌚' : '🌞'}
+                        </button>
                     </div>
-                    {!sessionUser && (
-                        <div>
-                            <div>
-                                <NavLink to='/login' exact={true} activeClassName='active'>
-                                    Login
-                                </NavLink>
-                            </div>
-                            <div>
-                                <NavLink to='/sign-up' exact={true} activeClassName='active'>
-                                    Sign Up
-                                </NavLink>
-                            </div>
+                    <div className="nav-email-dropdown">
+                        <div className="caret-dd">
+                            {sessionUser.email}
+                            <i className="fa-solid fa-angle-down" />
                         </div>
-                    )}
-                    <div>
-                        <NavLink to='/notes' exact={true} activeClassName='active'>
-                            Notes
-                        </NavLink>
-                    </div>
-                    <div>
-                        <NavLink to='/notebooks' exact={true} activeClassName='active'>
-                            Notebooks
-                        </NavLink>
-                    </div>
-                    <div>
-                        <NavLink to='/notes/new' exact={true} activeClassName='active'>
-                            Add Note
-                        </NavLink>
-                    </div>
-                    <div>
-                        <NavLink to='/notebooks/new' exact={true} activeClassName='active'>
-                            Add Notebook
-                        </NavLink>
-                    </div>
-                    <div>
-                        <LogoutButton />
                     </div>
                 </div>
-            </nav>
+                <Link exact="true" to="/notes/new" id="create-note">
+                    <div className="new-note">
+                        <div>
+                            + New Note
+                        </div>
+                        <div>
+                            <i className="fa-solid fa-angle-down" />
+                        </div>
+                    </div>
+                </Link>
+            </div>
+            <div className="nav-middle-links">
+                <div className="navlink">
+                    <NavLink to="/" exact={true} activeClassName="active" className="nl-link">
+                        <div className="nav-inner">
+                            <div><i className="fa-solid fa-house" /></div>
+                            <p className="p-link">Home</p>
+                        </div>
+                    </NavLink>
+                </div>
+                <div className="navlink">
+                    <NavLink to="/coming-soon" exact={true} activeClassName="active" className="nl-link">
+                        <div className="nav-inner">
+                            <div><i className="fa-solid fa-star" /></div>
+                            <p className="p-link one">Shortcuts</p>
+                        </div>
+                    </NavLink>
+                </div>
+                <div className="navlink">
+                    <NavLink to="/notes" exact={true} activeClassName="active" className="nl-link">
+                        <div className="nav-inner">
+                            <div><i className="fa-solid fa-note-sticky" /></div>
+                            <p className="p-link">Notes</p>
+                        </div>
+                    </NavLink>
+                </div>
+                <div className="navlink">
+                    <NavLink to="/coming-soon" exact={true} activeClassName="active" className="nl-link">
+                        <div className="nav-inner">
+                            <div><i className="fa-solid fa-circle-check" /></div>
+                            <p className="p-link">Tasks</p>
+                        </div>
+                    </NavLink>
+                </div>
+            </div>
+            <div className="nav-middle-second">
+                <div className="navlink">
+                    <NavLink to="/notebooks" exact={true} activeClassName="active" className="nl-link">
+                        <div className="nav-inner">
+                            <div><i className="fa-solid fa-book" /></div>
+                            <p className="p-link">Notebooks</p>
+                        </div>
+                    </NavLink>
+                </div>
+                <div className="navlink">
+                    <NavLink to="/coming-soon" exact={true} activeClassName="active" className="nl-link">
+                        <div className="nav-inner">
+                            <div><i className="fa-solid fa-hashtag" /></div>
+                            <p className="p-link">Tags</p>
+                        </div>
+                    </NavLink>
+                </div>
+            </div>
+            <div className="nav-footer">
+                <div className="github-logo">
+                    <a className="creator-links" href="https://github.com/ricalope">
+                        <img id="gh-logo" src={ghLogo} alt="github logo" />
+                    </a>
+                </div>
+                <div className="dev-name">
+                    <h5>Ricardo Lopez</h5>
+                </div>
+            </div>
         </div>
     );
 }

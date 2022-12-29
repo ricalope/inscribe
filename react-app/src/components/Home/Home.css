@@ -1,0 +1,114 @@
+.home-main-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 100vw;
+    gap: 20px;
+    color: #262626;
+}
+
+.home-top-bar {
+    font-size: 10px;
+    padding: 5px;
+    color: white;
+}
+
+.home-notes-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.notes-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 3 3 60%;
+    height: 350px;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    padding: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 3px #969696;
+}
+
+.notes-title-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-note {
+    display: flex;
+    gap: 10px;
+    overflow-x: scroll;
+    padding: 3px;
+}
+
+#nc-title {
+    word-wrap: break-word;
+}
+
+.scratch-div {
+    flex: 1 1 40%;
+    height: 350px;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 0 3px #969696;
+}
+
+.home-nc-div {
+    height: 280px;
+    width: 170px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 8px;
+    box-shadow: 0 0 4px #969696;
+    overflow-y: hidden;
+    gap: 5px;
+
+}
+
+.home-nc-div:hover {
+    box-shadow: 0 0 3px black;
+}
+
+.note,
+.new-plus {
+    text-decoration: none;
+    color: #262626;
+}
+
+.new-plus:hover {
+    box-shadow: 0 0 4px black;
+}
+
+#note-text {
+    border-radius: 15px;
+    height: 100%;
+    padding: 8px;
+    overflow-y:hidden;
+}
+
+#note-text-inner {
+    word-wrap: break-word;
+    color: #767676;
+    font-size: 14px;
+    text-align: start;
+}
+
+.scratch-body {
+    height: 100%;
+}
+
+.ta-scratch {
+    padding: 5px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+}

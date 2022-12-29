@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import LoginForm from './components/auth/LoginForm';
-import SignUpForm from './components/auth/SignUpForm';
+import { Route, Switch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+// import LoginForm from './components/LoginForm/LoginForm';
+// import SignUpForm from './components/SignupForm/SignUpForm';
 import NavBar from './components/Navigation/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import User from './components/Users/User';
@@ -16,75 +16,79 @@ import AddNotebook from './components/AddNotebook';
 import OneNotebook from './components/OneNotebook';
 import DeleteNotebook from './components/DeleteNotebook';
 import EditNotebook from './components/EditNotebook';
+import SplashPage from './components/SplashPage';
+import Home from './components/Home';
+import ComingSoon from './components/ComingSoon';
 import { authenticate } from './store/session';
 
 function App() {
-  const [loaded, setLoaded] = useState(false);
-  const dispatch = useDispatch();
+    const [ loaded, setLoaded ] = useState(false);
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    (async() => {
-      await dispatch(authenticate());
-      setLoaded(true);
-    })();
-  }, [dispatch]);
+    const sessionUser = useSelector(state => state.session.user);
 
-  if (!loaded) {
-    return null;
-  }
+    useEffect(() => {
+        (async () => {
+            await dispatch(authenticate());
+            setLoaded(true);
+        })();
+    }, [ dispatch ]);
 
-  return (
-    <BrowserRouter>
-      <NavBar />
-      <Switch>
-        <Route exact path='/login'>
-          <LoginForm />
-        </Route>
-        <Route exact path='/sign-up'>
-          <SignUpForm />
-        </Route>
-        <ProtectedRoute exact path='/users/:userId'>
-          <User />
-        </ProtectedRoute>
-        <Route exact path='/'>
-          <h1>My Home Page</h1>
-        </Route>
-        <ProtectedRoute exact path='/notes'>
-            <Notes />
-        </ProtectedRoute>
-        <ProtectedRoute exact path="/notes/new">
-            <AddNote />
-        </ProtectedRoute>
-        <ProtectedRoute exact path="/notes/:noteId">
-            <OneNote />
-        </ProtectedRoute>
-        <ProtectedRoute exact path="/notes/:noteId/edit">
-            <EditNote />
-        </ProtectedRoute>
-        <ProtectedRoute exact path="/notes/:noteId/delete">
-            <DeleteNote />
-        </ProtectedRoute>
-        <ProtectedRoute exact path="/notebooks">
-            <Notebooks />
-        </ProtectedRoute>
-        <ProtectedRoute exact path="/notebooks/new">
-            <AddNotebook />
-        </ProtectedRoute>
-        <ProtectedRoute exact path="/notebooks/:notebookId">
-            <OneNotebook />
-        </ProtectedRoute>
-        <ProtectedRoute exact path="/notebooks/:notebookId/delete">
-            <DeleteNotebook />
-        </ProtectedRoute>
-        <ProtectedRoute exact path="/notebooks/:notebookId/edit">
-            <EditNotebook />
-        </ProtectedRoute>
-        <Route>
-            <h2>Page Not Found</h2>
-        </Route>
-      </Switch>
-    </BrowserRouter>
-  );
+    if (!loaded) {
+        return null;
+    }
+
+    return !sessionUser ? (
+        <SplashPage />
+    ) : (
+        <>
+            <NavBar />
+            <Switch>
+                <ProtectedRoute exact path="/">
+                    <Home />
+                </ProtectedRoute>
+                <ProtectedRoute exact path='/users/:userId'>
+                    <User />
+                </ProtectedRoute>
+                <ProtectedRoute exact path='/notes'>
+                    <Notes />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/notes/new">
+                    <AddNote />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/notes/:noteId">
+                    <OneNote />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/notes/:noteId/edit">
+                    <EditNote />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/notes/:noteId/delete">
+                    <DeleteNote />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/notebooks">
+                    <Notebooks />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/notebooks/new">
+                    <AddNotebook />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/notebooks/:notebookId">
+                    <OneNotebook />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/notebooks/:notebookId/delete">
+                    <DeleteNotebook />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/notebooks/:notebookId/edit">
+                    <EditNotebook />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/coming-soon">
+                    <ComingSoon />
+                </ProtectedRoute>
+                <Route>
+                    <h2>Page Not Found</h2>
+                </Route>
+            </Switch>
+        </>
+    )
 }
 
 export default App;

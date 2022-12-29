@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { updateNotebookThunk } from '../../store/notebook';
 
@@ -9,10 +9,15 @@ function EditNotebook() {
     const history = useHistory();
     const { notebookId } = useParams();
 
-    const notebookObj = useSelector(state => state.notebooks.oneNotebook);
-    const notebook = Object.values(notebookObj)
+    const [title, setTitle] = useState('')
 
-    const [title, setTitle] = useState(notebook[0]?.title || 'loading...')
+    useEffect(() => {
+        (async () => {
+            const res = await fetch(`/api/notebooks/${notebookId}`)
+            const data = await res.json()
+            setTitle(data.title)
+        })()
+    }, [notebookId])
 
     const onSubmit = async (e) => {
         e.preventDefault()

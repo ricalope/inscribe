@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { editNoteThunk } from '../../store/note';
 
@@ -9,19 +9,17 @@ function EditNote() {
     const history = useHistory();
     const { noteId } = useParams();
 
-    const noteObj = useSelector(state => state.notes.oneNote)
-    const note = Object.values(noteObj)
+    const [ title, setTitle ] = useState('')
+    const [ body, setBody ] = useState('')
 
-    const [ title, setTitle ] = useState(note[0]?.title || 'loading...')
-    const [ body, setBody ] = useState(note[0]?.body || 'loading...')
-
-    // useEffect(() => {
-    //     (async () => {
-    //         await dispatch(getOneNoteThunk(noteId))
-    //         setTitle(note[0]?.title)
-    //         setBody(note[0]?.body)
-    //     })()
-    // }, [ dispatch, note, noteId ])
+    useEffect(() => {
+        (async () => {
+            const res = await fetch(`/api/notes/${noteId}`)
+            const data = await res.json()
+            setTitle(data.title)
+            setBody(data.body)
+        })()
+    }, [noteId])
 
     const onSubmit = async (e) => {
         e.preventDefault()
