@@ -13,4 +13,9 @@
     min-height: 100vh;
     display: flex;
     box-sizing: border-box;
+    background: url('./assets/coffee-shop.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }

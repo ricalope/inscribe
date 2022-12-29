@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import ghLogo from '../../assets/github-logo.png';
 import LogoutButton from '../auth/LogoutButton';
 import './Navigation.css'
@@ -40,14 +40,16 @@ const NavBar = () => {
                         </div>
                     </div>
                 </div>
-                <div className="new-note">
-                    <div>
-                        + New Note
+                <Link exact="true" to="/notes/new" id="create-note">
+                    <div className="new-note">
+                        <div>
+                            + New Note
+                        </div>
+                        <div>
+                            <i className="fa-solid fa-angle-down" />
+                        </div>
                     </div>
-                    <div>
-                        <i className="fa-solid fa-angle-down" />
-                    </div>
-                </div>
+                </Link>
             </div>
             <div className="nav-middle-links">
                 <div className="navlink">
