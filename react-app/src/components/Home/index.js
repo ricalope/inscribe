@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getAllNotesThunk } from '../../store/note';
@@ -14,12 +14,21 @@ function Home() {
     const notes = Object.values(notesObj);
     const notebooks = Object.values(notebooksObj);
 
+    const localNotes = localStorage.getItem('scratchPad')
+    const [scratch, setScratch] = useState(localNotes)
+
+
     useEffect(() => {
         (async () => {
             await dispatch(getAllNotesThunk())
             await dispatch(getAllNotebooksThunk())
         })()
-    }, [ dispatch ])
+    }, [dispatch])
+
+    const handleInput = e => {
+        localStorage.setItem('scratchPad', e.target.value);
+        setScratch(e.target.value)
+    }
 
     return (
         <div className="home-main-container">
@@ -64,6 +73,8 @@ function Home() {
                             className="ta-scratch"
                             name="scratch"
                             placeholder="Start writing..."
+                            value={scratch}
+                            onChange={handleInput}
                         />
                     </div>
                 </div>

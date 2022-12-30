@@ -1,10 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { getAllNotesThunk } from '../../store/note';
+import EditNote from '../EditNote';
 import './Notes.css'
 
 function Notes() {
+
+    const [ title, setTitle ] = useState('');
+    const [ body, setBody ] = useState('');
+    const [ noteId, setNoteId ] = useState(0)
 
     const dispatch = useDispatch();
     const notesObj = useSelector(state => state.notes.allNotes)
@@ -14,24 +18,57 @@ function Notes() {
         (async () => {
             await dispatch(getAllNotesThunk())
         })()
-    }, [dispatch])
+        if (notes.length > 0) {
+            setTitle(notes[ 0 ].title)
+            setBody(notes[ 0 ].body)
+            setNoteId(notes[ 0 ].id)
+        }
+    }, [ dispatch, notes.length ])
+
+    const setFields = data => {
+        setNoteId(data.id)
+        setTitle(data.title)
+        setBody(data.body)
+    }
 
     return (
-        <div className="notes-main-container">
-            <h1>Hello from notes</h1>
-            <div className="notes-inner-container">
-                {notes.map((note, idx) => (
-                    <div key={idx} className="notes-card">
-                        <div className="notes-title">
-                            <Link exact="true" to={`/notes/${note.id}`}>
-                                {note.title}
-                            </Link>
-                        </div>
-                        <div className="notes-content">
-                            {note.body}
-                        </div>
+        <div className="outer-notes">
+            <div className="notes-main-container">
+                <div id="header-note">
+                    <div className="n-header">
+                        <div><i className="fa-solid fa-file-lines" /></div>
+                        <h1 id="n-h1">NOTES</h1>
                     </div>
-                ))}
+                    <div id="n-count">
+                        {notes.length} {notes.length === 1 ? 'note' : 'notes'}
+                    </div>
+                </div>
+                <div className="notes-inner-container">
+                    <div className="column-notes">
+                        {notes.map((note, idx) => (
+                            <div key={idx}
+                                className="notes-card"
+                                onClick={() => setFields(note)}
+                            >
+                                <div className="notes-title">
+                                    {note.title}
+                                </div>
+                                <div className="notes-content">
+                                    {note.body}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div >
+            <div className="edit-field-notes">
+                <EditNote
+                    noteId={noteId}
+                    title={title}
+                    body={body}
+                    setTitle={setTitle}
+                    setBody={setBody}
+                />
             </div>
         </div>
     )
