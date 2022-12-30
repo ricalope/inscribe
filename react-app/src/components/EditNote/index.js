@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+// import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-// import { useHistory, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { editNoteThunk, getAllNotesThunk } from '../../store/note';
 
 
@@ -40,8 +40,8 @@ function EditNote({ noteId, title, body, setTitle, setBody }) {
     }
 
     return (
-        <div>
-            <form onSubmit={onSubmit}>
+        <>
+            <form onSubmit={onSubmit} id="form-data">
                 <div className="edit-main-container">
                     <div className="edit-title-div">
                         <input
@@ -63,14 +63,23 @@ function EditNote({ noteId, title, body, setTitle, setBody }) {
                             onChange={(e) => setBody(e.target.value)}
                         />
                     </div>
-                    <div className="edit-button-div">
-                        <button type="submit" id="edit-btn">
-                            save note
-                        </button>
+                    <div className="edit-btns-div">
+                        <div className="edit-del-btn">
+                            <Link exact="true" to={`/notes/${noteId}/delete`} id="del-link">
+                                <button id="del-btn">
+                                    Delete
+                                </button>
+                            </Link>
+                        </div>
+                        <div className="edit-button-div">
+                            <button type="submit" id="edit-btn">
+                                Save Note
+                            </button>
+                        </div>
                     </div>
                 </div>
             </form>
-        </div>
+        </>
     )
 }
 
