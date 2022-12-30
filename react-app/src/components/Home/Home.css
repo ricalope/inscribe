@@ -1,16 +1,17 @@
 .home-main-container {
+    position: relative;
+    left: 200px;
     display: flex;
     flex-direction: column;
     padding: 10px;
-    width: 100vw;
+    max-width: 100vw;
     gap: 20px;
-    color: #262626;
 }
 
 .home-top-bar {
     font-size: 10px;
     padding: 5px;
-    color: white;
+    color: #FFFFFF;
 }
 
 .home-notes-container {
@@ -35,17 +36,21 @@
 .notes-title-div {
     display: flex;
     justify-content: space-between;
+    padding: 5px;
 }
 
-.card-note {
+.card-note,
+.card-notebook {
     display: flex;
     gap: 10px;
     overflow-x: scroll;
     padding: 3px;
 }
 
-#nc-title {
+#nc-title,
+#nbc-title {
     word-wrap: break-word;
+    font-size: 13px;
 }
 
 .scratch-div {
@@ -60,7 +65,8 @@
     box-shadow: 0 0 3px #969696;
 }
 
-.home-nc-div {
+.home-nc-div,
+.nbc-div {
     height: 280px;
     width: 170px;
     border-radius: 15px;
@@ -78,7 +84,10 @@
 }
 
 .note,
-.new-plus {
+.new-plus,
+.all-notes,
+.new-ntbk,
+.nbook {
     text-decoration: none;
     color: #262626;
 }
@@ -87,22 +96,33 @@
     box-shadow: 0 0 4px black;
 }
 
-#note-text {
+#note-text,
+#notebook-text {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
     border-radius: 15px;
     height: 100%;
     padding: 8px;
     overflow-y:hidden;
 }
 
-#note-text-inner {
+#note-text-inner,
+#nbc-inner {
     word-wrap: break-word;
     color: #767676;
-    font-size: 14px;
+    font-size: 13px;
     text-align: start;
+    font-weight: 300;
+}
+
+.scratch-title {
+    padding: 5px;
 }
 
 .scratch-body {
     height: 100%;
+    padding: 3px;
 }
 
 .ta-scratch {
@@ -111,4 +131,29 @@
     height: 100%;
     border: none;
     outline: none;
+}
+
+.home-notebook-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.notebooks-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1 90%;
+    height: 350px;
+    background-color: #FFFFFF;
+    padding: 8px;
+    border-radius: 15px;
+    overflow-y: hidden;
+    box-shadow: 0 0 3px #969696;
+}
+
+.notebooks-title-div {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
 }

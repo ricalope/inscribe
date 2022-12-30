@@ -119,7 +119,7 @@ export default function notesReducer(state = initialState, action) {
             return newState
         }
         case EDIT_NOTE: {
-            const newState = { ...state, allNotes: {}, oneNote: { ...state.oneNote } }
+            const newState = { ...state, allNotes: { ...state.allNotes }, oneNote: { ...state.oneNote } }
             newState.oneNote[action.note.id] = action.note
             return newState
         }

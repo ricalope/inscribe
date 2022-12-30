@@ -1,25 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
-import { editNoteThunk } from '../../store/note';
+// import { useHistory, useParams } from 'react-router-dom';
+import { editNoteThunk, getAllNotesThunk } from '../../store/note';
 
 
-function EditNote() {
+function EditNote({ noteId, title, body, setTitle, setBody }) {
     const dispatch = useDispatch();
-    const history = useHistory();
-    const { noteId } = useParams();
+    // const history = useHistory();
+    // const { noteId } = useParams();
 
-    const [ title, setTitle ] = useState('')
-    const [ body, setBody ] = useState('')
+    // const [ title, setTitle ] = useState('');
+    // const [ body, setBody ] = useState('');
 
-    useEffect(() => {
-        (async () => {
-            const res = await fetch(`/api/notes/${noteId}`)
-            const data = await res.json()
-            setTitle(data.title)
-            setBody(data.body)
-        })()
-    }, [noteId])
+    // useEffect(() => {
+    //     (async () => {
+    //         // const res = await fetch(`/api/notes/${+noteId}`)
+    //         // const data = await res.json()
+    //         // setTitle(data.title)
+    //         // setBody(data.body)
+    //     })()
+    // }, [dispatch])
+
+    // useEffect(() => {
+    //     (async () => {
+    //         await dispatch(getAllNotesThunk())
+    //     })();
+    // }, [dispatch])
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -29,36 +35,39 @@ function EditNote() {
             body
         }
         await dispatch(editNoteThunk(formData))
-        history.push(`/notes/${noteId}`)
+        await dispatch(getAllNotesThunk())
+        // history.push(`/notes/${noteId}`)
     }
 
     return (
-        <div className="edit-main-container">
+        <div>
             <form onSubmit={onSubmit}>
-                <div className="edit-title-div">
-                    <label>Title</label>
-                    <input
-                        type="text"
-                        name="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                    />
-                </div>
-                <div className='edit-body-div'>
-                    <label>Note</label>
-                    <textarea
-                        rows={10}
-                        style={{resize: "none"}}
-                        type="text"
-                        name="body"
-                        value={body}
-                        onChange={(e) => setBody(e.target.value)}
-                    />
-                </div>
-                <div className="edit-button-div">
-                    <button type="submit">
-                        save note
-                    </button>
+                <div className="edit-main-container">
+                    <div className="edit-title-div">
+                        <input
+                            type="text"
+                            name="title"
+                            id="edit-title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                    </div>
+                    <div className='edit-body-div'>
+                        <textarea
+                            rows={10}
+                            style={{ resize: "none" }}
+                            type="text"
+                            name="body"
+                            id="edit-body"
+                            value={body}
+                            onChange={(e) => setBody(e.target.value)}
+                        />
+                    </div>
+                    <div className="edit-button-div">
+                        <button type="submit" id="edit-btn">
+                            save note
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
