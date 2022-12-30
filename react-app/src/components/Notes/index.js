@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllNotesThunk } from '../../store/note';
 import EditNote from '../EditNote';
+import NavBar from '../Navigation/NavBar';
 import './Notes.css'
 
 function Notes() {
@@ -32,45 +33,48 @@ function Notes() {
     }
 
     return (
-        <div className="outer-notes">
-            <div className="notes-main-container">
-                <div id="header-note">
-                    <div className="n-header">
-                        <div><i className="fa-solid fa-file-lines" /></div>
-                        <h1 id="n-h1">NOTES</h1>
+        <>
+            <NavBar />
+            <div className="outer-notes">
+                <div className="notes-main-container">
+                    <div id="header-note">
+                        <div className="n-header">
+                            <div><i className="fa-solid fa-file-lines" /></div>
+                            <h1 id="n-h1">NOTES</h1>
+                        </div>
+                        <div id="n-count">
+                            {notes.length} {notes.length === 1 ? 'note' : 'notes'}
+                        </div>
                     </div>
-                    <div id="n-count">
-                        {notes.length} {notes.length === 1 ? 'note' : 'notes'}
-                    </div>
-                </div>
-                <div className="notes-inner-container">
-                    <div className="column-notes">
-                        {notes.map((note, idx) => (
-                            <div key={idx}
-                                className="notes-card"
-                                onClick={() => setFields(note)}
-                            >
-                                <div className="notes-title">
-                                    {note.title}
+                    <div className="notes-inner-container">
+                        <div className="column-notes">
+                            {notes.map((note, idx) => (
+                                <div key={idx}
+                                    className="notes-card"
+                                    onClick={() => setFields(note)}
+                                >
+                                    <div className="notes-title">
+                                        {note.title}
+                                    </div>
+                                    <div className="notes-content">
+                                        {note.body}
+                                    </div>
                                 </div>
-                                <div className="notes-content">
-                                    {note.body}
-                                </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
+                </div >
+                <div className="edit-column-notes">
+                    <EditNote
+                        noteId={noteId}
+                        title={title}
+                        body={body}
+                        setTitle={setTitle}
+                        setBody={setBody}
+                    />
                 </div>
-            </div >
-            <div className="edit-column-notes">
-                <EditNote
-                    noteId={noteId}
-                    title={title}
-                    body={body}
-                    setTitle={setTitle}
-                    setBody={setBody}
-                />
             </div>
-        </div>
+        </>
     )
 
 }

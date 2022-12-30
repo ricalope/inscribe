@@ -1,9 +1,9 @@
 .outer-notes {
     display: flex;
-    gap: 15px;
-    width: 83vw;
-    position: relative;
-    left: 215px;
+    gap: 10px;
+    width: 100vw;
+    /* position: relative;
+    left: 215px; */
     padding: 10px;
     max-height: 100vh;
 }
@@ -97,7 +97,7 @@
 }
 
 .edit-column-notes {
-    width: 100vw;
+    width: 70%;
     max-height: 100%;
     border-radius: 10px;
 }
