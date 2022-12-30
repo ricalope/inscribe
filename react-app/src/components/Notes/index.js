@@ -61,7 +61,7 @@ function Notes() {
                     </div>
                 </div>
             </div >
-            <div className="edit-field-notes">
+            <div className="edit-column-notes">
                 <EditNote
                     noteId={noteId}
                     title={title}

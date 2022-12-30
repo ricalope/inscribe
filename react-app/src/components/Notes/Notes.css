@@ -1,26 +1,31 @@
 .outer-notes {
     display: flex;
+    gap: 15px;
     width: 83vw;
     position: relative;
-    left: 200px;
+    left: 215px;
+    padding: 10px;
     max-height: 100vh;
 }
 
 .notes-main-container {
     min-width: 420px;
     word-wrap: break-word;
-    min-height: 100vh;
+    max-height: 100vh;
     display: flex;
     flex-direction: column;
     gap: 5px;
     overflow-y: scroll;
+    scrollbar-width: none;
+    background-color: #FFFFFF;
+    border-radius: 10px;
 }
 
 .notes-inner-container {
     display: flex;
     gap: 10px;
     width: auto;
-    padding: 0 10px 10px 0;
+    padding: 0 10px 0 0;
 }
 
 .column-notes {
@@ -32,6 +37,8 @@
 }
 
 #header-note {
+    position: sticky;
+    top: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -39,6 +46,8 @@
     padding: 5px 5px 0 5px;
     height: 100px;
     gap: 10px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.3);
 }
 
 .n-header {
@@ -51,7 +60,7 @@
 }
 
 #n-h1 {
-    font-weight: 300;
+    font-weight: 400;
 }
 
 #n-count {
@@ -70,7 +79,7 @@
     padding: 6px;
     height: 140px;
     cursor: pointer;
-    border-top: 1px solid rgba(128, 128, 128, 0.3);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.3);
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -84,20 +93,25 @@
 .notes-content {
     font-size: 13px;
     color: gray;
+    padding: 3px;
 }
 
-.edit-field-notes {
-    width: 100%;
-    max-height: 100vh;
-    background-color: #FFFFFF;
-
+.edit-column-notes {
+    width: 100vw;
+    max-height: 100%;
+    border-radius: 10px;
 }
 
 .edit-main-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 5px;
 }
+
 
 #edit-title {
     width: 100%;
@@ -106,15 +120,16 @@
     border: none;
     outline: none;
     border-bottom: 1px solid rgba(128, 128, 128, 0.3);
-    padding: 5px;
+    padding: 10px;
 }
 
 #edit-body {
     width: 100%;
-    height: 560px;
+    height: 76vh;
     border: none;
     outline: none;
     border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+    padding: 10px;
 }
 
 #edit-btn {
@@ -124,8 +139,27 @@
     color: white;
     border: none;
     border-radius: 8px;
+    cursor: pointer;
 }
 
-.edit-button-div {
-    align-self: flex-end;
+#del-btn {
+    height: 40px;
+    width: 120px;
+    background-color: #209CEE;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#del-link {
+    text-decoration: none;
+    color: white;
+}
+
+.edit-btns-div {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
 }
