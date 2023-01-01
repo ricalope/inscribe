@@ -70,7 +70,7 @@ function Home() {
                         </div>
                         <div className="card-note">
                             {notes.map(note => (
-                                <Link key={note.id} exact="true" to={`/notes`} className="note">
+                                <Link key={note.id} exact="true" to="/notes" className="note">
                                     <div className="home-nc-div">
                                         <div id="note-text">
                                             <h4 id="nc-title">{note.title}</h4>
@@ -118,7 +118,7 @@ function Home() {
                         </div>
                         <div className="card-notebook">
                             {notebooks.map(nb => (
-                                <Link key={nb.id} exact="true" to={`/notebooks`} className="nbook">
+                                <Link key={nb.id} exact="true" to="/notebooks" className="nbook">
                                     <div className="nbc-div">
                                         <div id="notebook-text">
                                             <h4 id="nbc-title">{nb.title}</h4>
