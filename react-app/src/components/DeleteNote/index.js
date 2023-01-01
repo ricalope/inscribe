@@ -1,12 +1,9 @@
-import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { deleteNoteThunk, getAllNotesThunk } from '../../store/note';
 
 
 function DeleteNote({ noteId, setShowDelNote }) {
     const dispatch = useDispatch();
-    // const history = useHistory();
-    // const { noteId } = useParams();
 
     const onSubmit = async () => {
         await dispatch(deleteNoteThunk(noteId))

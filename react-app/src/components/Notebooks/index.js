@@ -10,7 +10,7 @@ import './Notebooks.css';
 function Notebooks() {
     const dispatch = useDispatch();
 
-    const [showNew, setShowNew] = useState(false);
+    const [ showNew, setShowNew ] = useState(false);
 
     const notebooksObj = useSelector(state => state.notebooks.allNotebooks);
     const notebooks = Object.values(notebooksObj);
@@ -35,13 +35,13 @@ function Notebooks() {
                             <button className="new-nb-btn" onClick={() => setShowNew(true)}>
                                 <div><i className="fa-solid fa-folder-plus" /></div>
                                 <div>New Notebook</div>
-                                {showNew && (
-                                    <AddNotebookModal
-                                        showNew={showNew}
-                                        setShowNew={setShowNew}
-                                    />
-                                )}
                             </button>
+                            {showNew && (
+                                <AddNotebookModal
+                                    showNew={showNew}
+                                    setShowNew={setShowNew}
+                                />
+                            )}
                         </div>
                     </div>
                     <div className="notebooks-table">
