@@ -6,6 +6,7 @@ import { getAllNotesThunk, addNoteThunk } from '../../store/note';
 import NavBar from '../Navigation/NavBar';
 import EditNote from '../EditNote/index';
 import DeleteNotebookModal from '../DeleteNotebook/DeleteNotebookModal';
+import EditNotebookModal from '../EditNotebook/EditNotebookModal';
 
 
 function OneNotebook() {
@@ -15,7 +16,8 @@ function OneNotebook() {
     const [ title, setTitle ] = useState('');
     const [ body, setBody ] = useState('');
     const [ noteId, setNoteId ] = useState(0);
-    const [showDelete, setShowDelete] = useState(false)
+    const [showDelete, setShowDelete] = useState(false);
+    const [showEdit, setShowEdit] = useState(false);
 
     const notebookObj = useSelector(state => state.notebooks.oneNotebook);
     const notesObj = useSelector(state => Object.values(state.notes.allNotes));
@@ -74,6 +76,17 @@ function OneNotebook() {
                                     <DeleteNotebookModal
                                         showDelete={showDelete}
                                         setShowDelete={setShowDelete}
+                                    />
+                                )}
+                                <button
+                                    className="nb-ed-mod"
+                                    onClick={() => setShowEdit(true)}>
+                                        Edit Notebook
+                                </button>
+                                {showEdit && (
+                                    <EditNotebookModal
+                                        showEdit={showEdit}
+                                        setShowEdit={setShowEdit}
                                     />
                                 )}
                             </div>

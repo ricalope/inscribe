@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { updateNotebookThunk } from '../../store/notebook';
 
 
-function EditNotebook() {
+function EditNotebook({ setShowEdit }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { notebookId } = useParams();
@@ -26,11 +26,7 @@ function EditNotebook() {
             title
         }
         await dispatch(updateNotebookThunk(formData))
-        history.push(`/notebooks/${notebookId}`)
-    }
-
-    const onCancel = () => {
-        history.push(`/notebooks/${notebookId}`)
+        setShowEdit(false)
     }
 
     return (
@@ -49,9 +45,6 @@ function EditNotebook() {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
-                </div>
-                <div className="edit-nb-button">
-                    <button onClick={onCancel} className="edit-nb-cancel">Cancel</button>
                 </div>
                 <div className="edit-nb-button">
                     <button className="edit-nb-submit">Continue</button>
