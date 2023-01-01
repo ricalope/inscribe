@@ -1,62 +1,126 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getOneNotebookThunk } from '../../store/notebook';
+import { getAllNotesThunk, addNoteThunk } from '../../store/note';
+import NavBar from '../Navigation/NavBar';
+import EditNote from '../EditNote/index';
+import DeleteNotebookModal from '../DeleteNotebook/DeleteNotebookModal';
+import EditNotebookModal from '../EditNotebook/EditNotebookModal';
 
 
 function OneNotebook() {
     const dispatch = useDispatch();
     const { notebookId } = useParams();
 
+    const [ title, setTitle ] = useState('');
+    const [ body, setBody ] = useState('');
+    const [ noteId, setNoteId ] = useState(0);
+    const [showDelete, setShowDelete] = useState(false);
+    const [showEdit, setShowEdit] = useState(false);
+
     const notebookObj = useSelector(state => state.notebooks.oneNotebook);
-    const notebook = Object.values(notebookObj)
+    const notesObj = useSelector(state => Object.values(state.notes.allNotes));
+    const notebook = Object.values(notebookObj);
+    const notes = notesObj.filter(n => n.notebook_id === +notebookId);
 
     useEffect(() => {
         (async () => {
             await dispatch(getOneNotebookThunk(notebookId))
+            await dispatch(getAllNotesThunk())
         })()
-    }, [ dispatch, notebookId ])
+        if (notes.length > 0) {
+            setTitle(notes[ 0 ].title)
+            setBody(notes[ 0 ].body)
+            setNoteId(notes[ 0 ].id)
+        }
+    }, [ dispatch, notes.length ])
+
+    const setFields = data => {
+        setNoteId(data.id)
+        setTitle(data.title)
+        setBody(data.body)
+    }
+
+    const newNote = async () => {
+        const data = {
+            notebookId,
+            title: 'Untitled',
+            body: 'Stream your consciousness here...'
+        }
+        await dispatch(addNoteThunk(data))
+    }
 
     return (
-        <div className="one-nb-main-container">
-            {notebook.map(nb => (
-                <div key={nb.id} className="one-nb-inner-container">
-                    <div className="one-nb-title-card">
-                        <div className="one-nb-title">
-                            <h3>{nb.title}</h3>
-                            <p>
-                                <Link exact="true" to={`/notebooks/${nb.id}/delete`}>
-                                    delete
-                                </Link>
-                            </p>
-                            <p>
-                                <Link exact="true" to={`/notebooks/${nb.id}/edit`}>
-                                    rename notebook
-                                </Link>
-                            </p>
+        <>
+            <NavBar />
+            <div className="outer-notes">
+                <div className="notes-main-container">
+                    <div id="header-note">
+                        <div className="n-header">
+                            <div id="n-nb-logo">
+                                <i className="fa-solid fa-file-lines" />
+                                <h1 id="n-h1">{notebook.map(nb => nb.title)}</h1>
+                            </div>
+                            <div id='newnote-nb' onClick={newNote}>+ Add Note</div>
                         </div>
-                        <div className="one-nb-notes-length">
-                            <h5>{nb.notes.length} {nb.notes.length === 1 ? 'note' : 'notes'}</h5>
+                        <div id="n-count">
+                            {notes.length} {notes.length === 1 ? 'note' : 'notes'}
+                            <div id="nb-delete-modal">
+                                <button
+                                    className="nb-del-mod"
+                                    onClick={() => setShowDelete(true)}>
+                                        Delete Notebook
+                                </button>
+                                {showDelete && (
+                                    <DeleteNotebookModal
+                                        showDelete={showDelete}
+                                        setShowDelete={setShowDelete}
+                                    />
+                                )}
+                                <button
+                                    className="nb-ed-mod"
+                                    onClick={() => setShowEdit(true)}>
+                                        Edit Notebook
+                                </button>
+                                {showEdit && (
+                                    <EditNotebookModal
+                                        showEdit={showEdit}
+                                        setShowEdit={setShowEdit}
+                                    />
+                                )}
+                            </div>
                         </div>
                     </div>
-                    {nb.notes.map(note => (
-                        <div key={note.id} className="one-nb-note-card">
-                            <Link exact="true" to={`/notes/${note.id}`}>
-                                <div className="one-nb-note-title">
-                                    {note.title}
+                    <div className="notes-inner-container">
+                        <div className="column-notes">
+                            {notes.map((note, idx) => (
+                                <div key={idx}
+                                    className="notes-card"
+                                    onClick={() => setFields(note)}
+                                >
+                                    <div className="notes-title">
+                                        {note.title}
+                                    </div>
+                                    <div className="notes-content">
+                                        {note.body}
+                                    </div>
                                 </div>
-                                <div className="one-nb-note-body">
-                                    {note.body.slice(0, 40)}...
-                                </div>
-                                <div className="one-nb-note-date">
-                                    {note.created_at}
-                                </div>
-                            </Link>
+                            ))}
                         </div>
-                    ))}
+                    </div>
+                </div >
+                <div className="edit-column-notes">
+                    <EditNote
+                        noteId={noteId}
+                        title={title}
+                        body={body}
+                        setTitle={setTitle}
+                        setBody={setBody}
+                    />
                 </div>
-            ))}
-        </div>
+            </div>
+        </>
     )
 }
 

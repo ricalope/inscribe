@@ -1,6 +1,6 @@
 .home-main-container {
-    position: relative;
-    left: 200px;
+    /* position: relative; */
+    /* left: 200px; */
     display: flex;
     flex-direction: column;
     padding: 10px;

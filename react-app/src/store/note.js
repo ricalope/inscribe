@@ -55,11 +55,11 @@ export const getOneNoteThunk = noteId => async dispatch => {
 }
 
 export const addNoteThunk = data => async dispatch => {
-    const { title, body } = data
+    const { notebookId, title, body } = data
     const res = await fetch('/api/notes', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, body })
+        body: JSON.stringify({ notebook_id: notebookId, title, body })
     })
     if (res.ok) {
         const data = await res.json()
@@ -124,8 +124,9 @@ export default function notesReducer(state = initialState, action) {
             return newState
         }
         case DELETE_NOTE: {
+            console.log(action.noteId)
             const newState = { ...state, allNotes: { ...state.allNotes }, oneNote: { ...state.oneNote } }
-            delete newState.oneNote[action.noteId]
+            delete newState.allNotes[action.noteId]
             return newState
         }
         default:

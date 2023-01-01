@@ -104,6 +104,9 @@ const NavBar = () => {
                 </div>
             </div>
             <div className="nav-footer">
+                <div className="logout-btn">
+                    <LogoutButton />
+                </div>
                 <div className="github-logo">
                     <a className="creator-links" href="https://github.com/ricalope">
                         <img id="gh-logo" src={ghLogo} alt="github logo" />

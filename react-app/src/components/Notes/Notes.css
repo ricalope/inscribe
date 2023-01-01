@@ -1,9 +1,9 @@
 .outer-notes {
     display: flex;
-    gap: 15px;
-    width: 83vw;
-    position: relative;
-    left: 215px;
+    gap: 10px;
+    width: 100vw;
+    /* position: relative;
+    left: 215px; */
     padding: 10px;
     max-height: 100vh;
 }
@@ -52,11 +52,12 @@
 
 .n-header {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: #262626;
     font-size: 10px;
     padding: 5px;
-    gap: 5px;
-    align-items: center;
+    width: 100%;
 }
 
 #n-h1 {
@@ -97,7 +98,7 @@
 }
 
 .edit-column-notes {
-    width: 100vw;
+    width: 70%;
     max-height: 100%;
     border-radius: 10px;
 }
@@ -162,4 +163,25 @@
     justify-content: space-between;
     padding: 10px;
     align-items: center;
+}
+
+#nnl {
+    text-decoration: none;
+}
+
+#newnote-nb {
+    font-size: 11px;
+    color: #262626;
+}
+
+#newnote-nb:hover {
+    color: #209CEE;
+    cursor: pointer;
+}
+
+#n-logo,
+#n-nb-logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }

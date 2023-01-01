@@ -35,6 +35,7 @@ def post_new_note():
     if form.validate_on_submit():
         new_note = Note(
             user_id=current_user.get_id(),
+            notebook_id=form.data['notebook_id'],
             title=form.data['title'],
             body=form.data['body']
         )

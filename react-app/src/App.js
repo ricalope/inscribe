@@ -39,10 +39,12 @@ function App() {
     }
 
     return !sessionUser ? (
-        <SplashPage />
+        <Route exact path="/">
+            <SplashPage />
+        </Route>
     ) : (
         <>
-            <NavBar />
+            {/* <NavBar /> */}
             <Switch>
                 <ProtectedRoute exact path="/">
                     <Home />

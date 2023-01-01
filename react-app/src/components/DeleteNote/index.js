@@ -1,20 +1,17 @@
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { deleteNoteThunk } from '../../store/note';
+import { deleteNoteThunk, getAllNotesThunk } from '../../store/note';
 
 
-function DeleteNote() {
+function DeleteNote({ noteId, setShowDelNote }) {
     const dispatch = useDispatch();
-    const history = useHistory();
-    const { noteId } = useParams();
+    // const history = useHistory();
+    // const { noteId } = useParams();
 
     const onSubmit = async () => {
         await dispatch(deleteNoteThunk(noteId))
-        history.push('/notes')
-    }
-
-    const onCancel = () => {
-        history.push(`/notes/${noteId}`)
+        await dispatch(getAllNotesThunk())
+        setShowDelNote(false)
     }
 
     return (
@@ -28,9 +25,6 @@ function DeleteNote() {
             <div className="delete-buttons">
                 <div>
                     <button className="confirm-delete" onClick={onSubmit}>Confirm Delete</button>
-                </div>
-                <div>
-                    <button className="cancel-delete" onClick={onCancel}>Cancel</button>
                 </div>
             </div>
         </div>
