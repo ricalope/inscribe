@@ -176,8 +176,10 @@
 
 #newnote-nb:hover {
     color: #209CEE;
+    cursor: pointer;
 }
 
+#n-logo,
 #n-nb-logo {
     display: flex;
     align-items: center;

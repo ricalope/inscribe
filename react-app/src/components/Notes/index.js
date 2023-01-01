@@ -39,8 +39,10 @@ function Notes() {
                 <div className="notes-main-container">
                     <div id="header-note">
                         <div className="n-header">
-                            <div><i className="fa-solid fa-file-lines" /></div>
-                            <h1 id="n-h1">NOTES</h1>
+                            <div id="n-logo">
+                                <i className="fa-solid fa-file-lines" />
+                                <h1 id="n-h1">NOTES</h1>
+                            </div>
                         </div>
                         <div id="n-count">
                             {notes.length} {notes.length === 1 ? 'note' : 'notes'}

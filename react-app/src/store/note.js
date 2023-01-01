@@ -55,11 +55,11 @@ export const getOneNoteThunk = noteId => async dispatch => {
 }
 
 export const addNoteThunk = data => async dispatch => {
-    const { title, body } = data
+    const { notebookId, title, body } = data
     const res = await fetch('/api/notes', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, body })
+        body: JSON.stringify({ notebook_id: notebookId, title, body })
     })
     if (res.ok) {
         const data = await res.json()

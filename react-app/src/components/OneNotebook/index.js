@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getOneNotebookThunk } from '../../store/notebook';
-import { getAllNotesThunk } from '../../store/note';
+import { getAllNotesThunk, addNoteThunk } from '../../store/note';
 import NavBar from '../Navigation/NavBar';
 import EditNote from '../EditNote/index';
 
@@ -38,6 +38,15 @@ function OneNotebook() {
         setBody(data.body)
     }
 
+    const newNote = async () => {
+        const data = {
+            notebookId,
+            title: 'Untitled',
+            body: 'Stream your consciousness here...'
+        }
+        await dispatch(addNoteThunk(data))
+    }
+
     return (
         <>
             <NavBar />
@@ -45,12 +54,11 @@ function OneNotebook() {
                 <div className="notes-main-container">
                     <div id="header-note">
                         <div className="n-header">
-                            <div id="n-nb-logo"><i className="fa-solid fa-file-lines" />
+                            <div id="n-nb-logo">
+                                <i className="fa-solid fa-file-lines" />
                                 <h1 id="n-h1">{notebook.map(nb => nb.title)}</h1>
                             </div>
-                            <Link exact="true" to="/notes/new" id="nnl">
-                                <div id='newnote-nb'>+ Add Note</div>
-                            </Link>
+                            <div id='newnote-nb' onClick={newNote}>+ Add Note</div>
                         </div>
                         <div id="n-count">
                             {notes.length} {notes.length === 1 ? 'note' : 'notes'}
