@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
+import { addNoteThunk } from '../../store/note';
 import ghLogo from '../../assets/github-logo.png';
 import LogoutButton from '../auth/LogoutButton';
 import './Navigation.css'
 
 const NavBar = () => {
-
+    const dispatch = useDispatch();
     const [ theme, setTheme ] = useState('light')
 
     const sessionUser = useSelector(state => state.session.user)
@@ -22,6 +23,14 @@ const NavBar = () => {
         }
         setTheme('light')
         return
+    }
+
+    const createNote = async () => {
+        const data = {
+            title: 'Untitled',
+            body: 'Stream of consciousness here...'
+        }
+        await dispatch(addNoteThunk(data))
     }
 
     return (
@@ -40,7 +49,7 @@ const NavBar = () => {
                         </div>
                     </div>
                 </div>
-                <Link exact="true" to="/notes/new" id="create-note">
+                <Link exact="true" to="/notes" id="create-note" onClick={createNote}>
                     <div className="new-note">
                         <div>
                             + New Note

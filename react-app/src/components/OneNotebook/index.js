@@ -34,7 +34,7 @@ function OneNotebook() {
             setBody(notes[ 0 ].body)
             setNoteId(notes[ 0 ].id)
         }
-    }, [ dispatch, notes.length ])
+    }, [ dispatch, notes.length, notebookId ])
 
     const setFields = data => {
         setNoteId(data.id)
@@ -50,6 +50,15 @@ function OneNotebook() {
         }
         await dispatch(addNoteThunk(data))
     }
+
+    notes.sort((a, b) => {
+        if (new Date(a.created_at) < new Date(b.created_at)) {
+            return 1
+        } else if (new Date(a.created_at) > new Date(b.created_at)) {
+            return -1
+        }
+        return 0
+    })
 
     return (
         <>

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { updateNotebookThunk } from '../../store/notebook';
 
 
 function EditNotebook({ setShowEdit }) {
     const dispatch = useDispatch();
-    const history = useHistory();
     const { notebookId } = useParams();
 
     const [title, setTitle] = useState('')
