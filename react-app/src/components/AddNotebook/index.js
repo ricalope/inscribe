@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { addNotebookThunk } from '../../store/notebook';
 
 
 function AddNotebook({ setShowNew }) {
-    const history = useHistory();
     const dispatch = useDispatch();
 
     const [title, setTitle] = useState('');

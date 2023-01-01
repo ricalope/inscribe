@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import LoginForm from './components/LoginForm/LoginForm';
-// import SignUpForm from './components/SignupForm/SignUpForm';
-import NavBar from './components/Navigation/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import User from './components/Users/User';
 import Notes from './components/Notes';
@@ -44,7 +41,6 @@ function App() {
         </Route>
     ) : (
         <>
-            {/* <NavBar /> */}
             <Switch>
                 <ProtectedRoute exact path="/">
                     <Home />

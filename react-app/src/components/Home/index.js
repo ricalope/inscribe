@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getAllNotesThunk } from '../../store/note';
+import { getAllNotesThunk, addNoteThunk } from '../../store/note';
 import { getAllNotebooksThunk } from '../../store/notebook';
 import NavBar from '../Navigation/NavBar';
+import AddNotebookModal from '../AddNotebook/AddNotebookModal';
 import './Home.css';
 
 
@@ -12,11 +13,12 @@ function Home() {
     const dispatch = useDispatch();
     const notesObj = useSelector(state => state.notes.allNotes);
     const notebooksObj = useSelector(state => state.notebooks.allNotebooks);
-    const notes = Object.values(notesObj);
+    let notes = Object.values(notesObj);
     const notebooks = Object.values(notebooksObj);
 
-    const localNotes = localStorage.getItem('scratchPad')
-    const [ scratch, setScratch ] = useState(localNotes)
+    const localNotes = localStorage.getItem('scratchPad');
+    const [ scratch, setScratch ] = useState(localNotes || '');
+    const [showNew, setShowNew] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -29,6 +31,23 @@ function Home() {
         localStorage.setItem('scratchPad', e.target.value);
         setScratch(e.target.value)
     }
+
+    const createNote = async () => {
+        const data = {
+            title: 'Untitled',
+            body: 'Stream consciousness here...'
+        }
+        await dispatch(addNoteThunk(data))
+    }
+
+    notes.sort((a, b) => {
+        if (new Date(a.created_at) < new Date(b.created_at)) {
+            return 1
+        } else if (new Date(a.created_at) > new Date(b.created_at)) {
+            return -1
+        }
+        return 0
+    })
 
     return (
         <>
@@ -44,7 +63,7 @@ function Home() {
                                 <h4>NOTES</h4>
                             </Link>
                             <div className="new-note-title">
-                                <Link exact="true" to="/notes/new" className="new-plus">
+                                <Link exact="true" to="/notes" className="new-plus" onClick={createNote}>
                                     <i className="fa-solid fa-file-circle-plus" />
                                 </Link>
                             </div>
@@ -86,9 +105,15 @@ function Home() {
                         <div className="notebooks-title-div">
                             <h4>NOTEBOOKS</h4>
                             <div className="new-notebook-title">
-                                <Link exact="true" to="/notebooks/new" className="new-ntbk">
+                                <button className="home-new-nb-btn" onClick={() => setShowNew(true)}>
                                     <i className="fa-solid fa-folder-plus" />
-                                </Link>
+                                </button>
+                                {showNew && (
+                                    <AddNotebookModal
+                                        showNew={showNew}
+                                        setShowNew={setShowNew}
+                                    />
+                                )}
                             </div>
                         </div>
                         <div className="card-notebook">
