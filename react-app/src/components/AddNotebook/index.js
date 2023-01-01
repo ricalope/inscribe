@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { addNotebookThunk } from '../../store/notebook';
 
 
-function AddNotebook() {
+function AddNotebook({ setShowNew }) {
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -16,11 +16,7 @@ function AddNotebook() {
             title
         }
         await dispatch(addNotebookThunk(formData))
-        history.push('/notebooks')
-    }
-
-    const onCancel = () => {
-        history.push('/notebooks')
+        setShowNew(false)
     }
 
     return (
@@ -43,9 +39,6 @@ function AddNotebook() {
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                         />
-                    </div>
-                    <div className="add-nb-cancel">
-                        <button onClick={onCancel}>Cancel</button>
                     </div>
                     <div className="add-nb-button">
                         <button type="submit">Create</button>

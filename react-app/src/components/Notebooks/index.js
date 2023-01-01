@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getAllNotebooksThunk } from '../../store/notebook';
 import NavBar from '../Navigation/NavBar';
+import AddNotebookModal from '../AddNotebook/AddNotebookModal';
 import './Notebooks.css';
 
 
 function Notebooks() {
     const dispatch = useDispatch();
 
+    const [showNew, setShowNew] = useState(false);
+
     const notebooksObj = useSelector(state => state.notebooks.allNotebooks);
-    const notebooks = Object.values(notebooksObj)
+    const notebooks = Object.values(notebooksObj);
 
     useEffect(() => {
         (async () => {
@@ -29,10 +32,16 @@ function Notebooks() {
                             {notebooks.length} {notebooks.length === 1 ? 'notebook' : 'notebooks'}
                         </div>
                         <div className="new-nb">
-                            <Link exact="true" to="/notebooks/new" id="new-nb-link">
+                            <button className="new-nb-btn" onClick={() => setShowNew(true)}>
                                 <div><i className="fa-solid fa-folder-plus" /></div>
                                 <div>New Notebook</div>
-                            </Link>
+                                {showNew && (
+                                    <AddNotebookModal
+                                        showNew={showNew}
+                                        setShowNew={setShowNew}
+                                    />
+                                )}
+                            </button>
                         </div>
                     </div>
                     <div className="notebooks-table">

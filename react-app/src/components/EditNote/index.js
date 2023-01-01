@@ -1,31 +1,13 @@
-// import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import DeleteNoteModal from '../DeleteNote/DeleteNoteModal';
 import { editNoteThunk, getAllNotesThunk } from '../../store/note';
 
 
 function EditNote({ noteId, title, body, setTitle, setBody }) {
     const dispatch = useDispatch();
-    // const history = useHistory();
-    // const { noteId } = useParams();
 
-    // const [ title, setTitle ] = useState('');
-    // const [ body, setBody ] = useState('');
-
-    // useEffect(() => {
-    //     (async () => {
-    //         // const res = await fetch(`/api/notes/${+noteId}`)
-    //         // const data = await res.json()
-    //         // setTitle(data.title)
-    //         // setBody(data.body)
-    //     })()
-    // }, [dispatch])
-
-    // useEffect(() => {
-    //     (async () => {
-    //         await dispatch(getAllNotesThunk())
-    //     })();
-    // }, [dispatch])
+    const [ showDelNote, setShowDelNote ] = useState(false);
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -36,7 +18,6 @@ function EditNote({ noteId, title, body, setTitle, setBody }) {
         }
         await dispatch(editNoteThunk(formData))
         await dispatch(getAllNotesThunk())
-        // history.push(`/notes/${noteId}`)
     }
 
     return (
@@ -65,11 +46,16 @@ function EditNote({ noteId, title, body, setTitle, setBody }) {
                     </div>
                     <div className="edit-btns-div">
                         <div className="edit-del-btn">
-                            <Link exact="true" to={`/notes/${noteId}/delete`} id="del-link">
-                                <button id="del-btn">
-                                    Delete
-                                </button>
-                            </Link>
+                            <button id="del-btn" onClick={() => setShowDelNote(true)}>
+                                Delete
+                            </button>
+                            {showDelNote && (
+                                <DeleteNoteModal
+                                    showDelNote={showDelNote}
+                                    setShowDelNote={setShowDelNote}
+                                    noteId={noteId}
+                                />
+                            )}
                         </div>
                         <div className="edit-button-div">
                             <button type="submit" id="edit-btn">

@@ -3,19 +3,15 @@ import { useDispatch } from 'react-redux';
 import { deleteNoteThunk, getAllNotesThunk } from '../../store/note';
 
 
-function DeleteNote() {
+function DeleteNote({ noteId, setShowDelNote }) {
     const dispatch = useDispatch();
-    const history = useHistory();
-    const { noteId } = useParams();
+    // const history = useHistory();
+    // const { noteId } = useParams();
 
     const onSubmit = async () => {
         await dispatch(deleteNoteThunk(noteId))
         await dispatch(getAllNotesThunk())
-        history.push('/notes')
-    }
-
-    const onCancel = () => {
-        history.push(`/notes`)
+        setShowDelNote(false)
     }
 
     return (
@@ -29,9 +25,6 @@ function DeleteNote() {
             <div className="delete-buttons">
                 <div>
                     <button className="confirm-delete" onClick={onSubmit}>Confirm Delete</button>
-                </div>
-                <div>
-                    <button className="cancel-delete" onClick={onCancel}>Cancel</button>
                 </div>
             </div>
         </div>
