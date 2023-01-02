@@ -44,8 +44,7 @@ const NavBar = () => {
                     </div>
                     <div className="nav-email-dropdown">
                         <div className="caret-dd">
-                            {sessionUser.email}
-                            <i className="fa-solid fa-angle-down" />
+                            {`${sessionUser.email.slice(0, 20)}...`}
                         </div>
                     </div>
                 </div>
@@ -53,9 +52,6 @@ const NavBar = () => {
                     <div className="new-note">
                         <div>
                             + New Note
-                        </div>
-                        <div>
-                            <i className="fa-solid fa-angle-down" />
                         </div>
                     </div>
                 </Link>

@@ -14,7 +14,7 @@
 
 .nav-top-container {
     display: flex;
-    gap: 30px;
+    gap: 15px;
     align-items: center;
 }
 
@@ -42,7 +42,6 @@
     border: none;
     background-color: transparent;
     color: rgb(150, 150, 150);
-    cursor: pointer;
     font-size: 13px;
 }
 
