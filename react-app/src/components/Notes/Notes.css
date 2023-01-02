@@ -153,6 +153,11 @@
     cursor: pointer;
 }
 
+#del-btn:hover,
+#edit-btn:hover {
+    background-color: #38a7f0;
+}
+
 #del-link {
     text-decoration: none;
     color: white;
@@ -184,4 +189,8 @@
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.fa-file-lines {
+    font-size: 14px;
 }

@@ -1,6 +1,4 @@
 .home-main-container {
-    /* position: relative; */
-    /* left: 200px; */
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -152,4 +150,21 @@
     display: flex;
     justify-content: space-between;
     padding: 5px;
+}
+
+.home-new-nb-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.nb-t {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.fa-angle-right {
+    font-size: 12px;
 }

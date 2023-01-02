@@ -19,7 +19,11 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid rgba(128, 128, 128, 0.3);
-    padding-bottom: 7px;
+    padding: 0 8px 7px 3px;
+}
+
+.length-nb {
+    font-size: 14px;
 }
 
 .notebooks-table {
@@ -50,6 +54,13 @@
     display: flex;
 }
 
+.new-nb-btn {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+}
 
 #nb-one-link,
 #new-nb-link {
