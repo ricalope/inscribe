@@ -124,7 +124,7 @@
 
 #edit-body {
     width: 100%;
-    height: 76vh;
+    max-height: 76.5vh;
     border: none;
     outline: none;
     border-bottom: 1px solid rgba(128, 128, 128, 0.3);

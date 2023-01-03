@@ -4,7 +4,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { addNoteThunk } from '../../store/note';
 import ghLogo from '../../assets/github-logo.png';
 import logo from '../../assets/quill.png';
-import LogoutButton from '../auth/LogoutButton';
+import LogoutModal from '../auth/LogoutModal';
 import AddNotebookModal from '../AddNotebook/AddNotebookModal';
 import './Navigation.css'
 
@@ -13,6 +13,7 @@ const NavBar = () => {
 
     const [ theme, setTheme ] = useState('light');
     const [ showNew, setShowNew ] = useState(false);
+    const [ showLogout, setShowLogout ] = useState(false);
 
     const sessionUser = useSelector(state => state.session.user)
 
@@ -87,7 +88,7 @@ const NavBar = () => {
                 <div className="navlink">
                     <NavLink to="/" exact={true} activeClassName="active" className="nl-link">
                         <div className="nav-inner">
-                            <div><i className="fa-solid fa-house" /></div>
+                            <div><i className="fa-solid fa-house fa-match" /></div>
                             <p className="p-link">Home</p>
                         </div>
                     </NavLink>
@@ -95,7 +96,7 @@ const NavBar = () => {
                 <div className="navlink">
                     <NavLink to="/coming-soon" exact={true} activeClassName="active" className="nl-link">
                         <div className="nav-inner">
-                            <div><i className="fa-solid fa-star" /></div>
+                            <div><i className="fa-solid fa-star fa-match" /></div>
                             <p className="p-link one">Shortcuts</p>
                         </div>
                     </NavLink>
@@ -103,7 +104,7 @@ const NavBar = () => {
                 <div className="navlink">
                     <NavLink to="/notes" exact={true} activeClassName="active" className="nl-link">
                         <div className="nav-inner">
-                            <div><i className="fa-solid fa-note-sticky" /></div>
+                            <div><i className="fa-solid fa-note-sticky fa-match" /></div>
                             <p className="p-link">Notes</p>
                         </div>
                     </NavLink>
@@ -111,7 +112,7 @@ const NavBar = () => {
                 <div className="navlink">
                     <NavLink to="/coming-soon" exact={true} activeClassName="active" className="nl-link">
                         <div className="nav-inner">
-                            <div><i className="fa-solid fa-circle-check" /></div>
+                            <div><i className="fa-solid fa-circle-check fa-match" /></div>
                             <p className="p-link">Tasks</p>
                         </div>
                     </NavLink>
@@ -121,7 +122,7 @@ const NavBar = () => {
                 <div className="navlink">
                     <NavLink to="/notebooks" exact={true} activeClassName="active" className="nl-link">
                         <div className="nav-inner">
-                            <div><i className="fa-solid fa-book" /></div>
+                            <div><i className="fa-solid fa-book fa-match" /></div>
                             <p className="p-link">Notebooks</p>
                         </div>
                     </NavLink>
@@ -129,7 +130,7 @@ const NavBar = () => {
                 <div className="navlink">
                     <NavLink to="/coming-soon" exact={true} activeClassName="active" className="nl-link">
                         <div className="nav-inner">
-                            <div><i className="fa-solid fa-hashtag" /></div>
+                            <div><i className="fa-solid fa-hashtag fa-match" /></div>
                             <p className="p-link">Tags</p>
                         </div>
                     </NavLink>
@@ -137,7 +138,15 @@ const NavBar = () => {
             </div>
             <div className="nav-footer">
                 <div className="logout-btn">
-                    <LogoutButton />
+                    <button onClick={() => setShowLogout(true)} id="lo-btn">
+                        <i className="fa-solid fa-arrow-right-from-bracket" />
+                    </button>
+                    {showLogout && (
+                        <LogoutModal
+                            showLogout={showLogout}
+                            setShowLogout={setShowLogout}
+                        />
+                    )}
                 </div>
                 <div className="github-logo">
                     <a className="creator-links" href="https://github.com/ricalope">
