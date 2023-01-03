@@ -69,7 +69,7 @@ function OneNotebook() {
                         <div className="one-nb-header">
                             <div id="n-nb-logo">
                                 <i className="fa-solid fa-file-lines" />
-                                <h1 id="nb-h1">{notebook.map(nb => nb.title)}</h1>
+                                <h1 id="nb-h1">{`${notebook.map(nb => nb.title.slice(0, 16))}`}</h1>
                             </div>
                             <div id="n-count">
                                 {notes.length} {notes.length === 1 ? 'note' : 'notes'}
