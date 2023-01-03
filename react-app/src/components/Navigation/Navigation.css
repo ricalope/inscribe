@@ -5,23 +5,25 @@
     left: 0;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     background-color: black;
     max-height: 100vh;
-    padding: 10px;
+    padding: 5px 0 15px 0;
     width: 200px;
-    gap: 50px;
+    /* gap: 50px; */
 }
 
 .nav-top-container {
     display: flex;
-    gap: 30px;
+    gap: 15px;
     align-items: center;
+    padding: 10px;
 }
 
 .nav-top-third {
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    padding: 10px;
 }
 
 #light-switch {
@@ -42,7 +44,6 @@
     border: none;
     background-color: transparent;
     color: rgb(150, 150, 150);
-    cursor: pointer;
     font-size: 13px;
 }
 
@@ -74,12 +75,16 @@
     cursor: pointer;
     font-size: 12px;
     color: white;
+    border: none;
 }
 
 .nav-middle-links,
 .nav-middle-second {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: baseline;
+    padding: 15px;
     gap: 10px;
 }
 
@@ -110,7 +115,6 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding-top: 230px;
 }
 
 #gh-logo {
@@ -129,4 +133,57 @@
     background-color: transparent;
     cursor: pointer;
     font-size: 20px;
+}
+
+.site-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.site-name {
+    color: white;
+}
+
+#h2-site {
+    font-family: 'Playfair';
+    font-weight: 700;
+    transform: scale(1, 0.9);
+    font-size: 35px;
+}
+
+#i-logo {
+    height: 25px;
+    width: 25px;
+}
+
+.top-top {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.new-nav-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.logout-main-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    padding: 10px;
+}
+
+.cnfrm-btn {
+    display: flex;
+    gap: 15px;
+    border-radius: 4px;
+}
+
+.fa-match {
+    font-size: 13px;
 }

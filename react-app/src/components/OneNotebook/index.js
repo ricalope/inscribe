@@ -16,8 +16,8 @@ function OneNotebook() {
     const [ title, setTitle ] = useState('');
     const [ body, setBody ] = useState('');
     const [ noteId, setNoteId ] = useState(0);
-    const [showDelete, setShowDelete] = useState(false);
-    const [showEdit, setShowEdit] = useState(false);
+    const [ showDelete, setShowDelete ] = useState(false);
+    const [ showEdit, setShowEdit ] = useState(false);
 
     const notebookObj = useSelector(state => state.notebooks.oneNotebook);
     const notesObj = useSelector(state => Object.values(state.notes.allNotes));
@@ -65,40 +65,45 @@ function OneNotebook() {
             <NavBar />
             <div className="outer-notes">
                 <div className="notes-main-container">
-                    <div id="header-note">
-                        <div className="n-header">
+                    <div id="one-header-note-nb">
+                        <div className="one-nb-header">
                             <div id="n-nb-logo">
                                 <i className="fa-solid fa-file-lines" />
-                                <h1 id="n-h1">{notebook.map(nb => nb.title)}</h1>
+                                <h1 id="nb-h1">{notebook.map(nb => nb.title)}</h1>
                             </div>
-                            <div id='newnote-nb' onClick={newNote}>+ Add Note</div>
+                            <div id="n-count">
+                                {notes.length} {notes.length === 1 ? 'note' : 'notes'}
+                            </div>
                         </div>
-                        <div id="n-count">
-                            {notes.length} {notes.length === 1 ? 'note' : 'notes'}
-                            <div id="nb-delete-modal">
-                                <button
-                                    className="nb-del-mod"
-                                    onClick={() => setShowDelete(true)}>
-                                        Delete Notebook
-                                </button>
-                                {showDelete && (
-                                    <DeleteNotebookModal
-                                        showDelete={showDelete}
-                                        setShowDelete={setShowDelete}
-                                    />
-                                )}
-                                <button
-                                    className="nb-ed-mod"
-                                    onClick={() => setShowEdit(true)}>
-                                        Edit Notebook
-                                </button>
-                                {showEdit && (
-                                    <EditNotebookModal
-                                        showEdit={showEdit}
-                                        setShowEdit={setShowEdit}
-                                    />
-                                )}
+                        <div id="nb-delete-modal">
+                            <div
+                                id='newnote-nb'
+                                onClick={newNote}
+                                >
+                                + Add Note
                             </div>
+                            <button
+                                className="nb-del-mod"
+                                onClick={() => setShowDelete(true)}>
+                                Delete Notebook
+                            </button>
+                            {showDelete && (
+                                <DeleteNotebookModal
+                                    showDelete={showDelete}
+                                    setShowDelete={setShowDelete}
+                                />
+                            )}
+                            <button
+                                className="nb-ed-mod"
+                                onClick={() => setShowEdit(true)}>
+                                Edit Notebook
+                            </button>
+                            {showEdit && (
+                                <EditNotebookModal
+                                    showEdit={showEdit}
+                                    setShowEdit={setShowEdit}
+                                />
+                            )}
                         </div>
                     </div>
                     <div className="notes-inner-container">

@@ -18,7 +18,7 @@ function Home() {
 
     const localNotes = localStorage.getItem('scratchPad');
     const [ scratch, setScratch ] = useState(localNotes || '');
-    const [showNew, setShowNew] = useState(false);
+    const [ showNew, setShowNew ] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -60,7 +60,10 @@ function Home() {
                     <div className="notes-div">
                         <div className="notes-title-div">
                             <Link exact="true" to="/notes" className="all-notes">
-                                <h4>NOTES</h4>
+                                <div className="nb-t">
+                                    <h4>NOTES</h4>
+                                    <i class="fa-solid fa-angle-right" />
+                                </div>
                             </Link>
                             <div className="new-note-title">
                                 <Link exact="true" to="/notes" className="new-plus" onClick={createNote}>
@@ -103,7 +106,12 @@ function Home() {
                 <div className="home-notebook-container">
                     <div className="notebooks-div">
                         <div className="notebooks-title-div">
-                            <h4>NOTEBOOKS</h4>
+                            <Link exact="true" to="/notebooks" className="all-notes">
+                                <div className="nb-t">
+                                    <h4>NOTEBOOKS</h4>
+                                    <i class="fa-solid fa-angle-right" />
+                                </div>
+                            </Link>
                             <div className="new-notebook-title">
                                 <button className="home-new-nb-btn" onClick={() => setShowNew(true)}>
                                     <i className="fa-solid fa-folder-plus" />

@@ -8,7 +8,7 @@ function DeleteNotebookModal({ showDelete, setShowDelete }) {
         <>
             {showDelete && (
                 <Modal onClose={() => setShowDelete(false)}>
-                    <DeleteNotebook />
+                    <DeleteNotebook setShowDelete={setShowDelete}/>
                 </Modal>
             )}
         </>

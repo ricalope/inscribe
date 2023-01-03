@@ -35,7 +35,7 @@ function EditNote({ noteId, title, body, setTitle, setBody }) {
                     </div>
                     <div className='edit-body-div'>
                         <textarea
-                            rows={10}
+                            rows={32}
                             style={{ resize: "none" }}
                             type="text"
                             name="body"

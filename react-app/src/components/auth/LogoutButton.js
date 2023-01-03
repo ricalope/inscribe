@@ -3,19 +3,34 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { logout } from '../../store/session';
 
-const LogoutButton = () => {
+const LogoutButton = ({ setShowLogout }) => {
     const dispatch = useDispatch()
     const history = useHistory();
+
     const onLogout = async (e) => {
         await dispatch(logout());
         await history.push('/');
-        localStorage.clear()
+        setShowLogout(false);
+        localStorage.removeItem('scratchPad');
     };
 
     return (
-        <button onClick={onLogout} id="lo-btn">
-            <i className="fa-solid fa-arrow-right-from-bracket" />
-        </button>
+        <div className="logout-main-div">
+            <div className="cnfrm-logout">
+                <h2>Confirm Logout</h2>
+            </div>
+            <div className="cnfrm-body">
+                <h5>Anything you have written in the scratch pad will be discarded.</h5>
+            </div>
+            <div className="cnfrm-btn">
+                <button className="nb-btn one" onClick={() => setShowLogout(false)}>
+                    Cancel
+                </button>
+                <button onClick={onLogout} className="nb-btn two">
+                    Log Out
+                </button>
+            </div>
+        </div >
     )
 };
 

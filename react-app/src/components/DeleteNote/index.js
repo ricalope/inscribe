@@ -17,11 +17,14 @@ function DeleteNote({ noteId, setShowDelNote }) {
                 <h2>Confirm Delete Note?</h2>
             </div>
             <div className="delete-body">
-                <h5>Please confirm the deletion of this note</h5>
+                <h5>Please confirm you would like to permanently this note</h5>
             </div>
             <div className="delete-buttons">
                 <div>
-                    <button className="confirm-delete" onClick={onSubmit}>Confirm Delete</button>
+                    <button className="nb-btn one" onClick={() => setShowDelNote(false)}>Cancel</button>
+                </div>
+                <div>
+                    <button className="nb-btn two" onClick={onSubmit}>Confirm Delete</button>
                 </div>
             </div>
         </div>
