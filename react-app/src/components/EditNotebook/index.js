@@ -8,7 +8,7 @@ function EditNotebook({ setShowEdit }) {
     const dispatch = useDispatch();
     const { notebookId } = useParams();
 
-    const [title, setTitle] = useState('')
+    const [ title, setTitle ] = useState('')
 
     useEffect(() => {
         (async () => {
@@ -16,7 +16,7 @@ function EditNotebook({ setShowEdit }) {
             const data = await res.json()
             setTitle(data.title)
         })()
-    }, [notebookId])
+    }, [ notebookId ])
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -29,27 +29,30 @@ function EditNotebook({ setShowEdit }) {
     }
 
     return (
-        <div className="edit-nb-main-container">
-            <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
+            <div className="edit-nb-main-container">
                 <div className="edit-nb-header">
                     <h2>Rename notebook</h2>
                 </div>
-                <div className="edit-nb-title-label">
-                    <label>Name</label>
-                </div>
-                <div className="edit-nb-input">
-                    <input
-                        type="text"
-                        name="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                    />
+                <div className="label-input">
+                    <div className="add-nb-label">
+                        <label>Name</label>
+                    </div>
+                    <div className="edit-nb-input">
+                        <input
+                            type="text"
+                            name="title"
+                            id="cn-input"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                    </div>
                 </div>
                 <div className="edit-nb-button">
-                    <button className="edit-nb-submit">Continue</button>
+                    <button className="nb-btn two">Continue</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     )
 }
 
