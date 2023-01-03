@@ -3,12 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 import { addNoteThunk } from '../../store/note';
 import ghLogo from '../../assets/github-logo.png';
+import logo from '../../assets/quill.png';
 import LogoutButton from '../auth/LogoutButton';
+import AddNotebookModal from '../AddNotebook/AddNotebookModal';
 import './Navigation.css'
 
 const NavBar = () => {
     const dispatch = useDispatch();
-    const [ theme, setTheme ] = useState('light')
+
+    const [ theme, setTheme ] = useState('light');
+    const [ showNew, setShowNew ] = useState(false);
 
     const sessionUser = useSelector(state => state.session.user)
 
@@ -36,25 +40,48 @@ const NavBar = () => {
     return (
         <div className="nav-main-container">
             <div className="nav-top-third">
-                <div className="nav-top-container">
-                    <div className="nav-light-switch">
-                        <button id="light-switch" onClick={themeChange}>
-                            {theme === 'light' ? '🌚' : '🌞'}
-                        </button>
+                <div className="top-top">
+                    <div className="site-logo">
+                        <div className="in-logo">
+                            <img id="i-logo" src={logo} alt="quill logo" />
+                        </div>
+                        <div className="site-name">
+                            <h2 id="h2-site">Inscribe</h2>
+                        </div>
                     </div>
-                    <div className="nav-email-dropdown">
-                        <div className="caret-dd">
-                            {`${sessionUser.email.slice(0, 20)}...`}
+                    <div className="nav-top-container">
+                        <div className="nav-light-switch">
+                            <button id="light-switch" onClick={themeChange}>
+                                {theme === 'light' ? '🌚' : '🌞'}
+                            </button>
+                        </div>
+                        <div className="nav-email-dropdown">
+                            <div className="caret-dd">
+                                {`${sessionUser.email.slice(0, 20)}...`}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <Link exact="true" to="/notes" id="create-note" onClick={createNote}>
-                    <div className="new-note">
-                        <div>
-                            + New Note
+                <div className="new-nav-btns">
+                    <Link exact="true" to="/notes" id="create-note" onClick={createNote}>
+                        <div className="new-note">
+                            <div>
+                                + New Note
+                            </div>
                         </div>
+                    </Link>
+                    <div className="n-nb-nav">
+                        <button className="new-note book" onClick={() => setShowNew(true)}>
+                            + New Notebook
+                        </button>
+                        {showNew && (
+                            <AddNotebookModal
+                                showNew={showNew}
+                                setShowNew={setShowNew}
+                            />
+                        )}
                     </div>
-                </Link>
+                </div>
             </div>
             <div className="nav-middle-links">
                 <div className="navlink">

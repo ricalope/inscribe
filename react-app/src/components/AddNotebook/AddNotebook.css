@@ -1,8 +1,8 @@
 .add-nb-form-container {
     display: flex;
     flex-direction: column;
-    gap: 25px;
-    height: 280px;
+    gap: 20px;
+    height: 265px;
     width: 550px;
     border-radius: 3px;
     padding: 20px;
@@ -62,4 +62,3 @@
 .nb-btn.two:hover {
     background-color: #38a7f0;
 }
-

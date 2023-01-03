@@ -14,7 +14,7 @@
 
 .nav-top-container {
     display: flex;
-    gap: 15px;
+    gap: 20px;
     align-items: center;
 }
 
@@ -73,6 +73,7 @@
     cursor: pointer;
     font-size: 12px;
     color: white;
+    border: none;
 }
 
 .nav-middle-links,
@@ -109,7 +110,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding-top: 230px;
+    padding-top: 160px;
 }
 
 #gh-logo {
@@ -128,4 +129,39 @@
     background-color: transparent;
     cursor: pointer;
     font-size: 20px;
+}
+
+.site-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.site-name {
+    color: white;
+}
+
+#h2-site {
+    font-family: 'Playfair';
+    font-weight: 700;
+    transform: scale(1, 0.9);
+    font-size: 25px;
+}
+
+#i-logo {
+    height: 20px;
+    width: 20px;
+}
+
+.top-top {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.new-nav-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
