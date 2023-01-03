@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import LoginFormModal from '../LoginForm/LoginFormModal';
 import SignupFormModal from '../SignupForm/SignupFormModal';
 import logo from '../../assets/quill.png';
@@ -13,11 +13,20 @@ function SplashPage() {
     const [ showLogin, setShowLogin ] = useState(false);
     const [ showSignup, setShowSignup ] = useState(false);
     const [ scrolled, setScrolled ] = useState(false);
+    const [ quote, setQuote ] = useState(quotesArray[0].quote);
+    const [ author, setAuthor ] = useState(quotesArray[0].author);
+
+    const reviewsShuffle = useCallback(() => {
+        const idx = Math.floor(Math.random() * quotesArray.length)
+        setQuote(quotesArray[idx].quote)
+        setAuthor(quotesArray[idx].author)
+    }, [])
 
     useEffect(() => {
         if (showLogin || showSignup) {
             document.body.style.overflow = 'hidden'
         }
+
         window.onscroll = () => {
             if (window.scrollY > 0) {
                 setScrolled(true)
@@ -27,10 +36,13 @@ function SplashPage() {
             }
         }
 
+        const quoteInterval = setInterval(reviewsShuffle, 8000);
+
         return () => {
             document.body.style.overflow = 'unset'
+            clearInterval(quoteInterval)
         }
-    }, [ showLogin, showSignup ])
+    }, [ showLogin, showSignup, reviewsShuffle ])
 
     return (
         <div className="sp-main-container">
@@ -93,10 +105,10 @@ function SplashPage() {
                         <img id="quote-marks" src={quoteImage} alt="quotation-marks" />
                     </div>
                     <div className="quotes-content">
-                        <h3 id="q-text">"{quotesArray[ 0 ]?.quote}"</h3>
+                        <h3 id="q-text" default="">"{quote}"</h3>
                     </div>
                     <div className="quotes-author">
-                        <h4 id="q-author">-{quotesArray[ 0 ]?.author}</h4>
+                        <h4 id="q-author">-{author}</h4>
                     </div>
                 </div>
             </div>

@@ -6,4 +6,4 @@ Inscribe to be your go-to hub for not just to-do lists but all of your notes. Th
 are expansive, and everything syncs across all of your devices that have the app enabled, so you’ll never
 miss a beat.`, author: `Farhad` }, { quote: `It feels like there are endless ways to use Inscribe… Use it for
 school, work, life, and anytime you have a random thought about functionality you want to implement in your
-code.`, author: `Brad`}]
+code.`, author: `Brad`}, { quote: `the app is ok, could use more React!`, author: `Dan the Mod 5 man` }]
