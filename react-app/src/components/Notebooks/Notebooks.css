@@ -67,6 +67,8 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    width: 50%;
+    padding: 5px;
 }
 
 #nb-one-link,
@@ -110,14 +112,17 @@
     align-items: flex-start;
     justify-content: space-between;
     padding: 5px;
-    height: 100px;
+    min-height: 100px;
     width: 100%;
     gap: 10px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+    background-color: white;
 }
 
 #nb-h1 {
     font-size: 18px;
+    word-wrap:break-word;
+    width: 100%;
 }
 
 #nb-delete-modal {
@@ -126,6 +131,8 @@
     align-items: flex-end;
     justify-content: space-between;
     height: 100%;
+    width: 50%;
+    padding: 5px;
 }
 
 .nb-ed-mod,
