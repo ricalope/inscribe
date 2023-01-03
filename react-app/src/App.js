@@ -16,6 +16,7 @@ import OneNotebook from './components/OneNotebook';
 import SplashPage from './components/SplashPage';
 import Home from './components/Home';
 import ComingSoon from './components/ComingSoon';
+import PageNotFound from './components/PageNotFound';
 import { authenticate } from './store/session';
 
 function App() {
@@ -82,7 +83,7 @@ function App() {
                     <ComingSoon />
                 </ProtectedRoute>
                 <Route>
-                    <h2>Page Not Found</h2>
+                    <PageNotFound />
                 </Route>
             </Switch>
         </>
