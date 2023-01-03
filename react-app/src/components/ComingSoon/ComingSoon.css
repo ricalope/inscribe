@@ -1,0 +1,30 @@
+.cs-main-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.cs-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 4px rgba(120, 120, 120, 0.9);
+}
+
+.cs-body {
+    text-align: center;
+}
+
+#cs-wip {
+    width: 650px;
+    height: 450px;
+}
