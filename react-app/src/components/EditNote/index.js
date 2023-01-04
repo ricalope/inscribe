@@ -40,6 +40,7 @@ function EditNote({ noteId, title, body, setTitle, setBody }) {
                             type="text"
                             name="body"
                             id="edit-body"
+                            placeholder="Penny for your thoughts?..."
                             value={body}
                             onChange={(e) => setBody(e.target.value)}
                         />

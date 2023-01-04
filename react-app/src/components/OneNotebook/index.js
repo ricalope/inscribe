@@ -45,8 +45,7 @@ function OneNotebook() {
     const newNote = async () => {
         const data = {
             notebookId,
-            title: 'Untitled',
-            body: 'Stream your consciousness here...'
+            title: 'Untitled'
         }
         await dispatch(addNoteThunk(data))
     }
@@ -60,6 +59,13 @@ function OneNotebook() {
         return 0
     })
 
+    const lengthCheck = (data, len) => {
+        if (data.length > len) {
+            return `${data.slice(0,len)}...`
+        }
+        return data
+    }
+
     return (
         <>
             <NavBar />
@@ -69,7 +75,7 @@ function OneNotebook() {
                         <div className="one-nb-header">
                             <div id="n-nb-logo">
                                 <i className="fa-solid fa-file-lines" />
-                                <h1 id="nb-h1">{`${notebook.map(nb => nb.title.slice(0, 16))}`}</h1>
+                                <h1 id="nb-h1">{notebook.map(nb => lengthCheck(nb.title, 16))}</h1>
                             </div>
                             <div id="n-count">
                                 {notes.length} {notes.length === 1 ? 'note' : 'notes'}

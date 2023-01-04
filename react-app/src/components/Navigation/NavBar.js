@@ -32,10 +32,16 @@ const NavBar = () => {
 
     const createNote = async () => {
         const data = {
-            title: 'Untitled',
-            body: 'Stream of consciousness here...'
+            title: 'Untitled'
         }
         await dispatch(addNoteThunk(data))
+    }
+
+    const lengthCheck = (data, len) => {
+        if (data.length > len) {
+            return `${data.slice(0,len)}...`
+        }
+        return data
     }
 
     return (
@@ -58,7 +64,7 @@ const NavBar = () => {
                         </div>
                         <div className="nav-email-dropdown">
                             <div className="caret-dd">
-                                {`${sessionUser.email.slice(0, 20)}...`}
+                                {lengthCheck(sessionUser.email, 20)}
                             </div>
                         </div>
                     </div>

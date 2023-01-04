@@ -62,3 +62,9 @@
 .nb-btn.two:hover {
     background-color: #38a7f0;
 }
+
+#add-ptag {
+    min-height: 31px;
+    color: red;
+    font-size: 16px;
+}

@@ -34,8 +34,7 @@ function Home() {
 
     const createNote = async () => {
         const data = {
-            title: 'Untitled',
-            body: 'Stream consciousness here...'
+            title: 'Untitled'
         }
         await dispatch(addNoteThunk(data))
     }

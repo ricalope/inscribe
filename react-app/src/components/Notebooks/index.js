@@ -21,6 +21,13 @@ function Notebooks() {
         })()
     }, [ dispatch ])
 
+    const lengthCheck = (data, len) => {
+        if (data.length > len) {
+            return `${data.slice(0,len)}...`
+        }
+        return data
+    }
+
     return (
         <>
             <NavBar />
@@ -54,7 +61,7 @@ function Notebooks() {
                                         to={`/notebooks/${notebook.id}`}
                                         id="nb-one-link">
                                         <div><i className="fa-solid fa-book" /></div>
-                                        <div>{`${notebook.title} (${notebook.notes.length})`}</div>
+                                        <div>{`${lengthCheck(notebook.title, 16)} (${notebook.notes.length})`}</div>
                                     </Link>
                                 </div>
                             ))}
@@ -63,7 +70,7 @@ function Notebooks() {
                             <div id="t-created">Created By</div>
                             {notebooks.map(notebook => (
                                 <div key={notebook.id} className="notebooks-rows">
-                                    {notebook.user_email}
+                                    {lengthCheck(notebook.user_email, 10)}
                                 </div>
                             ))}
                         </div>
