@@ -7,7 +7,7 @@
     flex-direction: column;
     justify-content: space-between;
     background-color: black;
-    max-height: 100vh;
+    height: 100vh;
     padding: 5px 0 15px 0;
     width: 200px;
     /* gap: 50px; */
