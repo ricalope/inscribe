@@ -17,8 +17,8 @@ function Home() {
     let notes = Object.values(notesObj);
     const notebooks = Object.values(notebooksObj);
 
-    const localNotes = localStorage.getItem('scratchPad');
-    const [ scratch, setScratch ] = useState(localNotes || '');
+    const localScratch = localStorage.getItem('scratchPad');
+    const [ scratch, setScratch ] = useState(localScratch || '');
     const [ showNew, setShowNew ] = useState(false);
 
     useEffect(() => {
@@ -49,7 +49,8 @@ function Home() {
         return 0
     })
 
-    const { darkMode } = useContext(DarkModeContext);
+    const theme = useContext(DarkModeContext);
+    const darkMode = theme.state.darkMode;
 
     return (
         <>
@@ -111,7 +112,7 @@ function Home() {
                             <Link exact="true" to="/notebooks" className="all-notes">
                                 <div className="nb-t">
                                     <h4 className={darkMode ? 'n-h4 dark' : 'n-h4 light'}>NOTEBOOKS</h4>
-                                    <i class={darkMode ? 'fa-solid fa-angle-right dark' : 'fa-solid fa-angle-right light'} />
+                                    <i className={darkMode ? 'fa-solid fa-angle-right dark' : 'fa-solid fa-angle-right light'} />
                                 </div>
                             </Link>
                             <div className="new-notebook-title">

@@ -25,7 +25,7 @@ function Notebooks() {
 
     const lengthCheck = (data, len) => {
         if (data.length > len) {
-            return `${data.slice(0,len)}...`
+            return `${data.slice(0, len)}...`
         }
         return data
     }
@@ -55,7 +55,26 @@ function Notebooks() {
                     </div>
                     <div className="notebooks-table">
                         <div className="notebooks-header-column">
-                            <div id="t-header">Title</div>
+                            <table>
+                                <thead>
+                                    <th>NAME</th>
+                                    <th>CREATED BY</th>
+                                </thead>
+                                <tbody>
+                                    {notebooks.map(nb => (
+                                        <tr>
+                                            <td>
+                                                <Link exact="true" to={`/notebooks/${nb.id}`}
+                                                    className={darkMode ? 'nb-one-link td-dark' : 'nb-one-link td-light'}>
+                                                    {`${lengthCheck(nb.title, 16)} (${nb.notes.length})`}
+                                                </Link>
+                                            </td>
+                                            <td>{lengthCheck(nb.user_email, 10)}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            {/* <div id="t-header">Title</div>
                             {notebooks.map(notebook => (
                                 <div key={notebook.id} className="notebooks-header">
                                     <Link
@@ -66,16 +85,16 @@ function Notebooks() {
                                         <div>{`${lengthCheck(notebook.title, 16)} (${notebook.notes.length})`}</div>
                                     </Link>
                                 </div>
-                            ))}
+                            ))} */}
                         </div>
-                        <div className="notebooks-body-rows">
+                        {/* <div className="notebooks-body-rows">
                             <div id="t-created">Created By</div>
                             {notebooks.map(notebook => (
                                 <div key={notebook.id} className="notebooks-rows">
                                     {lengthCheck(notebook.user_email, 10)}
                                 </div>
                             ))}
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

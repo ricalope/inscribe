@@ -71,7 +71,6 @@
     padding: 5px;
 }
 
-.nb-one-link,
 #new-nb-link {
     text-decoration: none;
     display: flex;
@@ -145,4 +144,28 @@
 .nb-del-mod:hover,
 .nb-ed-mod:hover {
     color: #209CEE;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid gray;
+    padding: 5px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+tr:hover {
+    background-color: #209CEE;
+}
+
+.nb-one-link.light {
+    text-decoration: none;
+    color: white;
 }
