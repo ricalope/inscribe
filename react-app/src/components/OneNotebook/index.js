@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOneNotebookThunk } from '../../store/notebook';
 import { getAllNotesThunk, addNoteThunk } from '../../store/note';
+import { DarkModeContext } from '../../context/ThemeContext';
 import NavBar from '../Navigation/NavBar';
 import EditNote from '../EditNote/index';
 import DeleteNotebookModal from '../DeleteNotebook/DeleteNotebookModal';
@@ -23,6 +24,7 @@ function OneNotebook() {
     const notesObj = useSelector(state => Object.values(state.notes.allNotes));
     const notebook = Object.values(notebookObj);
     const notes = notesObj.filter(n => n.notebook_id === +notebookId);
+    const { darkMode } = useContext(DarkModeContext);
 
     useEffect(() => {
         (async () => {
@@ -45,8 +47,7 @@ function OneNotebook() {
     const newNote = async () => {
         const data = {
             notebookId,
-            title: 'Untitled',
-            body: 'Stream your consciousness here...'
+            title: 'Untitled'
         }
         await dispatch(addNoteThunk(data))
     }
@@ -60,30 +61,37 @@ function OneNotebook() {
         return 0
     })
 
+    const lengthCheck = (data, len) => {
+        if (data.length > len) {
+            return `${data.slice(0,len)}...`
+        }
+        return data
+    }
+
     return (
         <>
             <NavBar />
             <div className="outer-notes">
-                <div className="notes-main-container">
-                    <div id="one-header-note-nb">
+                <div className={darkMode ? 'notes-main-container dark' : 'notes-main-container light'}>
+                    <div className={darkMode ? 'one-header-note-nb dark' : 'one-header-note-nb light'}>
                         <div className="one-nb-header">
                             <div id="n-nb-logo">
                                 <i className="fa-solid fa-file-lines" />
-                                <h1 id="nb-h1">{`${notebook.map(nb => nb.title.slice(0, 16))}`}</h1>
+                                <h1 id="nb-h1">{notebook.map(nb => lengthCheck(nb.title, 16))}</h1>
                             </div>
                             <div id="n-count">
                                 {notes.length} {notes.length === 1 ? 'note' : 'notes'}
                             </div>
                         </div>
-                        <div id="nb-delete-modal">
+                        <div className="nb-delete-modal">
                             <div
-                                id='newnote-nb'
+                                className={darkMode ? 'newnote-nb dark' : 'newnote-nb light'}
                                 onClick={newNote}
                                 >
                                 + Add Note
                             </div>
                             <button
-                                className="nb-del-mod"
+                                className={darkMode ? 'nb-del-mod dark' : 'nb-del-mod light'}
                                 onClick={() => setShowDelete(true)}>
                                 Delete Notebook
                             </button>
@@ -94,7 +102,7 @@ function OneNotebook() {
                                 />
                             )}
                             <button
-                                className="nb-ed-mod"
+                                className={darkMode ? 'nb-ed-mod dark' : 'nb-ed-mod light'}
                                 onClick={() => setShowEdit(true)}>
                                 Edit Notebook
                             </button>
@@ -107,7 +115,7 @@ function OneNotebook() {
                         </div>
                     </div>
                     <div className="notes-inner-container">
-                        <div className="column-notes">
+                        <div className={darkMode ? 'column-notes dark' : 'column-notes light'}>
                             {notes.map((note, idx) => (
                                 <div key={idx}
                                     className="notes-card"

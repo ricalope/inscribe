@@ -50,7 +50,7 @@
 }
 
 .nb-btn.one:hover {
-    background-color: #F5F5F5;
+    background-color: #767676;
 }
 
 .nb-btn.two {
@@ -61,4 +61,10 @@
 
 .nb-btn.two:hover {
     background-color: #38a7f0;
+}
+
+#add-ptag {
+    min-height: 31px;
+    color: red;
+    font-size: 16px;
 }

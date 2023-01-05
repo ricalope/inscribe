@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import ReactDOM from 'react-dom';
+import { DarkModeContext } from '../context/ThemeContext'
 import './Modal.css'
 
 const ModalContext = React.createContext();
@@ -23,13 +24,14 @@ export function ModalProvider({ children }) {
 }
 
 export function Modal({ onClose, children }) {
+    const { darkMode } = useContext(DarkModeContext)
     const modalNode = useContext(ModalContext)
     if (!modalNode) return null
 
     return ReactDOM.createPortal(
         <div id="modal">
             <div id="modal-background" onClick={onClose}/>
-            <div id="modal-content">
+            <div className={darkMode ? 'modal-content dark' : 'modal-content light'}>
                 {children}
             </div>
         </div>,

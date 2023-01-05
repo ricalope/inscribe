@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { logout } from '../../store/session';
+import { DarkModeContext } from '../../context/ThemeContext';
 
 const LogoutButton = ({ setShowLogout }) => {
-    const dispatch = useDispatch()
+
+    const dispatch = useDispatch();
     const history = useHistory();
+
+    const { darkMode } = useContext(DarkModeContext);
 
     const onLogout = async (e) => {
         await dispatch(logout());
@@ -23,7 +27,10 @@ const LogoutButton = ({ setShowLogout }) => {
                 <h5>Anything you have written in the scratch pad will be discarded.</h5>
             </div>
             <div className="cnfrm-btn">
-                <button className="nb-btn one" onClick={() => setShowLogout(false)}>
+                <button
+                    className={darkMode ? 'nb-btn one dark' : 'nb-btn one light'}
+                    onClick={() => setShowLogout(false)}
+                    >
                     Cancel
                 </button>
                 <button onClick={onLogout} className="nb-btn two">

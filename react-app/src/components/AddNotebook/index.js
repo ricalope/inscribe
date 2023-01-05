@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { addNotebookThunk } from '../../store/notebook';
+import { DarkModeContext } from '../../context/ThemeContext';
 import './AddNotebook.css';
 
 
@@ -8,6 +9,9 @@ function AddNotebook({ setShowNew }) {
     const dispatch = useDispatch();
 
     const [ title, setTitle ] = useState('');
+    const [ error, setError ] = useState('');
+
+    const { darkMode } = useContext(DarkModeContext);
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -18,15 +22,26 @@ function AddNotebook({ setShowNew }) {
         setShowNew(false)
     }
 
+    useEffect(() => {
+        if (title.trim().length === 0 && title) {
+            setError('Please enter a title for your notebook, field cannot be empty.')
+        }
+        return () => setError('');
+    }, [ title ])
+
     return (
         <div className="add-nb-main-container">
             <form onSubmit={onSubmit}>
-                <div className="add-nb-form-container">
+                <div className={darkMode ? 'add-nb-form-container dark' : 'add-nb-form-container light'}>
                     <div className="add-nb-header">
                         <h3 id="add-h3">Create new notebook</h3>
                     </div>
                     <div className="add-nb-explainer">
-                        <p>Notebooks are useful for grouping notes around a common topic. They can be private or shared.</p>
+                        {error.length > 0 ? (
+                            <p id="add-ptag">*{error}</p>
+                        ) : (
+                            <p>Notebooks are useful for grouping notes around a common topic. They can be private or shared.</p>
+                        )}
                     </div>
                     <div className="label-input">
                         <div className="add-nb-label">
@@ -47,9 +62,9 @@ function AddNotebook({ setShowNew }) {
                     <div className="nb-btnsbox">
                         <div className="cancel-nb">
                             <button
-                                className="nb-btn one"
+                                className={darkMode ? 'nb-btn one dark' : 'nb-btn one light'}
                                 onClick={() => setShowNew(false)}
-                                >
+                            >
                                 Cancel
                             </button>
                         </div>
@@ -57,7 +72,7 @@ function AddNotebook({ setShowNew }) {
                             <button
                                 className="nb-btn two"
                                 type="submit"
-                                >
+                            >
                                 Create
                             </button>
                         </div>

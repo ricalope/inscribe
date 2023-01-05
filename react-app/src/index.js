@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ModalProvider } from './context/Modal'
+import { DarkModeProvider } from './context/ThemeContext';
 import App from './App';
 import configureStore from './store';
 import './index.css';
@@ -13,17 +14,19 @@ function Root() {
     return (
         <Provider store={store}>
             <ModalProvider>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
+                <DarkModeProvider>
+                    <BrowserRouter>
+                        <App />
+                    </BrowserRouter>
+                </DarkModeProvider>
             </ModalProvider>
         </Provider>
     )
 }
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Root />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <Root />
+    </React.StrictMode>,
+    document.getElementById('root')
 );

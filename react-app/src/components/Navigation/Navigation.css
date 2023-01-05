@@ -7,7 +7,7 @@
     flex-direction: column;
     justify-content: space-between;
     background-color: black;
-    max-height: 100vh;
+    height: 100vh;
     padding: 5px 0 15px 0;
     width: 200px;
     /* gap: 50px; */
@@ -45,16 +45,6 @@
     background-color: transparent;
     color: rgb(150, 150, 150);
     font-size: 13px;
-}
-
-.dark {
-    background-color: black;
-    color: white;
-}
-
-.light {
-    background-color: white;
-    color: black;
 }
 
 #create-note {
@@ -186,4 +176,8 @@
 
 .fa-match {
     font-size: 13px;
+}
+
+.new-note:hover {
+    background-color: #38a7f0;
 }
