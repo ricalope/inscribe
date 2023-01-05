@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllNotesThunk } from '../../store/note';
+import { DarkModeContext } from '../../context/ThemeContext';
 import EditNote from '../EditNote';
 import NavBar from '../Navigation/NavBar';
 import './Notes.css'
@@ -9,11 +10,13 @@ function Notes() {
 
     const [ title, setTitle ] = useState('');
     const [ body, setBody ] = useState('');
-    const [ noteId, setNoteId ] = useState(0)
+    const [ noteId, setNoteId ] = useState(0);
 
     const dispatch = useDispatch();
-    const notesObj = useSelector(state => state.notes.allNotes)
-    const notes = Object.values(notesObj)
+    const notesObj = useSelector(state => state.notes.allNotes);
+    const notes = Object.values(notesObj);
+
+    const { darkMode } = useContext(DarkModeContext);
 
     useEffect(() => {
         (async () => {
@@ -45,8 +48,8 @@ function Notes() {
         <>
             <NavBar />
             <div className="outer-notes">
-                <div className="notes-main-container">
-                    <div id="header-note">
+                <div className={darkMode ? 'notes-main-container dark' : 'notes-main-container light'}>
+                    <div className={darkMode ? 'header-note dark' : 'header-note light'}>
                         <div className="n-header">
                             <div id="n-logo">
                                 <i className="fa-solid fa-file-lines" />
@@ -58,7 +61,7 @@ function Notes() {
                         </div>
                     </div>
                     <div className="notes-inner-container">
-                        <div className="column-notes">
+                        <div className={darkMode ? 'column-notes dark' : 'column-notes light'}>
                             {notes.map((note, idx) => (
                                 <div key={idx}
                                     className="notes-card"

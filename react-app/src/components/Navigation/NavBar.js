@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 import { addNoteThunk } from '../../store/note';
@@ -6,28 +6,21 @@ import ghLogo from '../../assets/github-logo.png';
 import logo from '../../assets/quill.png';
 import LogoutModal from '../auth/LogoutModal';
 import AddNotebookModal from '../AddNotebook/AddNotebookModal';
+import { DarkModeContext } from '../../context/ThemeContext';
 import './Navigation.css'
 
 const NavBar = () => {
     const dispatch = useDispatch();
 
-    const [ theme, setTheme ] = useState('light');
     const [ showNew, setShowNew ] = useState(false);
     const [ showLogout, setShowLogout ] = useState(false);
 
     const sessionUser = useSelector(state => state.session.user)
-
-    useEffect(() => {
-        document.body.className = theme
-    }, [ theme ])
+    const { darkMode, toggleMode } = useContext(DarkModeContext);
 
     const themeChange = () => {
-        if (theme === 'light') {
-            setTheme('dark')
-            return
-        }
-        setTheme('light')
-        return
+        localStorage.setItem('theme', !darkMode);
+        toggleMode();
     }
 
     const createNote = async () => {
@@ -44,6 +37,8 @@ const NavBar = () => {
         return data
     }
 
+    console.log(darkMode)
+
     return (
         <div className="nav-main-container">
             <div className="nav-top-third">
@@ -59,7 +54,7 @@ const NavBar = () => {
                     <div className="nav-top-container">
                         <div className="nav-light-switch">
                             <button id="light-switch" onClick={themeChange}>
-                                {theme === 'light' ? '🌚' : '🌞'}
+                                {darkMode ? '🌞' : '🌚'}
                             </button>
                         </div>
                         <div className="nav-email-dropdown">

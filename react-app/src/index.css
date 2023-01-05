@@ -24,3 +24,13 @@ body {
     display: flex;
     box-sizing: border-box;
 }
+
+.dark {
+    background-color: #262626;
+    color: white;
+}
+
+.light {
+    background-color: white;
+    color: #262626;
+}

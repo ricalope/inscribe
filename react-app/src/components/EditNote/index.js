@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import DeleteNoteModal from '../DeleteNote/DeleteNoteModal';
+import { DarkModeContext } from '../../context/ThemeContext';
 import { editNoteThunk, getAllNotesThunk } from '../../store/note';
 
 
@@ -8,6 +9,7 @@ function EditNote({ noteId, title, body, setTitle, setBody }) {
     const dispatch = useDispatch();
 
     const [ showDelNote, setShowDelNote ] = useState(false);
+    const { darkMode } = useContext(DarkModeContext);
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -23,12 +25,12 @@ function EditNote({ noteId, title, body, setTitle, setBody }) {
     return (
         <>
             <form onSubmit={onSubmit} id="form-data">
-                <div className="edit-main-container">
+                <div className={darkMode ? 'edit-main-container dark' : 'edit-main-container light'}>
                     <div className="edit-title-div">
                         <input
                             type="text"
                             name="title"
-                            id="edit-title"
+                            className={darkMode ? 'edit-title dark' : 'edit-title light'}
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                         />
@@ -39,7 +41,7 @@ function EditNote({ noteId, title, body, setTitle, setBody }) {
                             style={{ resize: "none" }}
                             type="text"
                             name="body"
-                            id="edit-body"
+                            className={darkMode ? 'edit-body dark' : 'edit-body light'}
                             placeholder="Penny for your thoughts?..."
                             value={body}
                             onChange={(e) => setBody(e.target.value)}

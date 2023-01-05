@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { DarkModeContext } from '../../context/ThemeContext';
 import { updateNotebookThunk } from '../../store/notebook';
 
 
@@ -8,7 +9,8 @@ function EditNotebook({ setShowEdit }) {
     const dispatch = useDispatch();
     const { notebookId } = useParams();
 
-    const [ title, setTitle ] = useState('')
+    const [ title, setTitle ] = useState('');
+    const { darkMode } = useContext(DarkModeContext);
 
     useEffect(() => {
         (async () => {
@@ -30,7 +32,7 @@ function EditNotebook({ setShowEdit }) {
 
     return (
         <form onSubmit={onSubmit}>
-            <div className="edit-nb-main-container">
+            <div className={darkMode ? 'edit-nb-main-container dark' : 'edit-nb-main-container light'}>
                 <div className="edit-nb-header">
                     <h2>Rename notebook</h2>
                 </div>
@@ -49,7 +51,9 @@ function EditNotebook({ setShowEdit }) {
                     </div>
                 </div>
                 <div className="edit-nb-button">
-                    <button className="nb-btn two">Continue</button>
+                    <button className="nb-btn two">
+                        Continue
+                    </button>
                 </div>
             </div>
         </form>

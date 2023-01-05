@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { addNotebookThunk } from '../../store/notebook';
+import { DarkModeContext } from '../../context/ThemeContext';
 import './AddNotebook.css';
 
 
@@ -9,6 +10,8 @@ function AddNotebook({ setShowNew }) {
 
     const [ title, setTitle ] = useState('');
     const [ error, setError ] = useState('');
+
+    const { darkMode } = useContext(DarkModeContext);
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -29,7 +32,7 @@ function AddNotebook({ setShowNew }) {
     return (
         <div className="add-nb-main-container">
             <form onSubmit={onSubmit}>
-                <div className="add-nb-form-container">
+                <div className={darkMode ? 'add-nb-form-container dark' : 'add-nb-form-container light'}>
                     <div className="add-nb-header">
                         <h3 id="add-h3">Create new notebook</h3>
                     </div>
@@ -59,7 +62,7 @@ function AddNotebook({ setShowNew }) {
                     <div className="nb-btnsbox">
                         <div className="cancel-nb">
                             <button
-                                className="nb-btn one"
+                                className={darkMode ? 'nb-btn one dark' : 'nb-btn one light'}
                                 onClick={() => setShowNew(false)}
                             >
                                 Cancel

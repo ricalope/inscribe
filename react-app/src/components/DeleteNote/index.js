@@ -1,9 +1,13 @@
+import React, { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteNoteThunk, getAllNotesThunk } from '../../store/note';
+import { DarkModeContext } from '../../context/ThemeContext';
 
 
 function DeleteNote({ noteId, setShowDelNote }) {
+
     const dispatch = useDispatch();
+    const { darkMode } = useContext(DarkModeContext);
 
     const onSubmit = async () => {
         await dispatch(deleteNoteThunk(noteId))
@@ -21,7 +25,12 @@ function DeleteNote({ noteId, setShowDelNote }) {
             </div>
             <div className="delete-buttons">
                 <div>
-                    <button className="nb-btn one" onClick={() => setShowDelNote(false)}>Cancel</button>
+                    <button
+                        className={darkMode ? 'nb-btn one dark' : 'nb-btn one light'}
+                        onClick={() => setShowDelNote(false)}
+                        >
+                        Cancel
+                    </button>
                 </div>
                 <div>
                     <button className="nb-btn two" onClick={onSubmit}>Confirm Delete</button>
