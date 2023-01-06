@@ -8,6 +8,8 @@ import NavBar from '../Navigation/NavBar';
 import EditNote from '../EditNote/index';
 import DeleteNotebookModal from '../DeleteNotebook/DeleteNotebookModal';
 import EditNotebookModal from '../EditNotebook/EditNotebookModal';
+import imgBlack from '../../assets/empty-folder-black.png';
+import imgWhite from '../../assets/empty-folder-white.png';
 
 
 function OneNotebook() {
@@ -19,6 +21,7 @@ function OneNotebook() {
     const [ noteId, setNoteId ] = useState(0);
     const [ showDelete, setShowDelete ] = useState(false);
     const [ showEdit, setShowEdit ] = useState(false);
+    const [ populated, setPopulated ] = useState(true);
 
     const notebookObj = useSelector(state => state.notebooks.oneNotebook);
     const notesObj = useSelector(state => Object.values(state.notes.allNotes));
@@ -35,6 +38,12 @@ function OneNotebook() {
             setTitle(notes[ 0 ].title)
             setBody(notes[ 0 ].body)
             setNoteId(notes[ 0 ].id)
+            setPopulated(false)
+        } else if (notes.length === 0) {
+            setTitle('')
+            setBody('')
+            setNoteId(0)
+            setPopulated(true)
         }
     }, [ dispatch, notes.length, notebookId ])
 
@@ -63,7 +72,7 @@ function OneNotebook() {
 
     const lengthCheck = (data, len) => {
         if (data.length > len) {
-            return `${data.slice(0,len)}...`
+            return `${data.slice(0, len)}...`
         }
         return data
     }
@@ -87,8 +96,8 @@ function OneNotebook() {
                             <div
                                 className={darkMode ? 'newnote-nb dark' : 'newnote-nb light'}
                                 onClick={newNote}
-                                >
-                                + Add Note
+                            >
+                                + Add Note to Notebook
                             </div>
                             <button
                                 className={darkMode ? 'nb-del-mod dark' : 'nb-del-mod light'}
@@ -114,32 +123,50 @@ function OneNotebook() {
                             )}
                         </div>
                     </div>
-                    <div className="notes-inner-container">
-                        <div className={darkMode ? 'column-notes dark' : 'column-notes light'}>
-                            {notes.map((note, idx) => (
-                                <div key={idx}
-                                    className="notes-card"
-                                    onClick={() => setFields(note)}
-                                >
-                                    <div className="notes-title">
-                                        {note.title}
-                                    </div>
-                                    <div className="notes-content">
-                                        {note.body}
-                                    </div>
-                                </div>
-                            ))}
+                    {populated ? (
+                        <div className={darkMode ? 'empty-notes dark' : 'empty-notes light'}>
+                            <div className="empty-img">
+                                <img src={darkMode ? imgWhite : imgBlack} className="e-img" alt="black empty folder" />
+                            </div>
+                            <div className="empty-text">
+                                <p>
+                                    You currently have no notes for this notebook <br />
+                                    Click the <span id="sp-click" onClick={newNote}>+ Add Note to Notebook</span> button here or at the top to get started
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    ) : (
+                        <div className="notes-inner-container">
+                            <div className={darkMode ? 'column-notes dark' : 'column-notes light'}>
+                                {notes.map((note, idx) => (
+                                    <div key={idx}
+                                        className="notes-card"
+                                        onClick={() => setFields(note)}
+                                    >
+                                        <div className="notes-title">
+                                            {note.title}
+                                        </div>
+                                        <div className="notes-content">
+                                            {note.body}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div >
                 <div className="edit-column-notes">
-                    <EditNote
-                        noteId={noteId}
-                        title={title}
-                        body={body}
-                        setTitle={setTitle}
-                        setBody={setBody}
-                    />
+                    {populated ? (
+                        <div className={darkMode ? 'blank-div dark' : 'blank-div light'} />
+                    ) : (
+                        <EditNote
+                            noteId={noteId}
+                            title={title}
+                            body={body}
+                            setTitle={setTitle}
+                            setBody={setBody}
+                        />
+                    )}
                 </div>
             </div>
         </>

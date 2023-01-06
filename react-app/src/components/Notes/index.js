@@ -1,16 +1,19 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllNotesThunk } from '../../store/note';
+import { getAllNotesThunk, addNoteThunk } from '../../store/note';
 import { DarkModeContext } from '../../context/ThemeContext';
 import EditNote from '../EditNote';
 import NavBar from '../Navigation/NavBar';
-import './Notes.css'
+import imgBlack from '../../assets/empty-folder-black.png';
+import imgWhite from '../../assets/empty-folder-white.png';
+import './Notes.css';
 
 function Notes() {
 
     const [ title, setTitle ] = useState('');
     const [ body, setBody ] = useState('');
     const [ noteId, setNoteId ] = useState(0);
+    const [ populated, setPopulated ] = useState(true);
 
     const dispatch = useDispatch();
     const notesObj = useSelector(state => state.notes.allNotes);
@@ -26,6 +29,12 @@ function Notes() {
             setTitle(notes[ 0 ].title)
             setBody(notes[ 0 ].body)
             setNoteId(notes[ 0 ].id)
+            setPopulated(false)
+        } else if (notes.length === 0) {
+            setTitle('')
+            setBody('')
+            setNoteId(0)
+            setPopulated(true)
         }
     }, [ dispatch, notes.length ])
 
@@ -33,6 +42,13 @@ function Notes() {
         setNoteId(data.id)
         setTitle(data.title)
         setBody(data.body)
+    }
+
+    const newNote = async () => {
+        const data = {
+            title: 'Untitled'
+        }
+        await dispatch(addNoteThunk(data))
     }
 
     notes.sort((a, b) => {
@@ -61,31 +77,50 @@ function Notes() {
                         </div>
                     </div>
                     <div className="notes-inner-container">
-                        <div className={darkMode ? 'column-notes dark' : 'column-notes light'}>
-                            {notes.map((note, idx) => (
-                                <div key={idx}
-                                    className="notes-card"
-                                    onClick={() => setFields(note)}
-                                >
-                                    <div className="notes-title">
-                                        {note.title}
-                                    </div>
-                                    <div className="notes-content">
-                                        {note.body}
-                                    </div>
+                        {populated ? (
+                            <div className={darkMode ? 'empty-notes dark' : 'empty-notes light'}>
+                                <div className="empty-img">
+                                    <img src={darkMode ? imgWhite : imgBlack} className="e-img" alt="black empty folder" />
                                 </div>
-                            ))}
-                        </div>
+                                <div className="empty-text">
+                                    <p>
+                                        You currently have no notes <br />
+                                        Click the <span className="sp-click" onClick={newNote}>
+                                            + New Note</span> button in the side bar to get started
+                                    </p>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className={darkMode ? 'column-notes dark' : 'column-notes light'}>
+                                {notes.map((note, idx) => (
+                                    <div key={idx}
+                                        className="notes-card"
+                                        onClick={() => setFields(note)}
+                                    >
+                                        <div className="notes-title">
+                                            {note.title}
+                                        </div>
+                                        <div className="notes-content">
+                                            {note.body}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div >
                 <div className="edit-column-notes">
-                    <EditNote
-                        noteId={noteId}
-                        title={title}
-                        body={body}
-                        setTitle={setTitle}
-                        setBody={setBody}
-                    />
+                    {populated ? (
+                        <div className={darkMode ? 'blank-div dark' : 'blank-div light'}></div>
+                    ) : (
+                        <EditNote
+                            noteId={noteId}
+                            title={title}
+                            body={body}
+                            setTitle={setTitle}
+                            setBody={setBody}
+                        />
+                    )}
                 </div>
             </div>
         </>

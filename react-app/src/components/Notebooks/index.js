@@ -5,6 +5,8 @@ import { getAllNotebooksThunk } from '../../store/notebook';
 import { DarkModeContext } from '../../context/ThemeContext';
 import NavBar from '../Navigation/NavBar';
 import AddNotebookModal from '../AddNotebook/AddNotebookModal';
+import imgBlack from '../../assets/empty-folder-black.png';
+import imgWhite from '../../assets/empty-folder-white.png';
 import './Notebooks.css';
 
 
@@ -12,20 +14,26 @@ function Notebooks() {
     const dispatch = useDispatch();
 
     const [ showNew, setShowNew ] = useState(false);
+    const [ populated, setPopulated ] = useState(true);
 
     const notebooksObj = useSelector(state => state.notebooks.allNotebooks);
     const notebooks = Object.values(notebooksObj);
-    const { darkMode } = useContext(DarkModeContext)
+    const { darkMode } = useContext(DarkModeContext);
 
     useEffect(() => {
         (async () => {
             await dispatch(getAllNotebooksThunk())
         })()
-    }, [ dispatch ])
+        if (notebooks.length === 0) {
+            setPopulated(true)
+        } else if (notebooks.length > 0) {
+            setPopulated(false)
+        }
+    }, [ dispatch, notebooks.length ])
 
     const lengthCheck = (data, len) => {
         if (data.length > len) {
-            return `${data.slice(0,len)}...`
+            return `${data.slice(0, len)}...`
         }
         return data
     }
@@ -53,30 +61,48 @@ function Notebooks() {
                             )}
                         </div>
                     </div>
-                    <div className="notebooks-table">
-                        <div className="notebooks-header-column">
-                            <div id="t-header">Title</div>
-                            {notebooks.map(notebook => (
-                                <div key={notebook.id} className="notebooks-header">
-                                    <Link
-                                        exact="true"
-                                        to={`/notebooks/${notebook.id}`}
-                                        className={darkMode ? 'nb-one-link dark' : 'nb-one-link light'}>
-                                        <div><i className="fa-solid fa-book" /></div>
-                                        <div>{`${lengthCheck(notebook.title, 16)} (${notebook.notes.length})`}</div>
-                                    </Link>
-                                </div>
-                            ))}
+                    {populated ? (
+                        <div className={darkMode ? 'empty-notes dark' : 'empty-notes light'}>
+                            <div className="empty-img">
+                                <img src={darkMode ? imgWhite : imgBlack} className="e-img" alt="black empty folder" />
+                            </div>
+                            <div className="empty-text">
+                                <p>
+                                    You currently have no notebooks <br />
+                                    Click the <span className="sp-click" onClick={() => setShowNew(true)}>
+                                        + New Notebook</span> button in the side bar or the
+                                    <span className="sp-click" onClick={() => setShowNew(true)}>
+                                        &nbsp;<i className="fa-solid fa-folder-plus" />
+                                    </span> to get started
+                                </p>
+                            </div>
                         </div>
-                        <div className="notebooks-body-rows">
-                            <div id="t-created">Created By</div>
-                            {notebooks.map(notebook => (
-                                <div key={notebook.id} className="notebooks-rows">
-                                    {lengthCheck(notebook.user_email, 10)}
-                                </div>
-                            ))}
+                    ) : (
+                        <div className="notebooks-table">
+                            <div className="notebooks-header-column">
+                                <div id="t-header">Title</div>
+                                {notebooks.map(notebook => (
+                                    <div key={notebook.id} className="notebooks-header">
+                                        <Link
+                                            exact="true"
+                                            to={`/notebooks/${notebook.id}`}
+                                            className={darkMode ? 'nb-one-link dark' : 'nb-one-link light'}>
+                                            <div><i className="fa-solid fa-book" /></div>
+                                            <div>{`${lengthCheck(notebook.title, 16)} (${notebook.notes.length})`}</div>
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="notebooks-body-rows">
+                                <div id="t-created">Created By</div>
+                                {notebooks.map(notebook => (
+                                    <div key={notebook.id} className="notebooks-rows">
+                                        {lengthCheck(notebook.user_email, 10)}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </>

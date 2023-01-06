@@ -3,6 +3,7 @@ import LoginFormModal from '../LoginForm/LoginFormModal';
 import SignupFormModal from '../SignupForm/SignupFormModal';
 import logo from '../../assets/quill.png';
 import ghLogo from '../../assets/github-logo.png';
+import liLogo from '../../assets/linkedin.png';
 import promoImage from '../../assets/promo-image.png';
 import quoteImage from '../../assets/quote-blue.png';
 import { quotesArray } from '../../utils/quotes';
@@ -13,13 +14,13 @@ function SplashPage() {
     const [ showLogin, setShowLogin ] = useState(false);
     const [ showSignup, setShowSignup ] = useState(false);
     const [ scrolled, setScrolled ] = useState(false);
-    const [ quote, setQuote ] = useState(quotesArray[0].quote);
-    const [ author, setAuthor ] = useState(quotesArray[0].author);
+    const [ quote, setQuote ] = useState(quotesArray[ 0 ].quote);
+    const [ author, setAuthor ] = useState(quotesArray[ 0 ].author);
 
     const reviewsShuffle = useCallback(() => {
         const idx = Math.floor(Math.random() * quotesArray.length)
-        setQuote(quotesArray[idx].quote)
-        setAuthor(quotesArray[idx].author)
+        setQuote(quotesArray[ idx ].quote)
+        setAuthor(quotesArray[ idx ].author)
     }, [])
 
     useEffect(() => {
@@ -122,12 +123,15 @@ function SplashPage() {
                     </div>
                 </div>
                 <div className="sp-footer-links">
-                    <a className="creator-links" href="https://github.com/ricalope">
-                        <div className="footer-image">
+                    <div className="footer-image">
+                        <h5>Ricardo Lopez</h5>
+                        <a className="creator-links" href="https://github.com/ricalope" rel="noreferrer" target="_blank">
                             <img id="gh-icon" src={ghLogo} alt="github logo" />
-                            <h5>Ricardo Lopez</h5>
-                        </div>
-                    </a>
+                        </a>
+                        <a className="creator-links" href="https://www.linkedin.com/in/ricardo-lopez-23a596112/" rel="noreferrer" target="_blank">
+                            <img id="li-icon" src={liLogo} alt="linked in logo" />
+                        </a>
+                    </div>
                 </div>
             </div>
             <div id="sp-sf-outer">

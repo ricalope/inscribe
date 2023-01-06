@@ -216,3 +216,27 @@
 #form-data {
     height: 100%;
 }
+
+.e-img {
+    width: 250px;
+    height: 250px;
+}
+
+.empty-notes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-text {
+    text-align: center;
+}
+
+span {
+    color: #209CEE;
+}
+
+.sp-click {
+    cursor: pointer;
+}
