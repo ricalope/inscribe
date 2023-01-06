@@ -38,6 +38,12 @@ function Notebooks() {
         return data
     }
 
+    const formatDate = date => {
+        date = new Date(date)
+        const update = new Intl.DateTimeFormat('en-US', { dateStyle: 'short', timeStyle: 'medium' }).format(date)
+        return update
+    }
+
     return (
         <>
             <NavBar />
@@ -78,9 +84,34 @@ function Notebooks() {
                             </div>
                         </div>
                     ) : (
-                        <div className="notebooks-table">
+                        <div className={darkMode ? 'notebooks-table dark' : 'notebooks-table light'}>
                             <div className="notebooks-header-column">
-                                <div id="t-header">Title</div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>NOTEBOOK NAME</th>
+                                            <th>CREATED BY</th>
+                                            <th>UPDATED AT</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {notebooks.map((nb, idx) => (
+                                            <tr key={nb.id}>
+                                                <td>
+                                                    <Link
+                                                        exact="true" to={`/notebooks/${nb.id}`}
+                                                        className={darkMode && idx % 2 === 0 ? 'nb-one-link td-dark' : 'nb-one-link td-light'}>
+                                                        <i className="fa-solid fa-book table-book" />&nbsp;
+                                                        {`${lengthCheck(nb.title, 20)} (${nb.notes.length})`}
+                                                    </Link>
+                                                </td>
+                                                <td>{lengthCheck(nb.user_email, 16)}</td>
+                                                <td>{formatDate(nb.updated_at)}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                                {/* <div id="t-header">Title</div>
                                 {notebooks.map(notebook => (
                                     <div key={notebook.id} className="notebooks-header">
                                         <Link
@@ -91,16 +122,16 @@ function Notebooks() {
                                             <div>{`${lengthCheck(notebook.title, 16)} (${notebook.notes.length})`}</div>
                                         </Link>
                                     </div>
-                                ))}
+                                ))} */}
                             </div>
-                            <div className="notebooks-body-rows">
+                            {/* <div className="notebooks-body-rows">
                                 <div id="t-created">Created By</div>
                                 {notebooks.map(notebook => (
                                     <div key={notebook.id} className="notebooks-rows">
                                         {lengthCheck(notebook.user_email, 10)}
                                     </div>
                                 ))}
-                            </div>
+                            </div> */}
                         </div>
                     )}
                 </div>

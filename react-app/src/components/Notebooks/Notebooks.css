@@ -7,7 +7,6 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
-    background-color: #FFFFFF;
     width: 100%;
     height: 100%;
     padding: 15px;
@@ -71,7 +70,6 @@
     padding: 5px;
 }
 
-.nb-one-link,
 #new-nb-link {
     text-decoration: none;
     display: flex;
@@ -144,5 +142,54 @@
 
 .nb-del-mod:hover,
 .nb-ed-mod:hover {
+    color: #209CEE;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    border-bottom: 1px solid gray;
+}
+
+th {
+    font-size: 13px;
+}
+
+td {
+    padding: 10px;
+    width: 250px;
+    text-align: center;
+}
+
+td:first-child {
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+    color: black;
+}
+
+tr:hover {
+    background-color: rgba(32, 156, 238, 0.3);
+}
+
+.nb-one-link {
+    text-decoration: none;
+}
+
+.td-dark {
+    color: white;
+}
+
+.td-light {
+    color: black;
+}
+
+.table-book {
+    font-size: 13px;
     color: #209CEE;
 }

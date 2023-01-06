@@ -16,11 +16,15 @@ const NavBar = () => {
     const [ showNew, setShowNew ] = useState(false);
     const [ showLogout, setShowLogout ] = useState(false);
 
-    const sessionUser = useSelector(state => state.session.user)
+    const sessionUser = useSelector(state => state.session.user);
+
     const { darkMode, toggleMode } = useContext(DarkModeContext);
 
+    useEffect(() => {
+        localStorage.setItem('DARK_MODE', darkMode)
+    }, [darkMode])
+
     const themeChange = () => {
-        localStorage.setItem('theme', !darkMode);
         toggleMode();
     }
 
