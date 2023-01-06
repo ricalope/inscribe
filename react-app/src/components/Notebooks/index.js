@@ -33,9 +33,15 @@ function Notebooks() {
 
     const lengthCheck = (data, len) => {
         if (data.length > len) {
-            return `${data.slice(0,  len)}...`
+            return `${data.slice(0, len)}...`
         }
         return data
+    }
+
+    const formatDate = date => {
+        date = new Date(date)
+        const update = new Intl.DateTimeFormat('en-US', { dateStyle: 'short', timeStyle: 'medium' }).format(date)
+        return update
     }
 
     return (
@@ -78,28 +84,34 @@ function Notebooks() {
                             </div>
                         </div>
                     ) : (
-                        <div className="notebooks-table">
+                        <div className={darkMode ? 'notebooks-table dark' : 'notebooks-table light'}>
                             <div className="notebooks-header-column">
                                 <table>
-                                <thead>
-                                    <th>NAME</th>
-                                    <th>CREATED BY</th>
-                                </thead>
-                                <tbody>
-                                    {notebooks.map(nb => (
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                <Link exact="true" to={`/notebooks/${nb.id}`}
-                                                    className={darkMode ? 'nb-one-link td-dark' : 'nb-one-link td-light'}>
-                                                    {`${lengthCheck(nb.title, 16)} (${nb.notes.length})`}
-                                                </Link>
-                                            </td>
-                                            <td>{lengthCheck(nb.user_email, 10)}</td>
+                                            <th>NOTEBOOK NAME</th>
+                                            <th>CREATED BY</th>
+                                            <th>UPDATED AT</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                            {/* <div id="t-header">Title</div>
+                                    </thead>
+                                    <tbody>
+                                        {notebooks.map((nb, idx) => (
+                                            <tr key={nb.id}>
+                                                <td>
+                                                    <Link
+                                                        exact="true" to={`/notebooks/${nb.id}`}
+                                                        className={darkMode && idx % 2 === 0 ? 'nb-one-link td-dark' : 'nb-one-link td-light'}>
+                                                        <i className="fa-solid fa-book table-book" />&nbsp;
+                                                        {`${lengthCheck(nb.title, 20)} (${nb.notes.length})`}
+                                                    </Link>
+                                                </td>
+                                                <td>{lengthCheck(nb.user_email, 16)}</td>
+                                                <td>{formatDate(nb.updated_at)}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                                {/* <div id="t-header">Title</div>
                                 {notebooks.map(notebook => (
                                     <div key={notebook.id} className="notebooks-header">
                                         <Link

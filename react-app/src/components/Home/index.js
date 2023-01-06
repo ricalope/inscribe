@@ -49,8 +49,7 @@ function Home() {
         return 0
     })
 
-    const theme = useContext(DarkModeContext);
-    const darkMode = theme.state.darkMode;
+    const { darkMode } = useContext(DarkModeContext);
 
     return (
         <>

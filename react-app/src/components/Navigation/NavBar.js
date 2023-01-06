@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 import { addNoteThunk } from '../../store/note';
@@ -18,17 +18,14 @@ const NavBar = () => {
 
     const sessionUser = useSelector(state => state.session.user);
 
-    const theme = useContext(DarkModeContext);
-    const darkMode = theme.state.darkMode;
+    const { darkMode, toggleMode } = useContext(DarkModeContext);
+
+    useEffect(() => {
+        localStorage.setItem('DARK_MODE', darkMode)
+    }, [darkMode])
 
     const themeChange = () => {
-        // localStorage.setItem('theme', !darkMode);
-        // toggleMode();
-        if (darkMode) {
-            theme.dispatch({ type: 'LIGHTMODE' })
-        } else {
-            theme.dispatch({ type: 'DARKMODE' })
-        }
+        toggleMode();
     }
 
     const createNote = async () => {

@@ -74,6 +74,7 @@ def edit_notebook_by_id(id):
 
     if form.validate_on_submit():
         notebook.title = form.data['title']
+        notebook.set_updated_at()
         db.session.commit()
         return notebook.to_dict()
 

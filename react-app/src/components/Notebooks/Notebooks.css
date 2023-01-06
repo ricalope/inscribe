@@ -7,7 +7,6 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
-    background-color: #FFFFFF;
     width: 100%;
     height: 100%;
     padding: 15px;
@@ -151,21 +150,46 @@ table {
     border-collapse: collapse;
 }
 
+thead {
+    border-bottom: 1px solid gray;
+}
+
+th {
+    font-size: 13px;
+}
+
 td {
-    border: 1px solid gray;
-    padding: 5px;
+    padding: 10px;
+    width: 250px;
+    text-align: center;
+}
+
+td:first-child {
     text-align: left;
 }
 
 tr:nth-child(even) {
     background-color: #dddddd;
+    color: black;
 }
 
 tr:hover {
-    background-color: #209CEE;
+    background-color: rgba(32, 156, 238, 0.3);
 }
 
-.nb-one-link.light {
+.nb-one-link {
     text-decoration: none;
+}
+
+.td-dark {
     color: white;
+}
+
+.td-light {
+    color: black;
+}
+
+.table-book {
+    font-size: 13px;
+    color: #209CEE;
 }
