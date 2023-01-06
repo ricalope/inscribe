@@ -131,7 +131,7 @@ function OneNotebook() {
                             <div className="empty-text">
                                 <p>
                                     You currently have no notes for this notebook <br />
-                                    Click the <span id="sp-click" onClick={newNote}>+ Add Note to Notebook</span> button here or at the top to get started
+                                    Click the <span className="sp-click" onClick={newNote}>+ Add Note to Notebook</span> button here or at the top to get started
                                 </p>
                             </div>
                         </div>
