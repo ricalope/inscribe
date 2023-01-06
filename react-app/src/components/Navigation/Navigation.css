@@ -107,6 +107,7 @@
     gap: 10px;
 }
 
+#li-logo,
 #gh-logo {
     width: 20px;
     height: 20px;
@@ -180,4 +181,9 @@
 
 .new-note:hover {
     background-color: #38a7f0;
+}
+
+.blank-div {
+    background-color: white;
+    height: 100%;
 }
