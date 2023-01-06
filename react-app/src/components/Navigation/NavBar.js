@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 import { addNoteThunk } from '../../store/note';
 import ghLogo from '../../assets/github-logo.png';
+import liLogo from '../../assets/linkedin.png';
 import logo from '../../assets/quill.png';
 import LogoutModal from '../auth/LogoutModal';
 import AddNotebookModal from '../AddNotebook/AddNotebookModal';
@@ -43,7 +44,6 @@ const NavBar = () => {
         }
         return data
     }
-
 
     return (
         <div className="nav-main-container">
@@ -156,8 +156,13 @@ const NavBar = () => {
                     )}
                 </div>
                 <div className="github-logo">
-                    <a className="creator-links" href="https://github.com/ricalope">
+                    <a className="creator-links" href="https://github.com/ricalope" rel="noreferrer" target="_blank">
                         <img id="gh-logo" src={ghLogo} alt="github logo" />
+                    </a>
+                </div>
+                <div className="github-logo">
+                    <a className="creator-links" href="https://www.linkedin.com/in/ricardo-lopez-23a596112/" rel="noreferrer" target="_blank">
+                        <img id="li-logo" src={liLogo} alt="linked in logo" />
                     </a>
                 </div>
                 <div className="dev-name">
