@@ -111,6 +111,12 @@
 #gh-logo {
     width: 20px;
     height: 20px;
+    transition: transform 0.15s ease-in;
+}
+
+#li-logo:hover,
+#gh-logo:hover {
+    transform: scale(1.5);
 }
 
 .dev-name {
@@ -124,6 +130,11 @@
     background-color: transparent;
     cursor: pointer;
     font-size: 20px;
+    transition: transform 0.15s ease-in;
+}
+
+#lo-btn:hover {
+    transform: scale(1.5);
 }
 
 .site-logo {
