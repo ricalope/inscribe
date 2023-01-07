@@ -11,7 +11,7 @@
     height: 100%;
     padding: 15px;
     border-radius: 5px;
-
+    box-shadow: 0 0 5px #262626;
 }
 
 .length-new-div {
@@ -31,7 +31,6 @@
 }
 
 .notebooks-header-column {
-    /* border: 2px solid red; */
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -173,12 +172,12 @@ tr:nth-child(even) {
     color: black;
 }
 
-tr:hover {
-    background-color: rgba(32, 156, 238, 0.3);
-}
-
 .nb-one-link {
     text-decoration: none;
+}
+
+.nb-one-link:hover {
+    color: #209CEE;
 }
 
 .td-dark {

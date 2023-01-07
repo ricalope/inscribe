@@ -111,27 +111,7 @@ function Notebooks() {
                                         ))}
                                     </tbody>
                                 </table>
-                                {/* <div id="t-header">Title</div>
-                                {notebooks.map(notebook => (
-                                    <div key={notebook.id} className="notebooks-header">
-                                        <Link
-                                            exact="true"
-                                            to={`/notebooks/${notebook.id}`}
-                                            className={darkMode ? 'nb-one-link dark' : 'nb-one-link light'}>
-                                            <div><i className="fa-solid fa-book" /></div>
-                                            <div>{`${lengthCheck(notebook.title, 16)} (${notebook.notes.length})`}</div>
-                                        </Link>
-                                    </div>
-                                ))} */}
                             </div>
-                            {/* <div className="notebooks-body-rows">
-                                <div id="t-created">Created By</div>
-                                {notebooks.map(notebook => (
-                                    <div key={notebook.id} className="notebooks-rows">
-                                        {lengthCheck(notebook.user_email, 10)}
-                                    </div>
-                                ))}
-                            </div> */}
                         </div>
                     )}
                 </div>
