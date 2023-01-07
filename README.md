@@ -2,9 +2,8 @@
 
 
 ## About the app
----
 
-This app was cloned from the popular website, Evernote. Users can expect to be able to create notes, and notebooks to store their notes in. However unlike Evernote you don't need to have a notebook to create a note. Right now users can make and save notes, read all of the created notes by navigating to the notes link and update said notes from the pre-populated edit form when clicking on a note. If users would like to group a series of notes around a specific topic they can do so by creating a notebook then subsequently creating notes from within that notebook.
+This app was cloned from the popular website, Evernote. Users can expect to be able to create notes, and notebooks to store their notes in. However unlike Evernote you don't need to have a notebook to create a note. Right now users can make and save notes, read all of the created notes by navigating to the notes link and update said notes from the pre-populated edit form when clicking on a note. If users would like to group a series of notes around a specific topic they can do so by creating a notebook then subsequently creating notes from within that notebook. Users will also have a scratch pad to jot down quick notes on the home page, the notes will stay upon navigation across the site however you will be notified that the scratch pad will be cleared upon logout.
 
 I have much more planned for the future of Inscribe such as:
 * adding the ability to create and track tasks.
@@ -15,7 +14,6 @@ I have much more planned for the future of Inscribe such as:
 In order to use the app you can either use the live site link listed here [Inscribe](https://inscribe.onrender.com/) or by cloning the repository and following the steps titled "Getting started with Inscribe", below.
 
 ## Getting started with Inscribe
----
 
 1. Clone this repository (only this branch)
 
@@ -56,12 +54,17 @@ In order to use the app you can either use the live site link listed here [Inscr
 7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
 
 ## Wiki Links
----
 
 The following links offer more details for my database schema, features list, wireframes, and user stories.
+>[Database Schema](https://github.com/ricalope/inscribe/wiki/Database-Schema)
+
+>[Features List](https://github.com/ricalope/inscribe/wiki/Features-List)
+
+>[Wireframes](https://github.com/ricalope/inscribe/wiki/Wireframes)
+
+>[User Stories](https://github.com/ricalope/inscribe/wiki/User-Stories)
 
 ## List of technologies used for this project
----
 
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E&style=plastic)
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white&style=plastic)
@@ -74,13 +77,17 @@ The following links offer more details for my database schema, features list, wi
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54&style=plastic)
 
 ## Inscribe Splash Page
----
+
+<img width="1306" alt="Screenshot 2023-01-06 at 9 41 25 AM" src="https://user-images.githubusercontent.com/102694854/211164140-085527ab-9675-49bf-8240-d9c30ba456ec.png">
 
 ## Inscribe Home Page
----
+
+<img width="1310" alt="Screenshot 2023-01-06 at 9 41 55 AM" src="https://user-images.githubusercontent.com/102694854/211164172-7ac7ba47-29ed-41cd-9728-1ed35e5bc71f.png">
 
 ## Inscribe Notes Page
----
+
+<img width="1310" alt="Screenshot 2023-01-06 at 9 42 08 AM" src="https://user-images.githubusercontent.com/102694854/211164325-af1486ce-1e6d-4805-b962-1969c7c84fcc.png">
 
 ## Inscribe Notebooks Page
----
+
+<img width="1103" alt="Screenshot 2023-01-07 at 11 01 57 AM" src="https://user-images.githubusercontent.com/102694854/211164308-418e7ca0-d6f2-4ec8-b798-bcfd5561337f.png">
