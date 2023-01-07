@@ -28,7 +28,7 @@
     border-radius: 15px;
     padding: 8px;
     overflow: hidden;
-    box-shadow: 0 0 3px #969696;
+    box-shadow: 0 0 5px #262626;
 }
 
 .notes-title-div {
@@ -60,7 +60,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    box-shadow: 0 0 3px #969696;
+    box-shadow: 0 0 5px #262626;
 }
 
 .home-nc-div,
@@ -77,6 +77,7 @@
 
 }
 
+.nbc-div:hover,
 .home-nc-div:hover {
     box-shadow: 0 0 3px black;
 }
@@ -143,7 +144,7 @@
     padding: 8px;
     border-radius: 15px;
     overflow-y: hidden;
-    box-shadow: 0 0 3px #969696;
+    box-shadow: 0 0 5px #262626;
 }
 
 .notebooks-title-div {
@@ -165,6 +166,15 @@
     gap: 10px;
 }
 
+.n-h4:hover,
+.fa-angle-right:hover {
+    color: #209CEE;
+}
+
 .fa-angle-right {
     font-size: 12px;
+}
+
+.new-nb-btn:hover {
+    color: #209CEE;
 }
