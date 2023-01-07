@@ -20,12 +20,26 @@ function Home() {
     const localScratch = localStorage.getItem('scratchPad');
     const [ scratch, setScratch ] = useState(localScratch || '');
     const [ showNew, setShowNew ] = useState(false);
+    const [ message, setMessage ] = useState('');
 
     useEffect(() => {
         (async () => {
             await dispatch(getAllNotesThunk())
             await dispatch(getAllNotebooksThunk())
         })()
+
+
+        const today = new Date()
+        const time = today.getHours()
+        if (time < 12) {
+            setMessage('Good Morning!')
+        } else if (time > 12 && time < 17) {
+            setMessage('Good Afternoon!')
+        } else {
+            setMessage('Good Evening!')
+        }
+
+
     }, [ dispatch ])
 
     const handleInput = e => {
@@ -56,10 +70,10 @@ function Home() {
             <NavBar />
             <div className="home-main-container">
                 <div className="home-top-bar">
-                    <h1>Good Afternoon!</h1>
+                    <h1>{message}</h1>
                 </div>
                 <div className="home-notes-container">
-                    <div className={ darkMode ? 'notes-div dark' : 'notes-div light' }>
+                    <div className={darkMode ? 'notes-div dark' : 'notes-div light'}>
                         <div className="notes-title-div">
                             <Link exact="true" to="/notes" className="all-notes">
                                 <div className="nb-t">

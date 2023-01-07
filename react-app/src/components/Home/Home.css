@@ -178,3 +178,8 @@
 .new-nb-btn:hover {
     color: #209CEE;
 }
+
+.fa-file-circle-plus:hover,
+.fa-folder-plus:hover {
+    color: #209CEE;
+}
