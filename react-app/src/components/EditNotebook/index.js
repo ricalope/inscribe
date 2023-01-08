@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { DarkModeContext } from '../../context/ThemeContext';
 import { updateNotebookThunk } from '../../store/notebook';
 
 
-function EditNotebook({ setShowEdit }) {
+function EditNotebook({ setShowEdit, notebookId }) {
     const dispatch = useDispatch();
-    const { notebookId } = useParams();
 
     const [ title, setTitle ] = useState('');
     const { darkMode } = useContext(DarkModeContext);

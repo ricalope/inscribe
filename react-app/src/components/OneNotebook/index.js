@@ -6,8 +6,9 @@ import { getAllNotesThunk, addNoteThunk } from '../../store/note';
 import { DarkModeContext } from '../../context/ThemeContext';
 import NavBar from '../Navigation/NavBar';
 import EditNote from '../EditNote/index';
-import DeleteNotebookModal from '../DeleteNotebook/DeleteNotebookModal';
-import EditNotebookModal from '../EditNotebook/EditNotebookModal';
+// import DeleteNotebookModal from '../DeleteNotebook/DeleteNotebookModal';
+// import EditNotebookModal from '../EditNotebook/EditNotebookModal';
+import Actions from '../Actions';
 import imgBlack from '../../assets/empty-folder-black.png';
 import imgWhite from '../../assets/empty-folder-white.png';
 
@@ -93,7 +94,8 @@ function OneNotebook() {
                             </div>
                         </div>
                         <div className="nb-delete-modal">
-                            <div
+                            <Actions notebookId={notebookId} />
+                            {/* <div
                                 className={darkMode ? 'newnote-nb dark' : 'newnote-nb light'}
                                 onClick={newNote}
                             >
@@ -108,6 +110,7 @@ function OneNotebook() {
                                 <DeleteNotebookModal
                                     showDelete={showDelete}
                                     setShowDelete={setShowDelete}
+                                    notebookId={notebookId}
                                 />
                             )}
                             <button
@@ -119,8 +122,9 @@ function OneNotebook() {
                                 <EditNotebookModal
                                     showEdit={showEdit}
                                     setShowEdit={setShowEdit}
+                                    notebookId={notebookId}
                                 />
-                            )}
+                            )} */}
                         </div>
                     </div>
                     {populated ? (

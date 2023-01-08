@@ -1,21 +1,24 @@
 import React, { useContext } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { deleteNotebookThunk } from '../../store/notebook';
+import { deleteNotebookThunk, getAllNotebooksThunk } from '../../store/notebook';
 import { DarkModeContext } from '../../context/ThemeContext';
 
 
-function DeleteNotebook({ setShowDelete }) {
+function DeleteNotebook({ setShowDelete, notebookId }) {
 
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const { notebookId } = useParams();
     const { darkMode } = useContext(DarkModeContext);
+
+    console.log('deleteNotebook',notebookId)
 
     const onSubmit = async () => {
         await dispatch(deleteNotebookThunk(notebookId))
+        await dispatch(getAllNotebooksThunk())
         history.push('/notebooks')
+        // setShowDelete(false)
     }
 
     return (
