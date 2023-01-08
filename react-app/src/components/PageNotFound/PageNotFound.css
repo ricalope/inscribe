@@ -3,9 +3,9 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
-    background: url('https://media.tenor.com/pXe-GokoyA0AAAAC/the-s-impsons-bush.gif') no-repeat center center fixed;
+    background: url('../../assets/astronaut.gif') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -17,18 +17,46 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    padding: 15px;
     color: white;
 }
 
+.pnf-status {
+    padding-top: 100px;
+}
+
+.pnf-header,
+.pnf-body,
+.pnf-reroute {
+    padding-bottom: 40px;
+}
+
 #pnf-h1 {
-    font-family: 'Akbar';
+    font-family: 'Roboto Condensed';
+    font-size: 180px;
+    text-shadow: 0 0 4px black;
+}
+
+#pnf-h2 {
+    font-family: 'Roboto Condensed';
     font-size: 50px;
-    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+    text-shadow: 0 0 4px black;
 }
 
 #pnf-ptag {
-    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+    font-family: 'Roboto Condensed';
     font-size: 25px;
+    text-shadow: 0 0 4px black;
+}
+
+.pnf-home-link {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    background-color: #209CEE;
+    border-radius: 4px;
+    transition: background-color 1s ease;
+}
+
+.pnf-home-link:hover {
+    background-color: #833b93;
 }
