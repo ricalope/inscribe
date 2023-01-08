@@ -98,18 +98,19 @@ function Notebooks() {
                                     </thead>
                                     <tbody>
                                         {notebooks.map((nb, idx) => (
-                                            <tr key={nb.id}>
+                                            <tr key={nb.id} className={darkMode ? "tr-dark" : "tr-light"}>
                                                 <td>
                                                     <Link
                                                         exact="true" to={`/notebooks/${nb.id}`}
-                                                        className={darkMode && idx % 2 === 0 ? 'nb-one-link td-dark' : 'nb-one-link td-light'}>
+                                                        className={darkMode ? 'nb-one-link td-dark' : 'nb-one-link td-light'}>
                                                         <i className="fa-solid fa-book table-book" />&nbsp;
                                                         {`${lengthCheck(nb.title, 20)} (${nb.notes.length})`}
                                                     </Link>
                                                 </td>
                                                 <td>{lengthCheck(nb.user_email, 16)}</td>
                                                 <td>{formatDate(nb.updated_at)}</td>
-                                                <td><Actions
+                                                <td>
+                                                    <Actions
                                                         notebookId={nb.id}
                                                     />
                                                 </td>

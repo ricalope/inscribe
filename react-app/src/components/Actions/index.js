@@ -42,7 +42,10 @@ function Actions({ notebookId }) {
     return (
         <>
             <div className="actions-container">
-                <button className="actions-button" onClick={openMenu}>
+                <button
+                    className={darkMode ? "actions-button td-dark" : "actions-button td-light"}
+                    onClick={openMenu}
+                    >
                     <i className="fa-solid fa-ellipsis" />
                 </button>
             </div>

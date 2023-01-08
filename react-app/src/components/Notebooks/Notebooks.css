@@ -65,7 +65,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    width: 50%;
+    width: 80%;
     padding: 5px;
 }
 
@@ -128,7 +128,6 @@
     align-items: flex-end;
     justify-content: space-between;
     height: 100%;
-    width: 50%;
     padding: 5px;
 }
 
@@ -169,8 +168,7 @@ td:first-child {
 }
 
 tr:nth-child(even) {
-    background-color: #dddddd;
-    color: black;
+    background-color: #464646;
 }
 
 .nb-one-link {
@@ -192,4 +190,8 @@ tr:nth-child(even) {
 .table-book {
     font-size: 13px;
     color: #209CEE;
+}
+
+.tr-light:nth-child(even) {
+    background-color: #969696;
 }
