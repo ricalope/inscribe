@@ -48,6 +48,10 @@ def post_new_notebook():
 @login_required
 def get_one_notebook(id):
     notebook = Notebook.query.get(id)
+
+    if not notebook:
+        return { "errors": "Notebook could not be found" }, 404
+
     return notebook.to_dict()
 
 

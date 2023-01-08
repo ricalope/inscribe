@@ -5,12 +5,13 @@ import { getOneNotebookThunk } from '../../store/notebook';
 import { getAllNotesThunk, addNoteThunk } from '../../store/note';
 import { DarkModeContext } from '../../context/ThemeContext';
 import NavBar from '../Navigation/NavBar';
-import EditNote from '../EditNote/index';
+import EditNote from '../EditNote';
 // import DeleteNotebookModal from '../DeleteNotebook/DeleteNotebookModal';
 // import EditNotebookModal from '../EditNotebook/EditNotebookModal';
 import Actions from '../Actions';
 import imgBlack from '../../assets/empty-folder-black.png';
 import imgWhite from '../../assets/empty-folder-white.png';
+import PageNotFound from '../PageNotFound';
 
 
 function OneNotebook() {
@@ -20,8 +21,9 @@ function OneNotebook() {
     const [ title, setTitle ] = useState('');
     const [ body, setBody ] = useState('');
     const [ noteId, setNoteId ] = useState(0);
-    const [ showDelete, setShowDelete ] = useState(false);
-    const [ showEdit, setShowEdit ] = useState(false);
+    const [ errors, setErrors ] = useState([]);
+    // const [ showDelete, setShowDelete ] = useState(false);
+    // const [ showEdit, setShowEdit ] = useState(false);
     const [ populated, setPopulated ] = useState(true);
 
     const notebookObj = useSelector(state => state.notebooks.oneNotebook);
@@ -32,8 +34,11 @@ function OneNotebook() {
 
     useEffect(() => {
         (async () => {
-            await dispatch(getOneNotebookThunk(notebookId))
             await dispatch(getAllNotesThunk())
+            const data = await dispatch(getOneNotebookThunk(notebookId))
+            if (data.errors) {
+                setErrors(data)
+            }
         })()
         if (notes.length > 0) {
             setTitle(notes[ 0 ].title)
@@ -78,7 +83,7 @@ function OneNotebook() {
         return data
     }
 
-    return (
+    return errors.errors ? (<PageNotFound />) : (
         <>
             <NavBar />
             <div className="outer-notes">
