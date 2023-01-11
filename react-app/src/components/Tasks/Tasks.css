@@ -1,0 +1,11 @@
+.tasks-outer-container {
+    display: flex;
+    padding: 10px;
+    width: 100vw;
+    max-height: 100vh;
+    gap: 10px;
+}
+
+.tasks-main-container {
+    background-color: white;
+}

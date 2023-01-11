@@ -6,8 +6,6 @@ import { getAllNotesThunk, addNoteThunk } from '../../store/note';
 import { DarkModeContext } from '../../context/ThemeContext';
 import NavBar from '../Navigation/NavBar';
 import EditNote from '../EditNote';
-// import DeleteNotebookModal from '../DeleteNotebook/DeleteNotebookModal';
-// import EditNotebookModal from '../EditNotebook/EditNotebookModal';
 import Actions from '../Actions';
 import imgBlack from '../../assets/empty-folder-black.png';
 import imgWhite from '../../assets/empty-folder-white.png';
@@ -22,8 +20,6 @@ function OneNotebook() {
     const [ body, setBody ] = useState('');
     const [ noteId, setNoteId ] = useState(0);
     const [ errors, setErrors ] = useState([]);
-    // const [ showDelete, setShowDelete ] = useState(false);
-    // const [ showEdit, setShowEdit ] = useState(false);
     const [ populated, setPopulated ] = useState(true);
 
     const notebookObj = useSelector(state => state.notebooks.oneNotebook);
@@ -100,36 +96,6 @@ function OneNotebook() {
                         </div>
                         <div className="nb-delete-modal">
                             <Actions notebookId={notebookId} />
-                            {/* <div
-                                className={darkMode ? 'newnote-nb dark' : 'newnote-nb light'}
-                                onClick={newNote}
-                            >
-                                + Add Note to Notebook
-                            </div>
-                            <button
-                                className={darkMode ? 'nb-del-mod dark' : 'nb-del-mod light'}
-                                onClick={() => setShowDelete(true)}>
-                                Delete Notebook
-                            </button>
-                            {showDelete && (
-                                <DeleteNotebookModal
-                                    showDelete={showDelete}
-                                    setShowDelete={setShowDelete}
-                                    notebookId={notebookId}
-                                />
-                            )}
-                            <button
-                                className={darkMode ? 'nb-ed-mod dark' : 'nb-ed-mod light'}
-                                onClick={() => setShowEdit(true)}>
-                                Edit Notebook
-                            </button>
-                            {showEdit && (
-                                <EditNotebookModal
-                                    showEdit={showEdit}
-                                    setShowEdit={setShowEdit}
-                                    notebookId={notebookId}
-                                />
-                            )} */}
                         </div>
                     </div>
                     {populated ? (

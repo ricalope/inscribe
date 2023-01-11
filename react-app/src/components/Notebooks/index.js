@@ -97,7 +97,7 @@ function Notebooks() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {notebooks.map((nb, idx) => (
+                                        {notebooks.map((nb) => (
                                             <tr key={nb.id} className={darkMode ? "tr-dark" : "tr-light"}>
                                                 <td>
                                                     <Link

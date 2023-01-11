@@ -2,8 +2,8 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 
 
-class Note(db.Model):
-    __tablename__ = "notes"
+class Task(db.Model):
+    __tablename__ = "tasks"
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -11,27 +11,29 @@ class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     notebook_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("notebooks.id")))
-    title = db.Column(db.Text, nullable=False)
     body = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.Text, nullable=False, default=datetime.utcnow)
-    updated_at = db.Column(db.Text, nullable=False, default=datetime.utcnow)
+    checked = db.Column(db.Boolean, default=False)
+    task_date = db.Column(db.DateTime)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    user = db.relationship("User", back_populates="note")
-    notebook = db.relationship("Notebook", back_populates="note")
+
+    user = db.relationship("User", back_populates="task")
+    notebook = db.relationship("Notebook", back_populates="task")
+
 
     def set_updated_at(self):
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.utcnotw()
 
-    def __repr__(self):
-        return f"user_id({self.user_id}) title({self.title}) body({self.body})"
 
     def to_dict(self):
         return {
             "id": self.id,
             "user_id": self.user_id,
             "notebook_id": self.notebook_id,
-            "title": self.title,
             "body": self.body,
+            "checked": self.checked,
+            "task_date": self.task_date,
             "created_at": self.created_at,
             "updated_at": self.updated_at
         }

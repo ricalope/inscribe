@@ -114,7 +114,7 @@ const NavBar = () => {
                     </NavLink>
                 </div>
                 <div className="navlink">
-                    <NavLink to="/coming-soon" exact={true} activeClassName="active" className="nl-link">
+                    <NavLink to="/tasks" exact={true} activeClassName="active" className="nl-link">
                         <div className="nav-inner">
                             <div><i className="fa-solid fa-circle-check fa-match" /></div>
                             <p className="p-link">Tasks</p>
