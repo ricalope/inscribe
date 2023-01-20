@@ -33,7 +33,6 @@ const SignUpForm = () => {
         } else if (password !== repeatPassword) {
             setErrors([ 'Passwords must match' ])
         }
-        setSubmitted(false);
     };
 
     useEffect(() => {
@@ -42,10 +41,7 @@ const SignUpForm = () => {
             errors.push('Password length must be at least 8 characters.')
         }
         setErrors(errors)
-        return () => {
-            setErrors([])
-        }
-    }, [ password ])
+    }, [ password.length ])
 
     const updateUsername = (e) => {
         setUsername(e.target.value);

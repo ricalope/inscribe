@@ -5,6 +5,7 @@ import { getAllNotebooksThunk } from '../../store/notebook';
 import { DarkModeContext } from '../../context/ThemeContext';
 import NavBar from '../Navigation/NavBar';
 import AddNotebookModal from '../AddNotebook/AddNotebookModal';
+import Actions from '../Actions';
 import imgBlack from '../../assets/empty-folder-black.png';
 import imgWhite from '../../assets/empty-folder-white.png';
 import './Notebooks.css';
@@ -92,21 +93,27 @@ function Notebooks() {
                                             <th>NOTEBOOK NAME</th>
                                             <th>CREATED BY</th>
                                             <th>UPDATED AT</th>
+                                            <th>ACTIONS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {notebooks.map((nb, idx) => (
-                                            <tr key={nb.id}>
+                                        {notebooks.map((nb) => (
+                                            <tr key={nb.id} className={darkMode ? "tr-dark" : "tr-light"}>
                                                 <td>
                                                     <Link
                                                         exact="true" to={`/notebooks/${nb.id}`}
-                                                        className={darkMode && idx % 2 === 0 ? 'nb-one-link td-dark' : 'nb-one-link td-light'}>
+                                                        className={darkMode ? 'nb-one-link td-dark' : 'nb-one-link td-light'}>
                                                         <i className="fa-solid fa-book table-book" />&nbsp;
                                                         {`${lengthCheck(nb.title, 20)} (${nb.notes.length})`}
                                                     </Link>
                                                 </td>
                                                 <td>{lengthCheck(nb.user_email, 16)}</td>
                                                 <td>{formatDate(nb.updated_at)}</td>
+                                                <td>
+                                                    <Actions
+                                                        notebookId={nb.id}
+                                                    />
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>

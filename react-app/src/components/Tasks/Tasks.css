@@ -1,0 +1,57 @@
+.tasks-outer-container {
+    padding: 10px;
+    width: 100vw;
+    max-height: 100vh;
+}
+
+.tasks-main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+}
+
+.tasks-header {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+    border: 1px solid red;
+    height: 100px;
+}
+
+.t-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.t-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.t-new {
+    align-self: center;
+}
+
+.t-h1 {
+    font-size: 20px;
+}
+
+.t-count {
+    color: #969696;
+    font-size: 13px;
+    font-weight: 300;
+    padding-left: 5px;
+}
+
+.edit-task-form-container {
+    display: flex;
+    border: 1px solid gray;
+}

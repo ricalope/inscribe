@@ -62,7 +62,7 @@ export const getOneNotebookThunk = notebookId => async dispatch => {
     else if (res.status < 500) {
         const data = await res.json()
         if (data.errors) {
-            return data.errors
+            return data
         }
     }
     return ['An error has occurred. Please try again.']

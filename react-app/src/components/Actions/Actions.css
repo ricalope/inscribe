@@ -1,0 +1,58 @@
+.actions-container {
+    position: relative;
+}
+
+.actions-dropdown {
+    position: absolute;
+    margin-left: 1.05em;
+    width: 200px;
+    height: fit-content;
+    box-shadow: 0 0 5px #262626;
+    z-index: 1;
+    margin-top: 13px;
+    border-radius: 2px;
+    padding: 10px 0 10px 0;
+}
+
+.actions-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.actions-button:hover {
+    color: #209CEE;
+}
+
+.nb-dark {
+    background-color: #464646;
+}
+
+.nb-light {
+    background-color: #969696;
+}
+
+.actions-add-note {
+    padding: 6px;
+}
+
+.actions-add-note:hover {
+    background-color: rgba(200,200,200,0.4);
+    text-decoration: underline;
+}
+
+.action-link {
+    text-decoration: none;
+}
+
+.actions-delete,
+.actions-rename {
+    padding: 6px;
+    cursor: pointer;
+}
+
+.actions-delete:hover,
+.actions-rename:hover {
+    background-color: rgba(200,200,200,0.4);
+    text-decoration: underline;
+}
