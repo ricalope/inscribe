@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 // import { DarkModeContext } from '../../context/ThemeContext';
 import { editTaskThunk } from '../../store/task';
+import DeleteTaskModal from '../../components/DeleteTask/DeleteTaskModal';
 
 
 function EditTask({ taskId, taskIndex, taskChecked, taskBody, taskDate }) {
@@ -22,13 +23,11 @@ function EditTask({ taskId, taskIndex, taskChecked, taskBody, taskDate }) {
     const [ checked, setChecked ] = useState(taskChecked);
     const [ body, setBody ] = useState(taskBody);
     const [ date, setDate ] = useState(formattedDate(taskDate));
+    const [ showDelete, setShowDelete ] = useState(false);
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        console.log(date)
-        console.log(pythonDate(date))
-        console.log(formattedDate(date))
         const formData = {
             taskId,
             checked,
@@ -68,11 +67,25 @@ function EditTask({ taskId, taskIndex, taskChecked, taskBody, taskDate }) {
                     </div>
                     <div className="t-edit-btns">
                         <button type="submit" className="t-submit">
-                            submit
+                            Submit
+                        </button>
+                        <button
+                            type="button"
+                            className="t-del-button"
+                            onClick={() => setShowDelete(true)}
+                        >
+                            Delete
                         </button>
                     </div>
                 </div>
             </form>
+            {showDelete && (
+                <DeleteTaskModal
+                    taskId={taskId}
+                    showDelete={showDelete}
+                    setShowDelete={setShowDelete}
+                />
+            )}
         </>
 
     )
