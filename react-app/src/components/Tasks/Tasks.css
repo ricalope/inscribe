@@ -54,4 +54,21 @@
 .edit-task-form-container {
     display: flex;
     border: 1px solid gray;
+    padding: 10px;
+    gap: 10px;
+}
+
+.del-task-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 150px;
+    border-radius: 3px;
+    padding: 10px;
+    gap: 20px;
+}
+
+.t-edit-btns {
+    display: flex;
+    gap: 10px;
 }

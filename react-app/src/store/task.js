@@ -1,6 +1,7 @@
 const GET_TASKS = 'tasks/GET_TASKS';
 const ADD_TASK = 'tasks/ADD_TASK';
 const EDIT_TASK = 'tasks/EDIT_TASK';
+const DELETE_TASK = 'tasks/DELETE_TASKS';
 
 
 
@@ -18,6 +19,12 @@ const addTask = task => ({
 
 const addCheck = task => ({
     type: EDIT_TASK,
+    task
+})
+
+
+const deleteTask = task => ({
+    type: DELETE_TASK,
     task
 })
 
@@ -80,6 +87,18 @@ export const editTaskThunk = task => async dispatch => {
 }
 
 
+export const deleteTaskThunk = taskId => async dispatch => {
+    const res = await fetch(`/api/tasks/${taskId}`, {
+        method: "DELETE"
+    })
+    if (res.ok) {
+        dispatch(deleteTask(taskId))
+        return
+    }
+    return ['An error has occurred. Please try again.']
+}
+
+
 const initialState = { allTasks: {}, oneTask: {} }
 
 
@@ -98,6 +117,11 @@ const tasksReducer = (state = initialState, action) => {
         case EDIT_TASK: {
             const newState = { ...state, allTasks: { ...state.allTasks }, oneTask: {} }
             newState.allTasks[action.task.id] = action.task
+            return newState
+        }
+        case DELETE_TASK: {
+            const newState = { ...state, allTasks: { ...state.allTasks }, oneTask: { ...state.oneTask } }
+            delete newState.allTasks[action.taskId]
             return newState
         }
         default:
