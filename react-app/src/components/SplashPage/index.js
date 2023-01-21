@@ -37,7 +37,7 @@ function SplashPage() {
             }
         }
 
-        const quoteInterval = setInterval(reviewsShuffle, 8000);
+        const quoteInterval = setInterval(reviewsShuffle, 5000);
 
         return () => {
             document.body.style.overflow = 'unset'

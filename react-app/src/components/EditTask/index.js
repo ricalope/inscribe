@@ -42,17 +42,21 @@ function EditTask({ taskId, taskIndex, taskChecked, taskBody, taskDate }) {
             <form onSubmit={onSubmit}>
                 <div className="edit-task-form-container">
                     <div className="t-checked">
-                        <input
-                            type="checkbox"
-                            className="t-check"
-                            defaultChecked={checked}
-                            onChange={() => setChecked(!checked)}
-                        />
+                        <label className="container">
+                            <input
+                                type="checkbox"
+                                className="t-check"
+                                defaultChecked={checked}
+                                onChange={() => setChecked(!checked)}
+                            />
+                            <div className="checkmark" />
+                        </label>
                     </div>
                     <div className="t-body">
-                        <input
-                            type="text"
+                        <textarea
+                            style={{ resize: "none" }}
                             className="t-input-body"
+                            spellcheck="false"
                             value={body}
                             onChange={(e) => setBody(e.target.value)}
                         />
