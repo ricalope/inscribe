@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
 
     note = db.relationship("Note", back_populates="user")
     notebook = db.relationship("Notebook", back_populates="user")
+    task = db.relationship("Task", back_populates="user")
 
     @property
     def password(self):

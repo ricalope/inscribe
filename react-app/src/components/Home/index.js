@@ -33,7 +33,7 @@ function Home() {
         const time = today.getHours()
         if (time < 12) {
             setMessage('Good Morning!')
-        } else if (time > 12 && time < 17) {
+        } else if (time >= 12 && time < 17) {
             setMessage('Good Afternoon!')
         } else {
             setMessage('Good Evening!')
@@ -70,7 +70,7 @@ function Home() {
             <NavBar />
             <div className="home-main-container">
                 <div className="home-top-bar">
-                    <h1>{message}</h1>
+                    <h1 id="top-bar-h1">{message}</h1>
                 </div>
                 <div className="home-notes-container">
                     <div className={darkMode ? 'notes-div dark' : 'notes-div light'}>

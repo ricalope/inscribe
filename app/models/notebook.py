@@ -16,6 +16,7 @@ class Notebook(db.Model):
 
     user = db.relationship("User", back_populates="notebook")
     note = db.relationship("Note", back_populates="notebook", cascade="all, delete-orphan")
+    task = db.relationship("Task", back_populates="notebook", cascade="all, delete-orphan")
 
     def set_updated_at(self):
         self.updated_at = datetime.utcnow()

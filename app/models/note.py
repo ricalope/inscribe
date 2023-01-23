@@ -19,6 +19,9 @@ class Note(db.Model):
     user = db.relationship("User", back_populates="note")
     notebook = db.relationship("Notebook", back_populates="note")
 
+    def set_updated_at(self):
+        self.updated_at = datetime.utcnow()
+
     def __repr__(self):
         return f"user_id({self.user_id}) title({self.title}) body({self.body})"
 

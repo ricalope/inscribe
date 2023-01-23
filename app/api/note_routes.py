@@ -57,6 +57,7 @@ def edit_note_by_id(id):
     if form.validate_on_submit():
         note.title = form.data['title']
         note.body = form.data['body']
+        note.set_updated_at()
         db.session.commit()
         return note.to_dict()
 
