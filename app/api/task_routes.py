@@ -46,6 +46,26 @@ def create_new_task():
     return { "errors": validation_errors_to_error_messages(form.errors) }, 401
 
 
+@task_routes.route('/<int:id>/checked', methods=["PUT"])
+@login_required
+def add_check_to_task(id):
+    task = Task.query.get(id)
+    if not task:
+        return { "errors": "Task could not be found. Please try again." }
+
+    form = CheckForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        task.checked = form.data['checked']
+        db.session.commit()
+        return task.to_dict()
+
+    return { "errors": validation_errors_to_error_messages(form.errors) }, 401
+
+
+
+
 @task_routes.route('/<int:id>', methods=["PUT"])
 @login_required
 def edit_task_route(id):
@@ -56,11 +76,9 @@ def edit_task_route(id):
         return { "errors": "Task could not be found. Please try again." }
 
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('<<<form>>>', form.data)
 
     if form.validate_on_submit():
         task.notebook_id = form.data['notebook_id']
-        task.checked = form.data['checked']
         task.body = form.data['body']
         task.task_date = form.task_date.data
         db.session.commit()

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTasksThunk } from '../../store/task';
+import { DarkModeContext } from '../../context/ThemeContext';
 import NavBar from '../Navigation/NavBar';
 import AddTaskModal from '../AddTask/AddTaskModal';
 import EditTask from '../EditTask';
@@ -10,6 +11,8 @@ import './Tasks.css';
 function Tasks() {
 
     const dispatch = useDispatch();
+    const { darkMode } = useContext(DarkModeContext);
+
     const tasksObj = useSelector(state => state.tasks.allTasks);
     const tasks = Object.values(tasksObj)
 
@@ -27,25 +30,21 @@ function Tasks() {
         }
     }, [ dispatch, tasks.length ])
 
-    // const displayDate = date => {
-    //     date = new Date(date)
-    //     const updatedDate = new Intl.DateTimeFormat('en-US', { dateStyle: 'short', timeStyle: 'medium' }).format(date)
-    //     return updatedDate
-    // }
-
     return (
         <>
             <NavBar />
             <div className="tasks-outer-container">
                 <div className="tasks-main-container">
-                    <div className="tasks-header">
+                    <div className={darkMode ? "tasks-header dark" : "tasks-header light"}>
                         <div className="t-header">
                             <div className="t-title">
                                 <i className="fa-solid fa-list-check" />
                                 <h1 className="t-h1">Tasks</h1>
                             </div>
                             <div className="t-new">
-                                <button className="t-btn" onClick={() => setShowNew(true)}>
+                                <button
+                                    className={darkMode ? "t-d-btn td-dark" : "t-d-btn td-light"}
+                                    onClick={() => setShowNew(true)}>
                                     Add Task
                                 </button>
                             </div>
@@ -60,20 +59,19 @@ function Tasks() {
                             {tasks.length} {tasks.length === 1 ? 'task' : 'tasks'}
                         </div>
                     </div>
-                    <div className="tasks-inner-container">
+                    <div className={darkMode ? "tasks-inner-container dark" : "tasks-inner-container light"}>
                         {populated ? (
                             <div className="empty-tasks">
 
                             </div>
                         ) : (
                             <div className="column-tasks">
-                                {tasks.map((task, index) => (
+                                {tasks.map((task) => (
                                     <div key={task.id}
                                         className="tasks-card"
                                     >
                                         <EditTask
                                             taskId={task.id}
-                                            taskIndex={index}
                                             taskChecked={task.checked}
                                             taskBody={task.body}
                                             taskDate={task.task_date}

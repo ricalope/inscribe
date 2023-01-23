@@ -1,8 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTaskThunk } from '../../store/task';
-// import { DarkModeContext } from '../../context/ThemeContext';
-
 
 function AddTask({ setShowNew }) {
 
@@ -10,17 +8,20 @@ function AddTask({ setShowNew }) {
 
     const [ body, setBody ] = useState('');
     const [ taskDate, setTaskDate ] = useState('');
-
-    // const { darkMode } = useContext(DarkModeContext);
+    const [ errors, setErrors ] = useState([]);
+    const [ submitted, setSubmitted ] = useState(false)
 
     const formattedDate = date => {
         const removeT = date.replace('T', ' ')
         const removeZ = removeT.replace('.000Z', '')
-        return removeZ
+        return removeZ.slice(0, -3)
     }
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        setSubmitted(true);
+
+        if (errors.length > 0) return
 
         let formatDate = new Date(taskDate).toJSON()
         const formData = {
@@ -28,10 +29,12 @@ function AddTask({ setShowNew }) {
             taskDate: formattedDate(formatDate)
         }
         const data = await dispatch(addTaskThunk(formData))
-        if (data) {
-            return data.errors
+        if (data && data.errors) {
+            setErrors(data.errors)
+            return
         }
         setShowNew(false);
+        return
     }
 
     return (
@@ -67,6 +70,13 @@ function AddTask({ setShowNew }) {
                         Create Task
                     </button>
                 </div>
+                {submitted && errors.length > 0 && (
+                    <div className="a-t-errors">
+                        {errors.map((e,i) => (
+                            <p key={i}>{e}</p>
+                        ))}
+                    </div>
+                )}
             </form>
         </div>
     )

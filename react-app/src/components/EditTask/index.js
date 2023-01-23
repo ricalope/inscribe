@@ -1,97 +1,89 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useDispatch } from 'react-redux';
-// import { DarkModeContext } from '../../context/ThemeContext';
 import { editTaskThunk } from '../../store/task';
-import DeleteTaskModal from '../../components/DeleteTask/DeleteTaskModal';
+import { DarkModeContext } from '../../context/ThemeContext';
+import EditTaskModal from './EditTaskModal';
+import './EditTask.css';
 
-
-function EditTask({ taskId, taskIndex, taskChecked, taskBody, taskDate }) {
+function EditTask({ taskId, taskChecked, taskBody, taskDate }) {
 
     const dispatch = useDispatch();
+    const { darkMode } = useContext(DarkModeContext)
 
-    const formattedDate = date => {
-        date = Date.parse(date)
-        const tzOffset = (new Date().getTimezoneOffset() * 60000)
-        return (new Date(date - tzOffset)).toISOString().slice(0, -8)
-    }
-
-    const pythonDate = date => {
-        const removeT = date.replace('T', ' ')
-        return removeT
+    const displayDate = date => {
+        date = new Date(date)
+        const updatedDate = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(date)
+        const [ month, , time ] = updatedDate.split(', ')
+        return `${month}, ${time}`
     }
 
     const [ checked, setChecked ] = useState(taskChecked);
-    const [ body, setBody ] = useState(taskBody);
-    const [ date, setDate ] = useState(formattedDate(taskDate));
-    const [ showDelete, setShowDelete ] = useState(false);
+    const [ showEdit, setShowEdit ] = useState(false);
+    const [ showToolTip, setShowToolTip ] = useState(false);
 
-    const onSubmit = async (e) => {
-        e.preventDefault()
-
-        const formData = {
-            taskId,
-            checked,
-            body,
-            taskDate: pythonDate(date)
-        }
-        await dispatch(editTaskThunk(formData))
+    const onCheck = async (e) => {
+        setChecked(!checked)
+        const task = { taskId, checked: !checked }
+        await dispatch(editTaskThunk(task))
     }
 
     return (
         <>
-            <form onSubmit={onSubmit}>
-                <div className="edit-task-form-container">
-                    <div className="t-checked">
-                        <label className="container">
-                            <input
-                                type="checkbox"
-                                className="t-check"
-                                defaultChecked={checked}
-                                onChange={() => setChecked(!checked)}
-                            />
-                            <div className="checkmark" />
-                        </label>
-                    </div>
-                    <div className="t-body">
-                        <textarea
-                            style={{ resize: "none" }}
-                            className="t-input-body"
-                            spellcheck="false"
-                            value={body}
-                            onChange={(e) => setBody(e.target.value)}
-                        />
-                    </div>
-                    <div className="t-date">
-                        <input
-                            type="datetime-local"
-                            className="t-input-date"
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                        />
-                    </div>
-                    <div className="t-edit-btns">
-                        <button type="submit" className="t-submit">
-                            Submit
-                        </button>
-                        <button
-                            type="button"
-                            className="t-del-button"
-                            onClick={() => setShowDelete(true)}
-                        >
-                            Delete
-                        </button>
-                    </div>
-                </div>
-            </form>
-            {showDelete && (
-                <DeleteTaskModal
+            <table className={darkMode ? "edit-task-form-container t-dark" : "edit-task-form-container t-light"}>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label className="container">
+                                <input
+                                    type="checkbox"
+                                    className="t-check"
+                                    defaultChecked={checked}
+                                    onChange={(e) => onCheck(e)}
+                                />
+                                <div className="checkmark" />
+                            </label>
+                        </td>
+                        <td>
+                            <div className="t-d-body">
+                                <p>{taskBody}</p>
+                            </div>
+                        </td>
+                        <td className="t-d-date">
+                            <p>Due {displayDate(taskDate)}</p>
+                        </td>
+                        <td>
+                            <div className="t-d-action">
+                                <button
+                                    className={darkMode ? "t-d-btn td-dark" : "t-d-btn td-light"}
+                                    onMouseEnter={() => setShowToolTip(true)}
+                                    onMouseLeave={() => setShowToolTip(false)}
+                                    onClick={() => setShowEdit(true)}>
+                                    <i className="fa-solid fa-ellipsis" />
+                                </button>
+                                {showToolTip && (
+                                    <div className="outer-tt">
+                                        <div className="tt-arrow one" />
+                                        <div className={darkMode ? "tt-arrow two dark" : "tt-arrow two light"} />
+                                        <div className={darkMode ? "tooltip dark" : "tooltip light"}>
+                                            <p id="tt-p">Task Details</p>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            {showEdit && (
+                <EditTaskModal
                     taskId={taskId}
-                    showDelete={showDelete}
-                    setShowDelete={setShowDelete}
+                    taskBody={taskBody}
+                    taskDate={taskDate}
+                    showEdit={showEdit}
+                    setShowEdit={setShowEdit}
                 />
             )}
         </>
-
     )
 }
 

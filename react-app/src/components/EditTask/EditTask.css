@@ -1,0 +1,173 @@
+.edit-task-form-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    height: fit-content;
+}
+
+.edit-task-tr {
+    display: flex;
+    justify-content: center;
+}
+
+.edit-task-form-container:hover {
+    background-color: #d0ecff;
+}
+
+.t-d-body,
+.t-d-date {
+    font-size: 13px;
+}
+
+.t-d-body {
+    word-wrap: break-word;
+    width: 300px;
+    align-self: flex-start;
+    text-align: left;
+}
+
+.t-d-action {
+    padding-left: 20px;
+}
+
+.del-task-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 150px;
+    border-radius: 3px;
+    padding: 10px;
+    gap: 20px;
+}
+
+.t-edit-btns {
+    display: flex;
+    gap: 10px;
+}
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.container {
+    display: block;
+    position: relative;
+    font-size: 20px;
+    user-select: none;
+    width: 20px;
+}
+
+.checkmark {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 1em;
+    width: 1em;
+    background-color: #ccc;
+    border-radius: 25px;
+    transition: 0.15s;
+    cursor: pointer;
+}
+
+.container input:checked~.checkmark {
+    background-color: #219cee;
+    border-radius: 25px;
+    transition: 0.15s;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container input:checked~.checkmark:after {
+    display: block;
+}
+
+.container .checkmark:after {
+    left: 0.32em;
+    top: 0.17em;
+    width: 0.20em;
+    height: 0.4em;
+    border: solid white;
+    border-width: 0 0.15em 0.15em 0;
+    transform: rotate(45deg);
+}
+
+.t-check {
+    width: 10px;;
+}
+
+.t-input-body {
+    height: 50px;
+    width: 300px;
+    padding: 5px;
+    border: none;
+    outline: none;
+}
+
+.t-input-body:focus {
+    outline: 1px solid #209CEE;
+}
+
+.tooltip {
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    box-shadow: 0 0 2px #767676;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0.2em;
+    right: 3em;
+    padding: 10px;
+    margin-top: 10px;
+    width: 100px;
+}
+
+.tt-arrow {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    top: 0.1em;
+    right: 5.4em;
+    z-index: 1;
+    background-color: white;
+    box-shadow: 0 0 2px #767676;
+    transform: translate(-50%,50%) rotate(45deg);
+}
+
+.outer-tt {
+    position: relative;
+}
+
+.two {
+    z-index: 3;
+    box-shadow: none;
+}
+
+#tt-p {
+    font-size: 13px;
+}
+
+.edit-one-task-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.t-d-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.t-dark:hover {
+    background-color: #96969670;
+}

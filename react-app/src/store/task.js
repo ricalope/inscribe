@@ -68,6 +68,19 @@ export const addTaskThunk = data => async dispatch => {
 
 export const editTaskThunk = task => async dispatch => {
     const { taskId, notebookId, checked, body, taskDate } = task;
+
+    if (checked !== undefined) {
+        const res = await fetch(`/api/tasks/${taskId}/checked`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ notebookId, checked })
+        })
+        if (res.ok) {
+            const data = await res.json()
+            dispatch(addCheck(data))
+            return data
+        }
+    }
     const res = await fetch(`/api/tasks/${taskId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
