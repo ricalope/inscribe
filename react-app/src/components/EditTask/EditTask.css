@@ -42,6 +42,11 @@
 
 .t-edit-btns {
     display: flex;
+    justify-content: space-between;
+}
+
+.t-can-sub {
+    display: flex;
     gap: 10px;
 }
 
@@ -104,8 +109,8 @@
 }
 
 .t-input-body {
-    height: 50px;
-    width: 300px;
+    height: 100px;
+    width: 100%;
     padding: 5px;
     border: none;
     outline: none;
@@ -159,7 +164,9 @@
 .edit-one-task-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    padding: 10px;
+    width: 500px;
 }
 
 .t-d-btn {
@@ -170,4 +177,16 @@
 
 .t-dark:hover {
     background-color: #96969670;
+}
+
+.t-del-button {
+    background-color: transparent;
+    color: red;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+}
+
+.t-del-button:hover {
+    text-decoration: underline;
 }
