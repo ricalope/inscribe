@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { editTaskThunk } from '../../store/task';
 import { DarkModeContext } from '../../context/ThemeContext';
 import EditTaskModal from './EditTaskModal';
+import DeleteTaskModal from '../DeleteTask/DeleteTaskModal';
 import './EditTask.css';
 
 function EditTask({ taskId, taskChecked, taskBody, taskDate }) {
@@ -19,6 +20,7 @@ function EditTask({ taskId, taskChecked, taskBody, taskDate }) {
 
     const [ checked, setChecked ] = useState(taskChecked);
     const [ showEdit, setShowEdit ] = useState(false);
+    const [ showDelete, setShowDelete ] = useState(false);
     const [ showToolTip, setShowToolTip ] = useState(false);
 
     const onCheck = async (e) => {
@@ -80,6 +82,15 @@ function EditTask({ taskId, taskChecked, taskBody, taskDate }) {
                     taskBody={taskBody}
                     taskDate={taskDate}
                     showEdit={showEdit}
+                    setShowEdit={setShowEdit}
+                    setShowDelete={setShowDelete}
+                />
+            )}
+            {showDelete && (
+                <DeleteTaskModal
+                    taskId={taskId}
+                    showDelete={showDelete}
+                    setShowDelete={setShowDelete}
                     setShowEdit={setShowEdit}
                 />
             )}

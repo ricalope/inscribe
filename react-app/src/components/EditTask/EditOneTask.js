@@ -2,10 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { editTaskThunk } from '../../store/task';
 import { DarkModeContext } from '../../context/ThemeContext';
-import DeleteTaskModal from '../DeleteTask/DeleteTaskModal';
 
 
-function EditOneTask({ taskId, taskBody, taskDate, setShowEdit }) {
+function EditOneTask({ taskId, taskBody, taskDate, setShowEdit, setShowDelete }) {
 
     const dispatch = useDispatch();
     const { darkMode } = useContext(DarkModeContext);
@@ -25,7 +24,6 @@ function EditOneTask({ taskId, taskBody, taskDate, setShowEdit }) {
     const [ date, setDate ] = useState(formattedDate(taskDate));
     const [ errors, setErrors ] = useState([]);
     const [ submitted, setSubmitted ] = useState(false);
-    const [ showDelete, setShowDelete ] = useState(false);
 
     useEffect(() => {
         if (body.trim().length < 1) {
@@ -79,14 +77,17 @@ function EditOneTask({ taskId, taskBody, taskDate, setShowEdit }) {
                     </div>
                     {submitted && errors.length > 0 && (
                         <div className="errors">
-                            {errors}
+                           * {errors}
                         </div>
                     )}
                     <div className="t-edit-btns">
                         <button
                             type="button"
                             className="t-del-button"
-                            onClick={() => setShowDelete(true)}
+                            onClick={() => {
+                                setShowEdit(false)
+                                setShowDelete(true)
+                            }}
                         >
                             Delete task
                         </button>
@@ -100,14 +101,6 @@ function EditOneTask({ taskId, taskBody, taskDate, setShowEdit }) {
                             <button type="submit" className="nb-btn two">
                                 Submit
                             </button>
-                            {showDelete && (
-                                <DeleteTaskModal
-                                    taskId={taskId}
-                                    showDelete={showDelete}
-                                    setShowDelete={setShowDelete}
-                                    setShowEdit={setShowEdit}
-                                />
-                            )}
                         </div>
                     </div>
                 </div>

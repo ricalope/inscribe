@@ -108,6 +108,7 @@
     width: 10px;;
 }
 
+.t-add,
 .t-input-body {
     height: 100px;
     width: 100%;
@@ -161,6 +162,7 @@
     font-size: 13px;
 }
 
+.add-task-main-container,
 .edit-one-task-container {
     display: flex;
     flex-direction: column;
@@ -189,4 +191,14 @@
 
 .t-del-button:hover {
     text-decoration: underline;
+}
+
+.t-new-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.errors {
+    color: red
 }

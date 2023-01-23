@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTaskThunk } from '../../store/task';
+import { DarkModeContext } from '../../context/ThemeContext';
 
 function AddTask({ setShowNew }) {
 
     const dispatch = useDispatch();
+    const { darkMode } = useContext(DarkModeContext);
 
     const [ body, setBody ] = useState('');
     const [ taskDate, setTaskDate ] = useState('');
@@ -38,15 +40,17 @@ function AddTask({ setShowNew }) {
     }
 
     return (
-        <div className="add-task-main-container">
-            <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
+            <div className="add-task-main-container">
                 <div className="add-task-header">
                     <h3>Add a Task</h3>
                 </div>
                 <div className="t-new-body">
-                    <input
-                        type="text"
+                    <textarea
+                        style={{ resize: "none" }}
+                        spellCheck="false"
                         className="t-add"
+                        placeholder="Enter a body for your new task..."
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                     />
@@ -60,11 +64,13 @@ function AddTask({ setShowNew }) {
                     />
                 </div>
                 <div className="t-new-buttons">
-                    <button className="t-new-cancel" onClick={() => setShowNew(false)}>
+                    <button
+                        className={darkMode ? "nb-btn one dark" : "nb-btn one light"}
+                        onClick={() => setShowNew(false)}>
                         Cancel
                     </button>
                     <button
-                        className="t-new-submit"
+                        className="nb-btn two"
                         type="submit"
                         disabled={body.trim().length > 0 ? false : true}>
                         Create Task
@@ -72,13 +78,13 @@ function AddTask({ setShowNew }) {
                 </div>
                 {submitted && errors.length > 0 && (
                     <div className="a-t-errors">
-                        {errors.map((e,i) => (
+                        {errors.map((e, i) => (
                             <p key={i}>{e}</p>
                         ))}
                     </div>
                 )}
-            </form>
-        </div>
+            </div>
+        </form>
     )
 }
 

@@ -2,7 +2,7 @@ import { Modal } from '../../context/Modal';
 import EditOneTask from './EditOneTask';
 
 
-function EditTaskModal({ taskId, taskBody, taskDate, showEdit, setShowEdit }) {
+function EditTaskModal({ taskId, taskBody, taskDate, showEdit, setShowEdit, setShowDelete }) {
 
     return (
         <>
@@ -13,6 +13,7 @@ function EditTaskModal({ taskId, taskBody, taskDate, showEdit, setShowEdit }) {
                         taskBody={taskBody}
                         taskDate={taskDate}
                         setShowEdit={setShowEdit}
+                        setShowDelete={setShowDelete}
                     />
                 </Modal>
             )}
