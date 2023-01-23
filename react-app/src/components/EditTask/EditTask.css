@@ -129,8 +129,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 0.2em;
-    right: 3em;
+    top: -2.4em;
+    right: 7.8em;
     padding: 10px;
     margin-top: 10px;
     width: 100px;
@@ -141,8 +141,8 @@
     position: absolute;
     width: 12px;
     height: 12px;
-    top: 0.1em;
-    right: 5.4em;
+    bottom: 0.6em;
+    left: 4.5em;
     z-index: 1;
     background-color: white;
     box-shadow: 0 0 2px #767676;
