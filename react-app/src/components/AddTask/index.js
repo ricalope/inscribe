@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTaskThunk } from '../../store/task';
 import { DarkModeContext } from '../../context/ThemeContext';
@@ -19,22 +19,43 @@ function AddTask({ setShowNew }) {
         return removeZ.slice(0, -3)
     }
 
+    useEffect(() => {
+        if (body.trim().length < 1) {
+            setErrors('Task body cannot be empty. Please enter a body for the task.')
+        }
+
+        return () => setErrors([])
+    }, [ body ])
+
     const onSubmit = async (e) => {
         e.preventDefault();
         setSubmitted(true);
 
         if (errors.length > 0) return
 
+        if (!taskDate) {
+            const formData = { body }
+            const data = await dispatch(addTaskThunk(formData))
+            if (data && data.errors) {
+                setErrors(data.errors)
+                return
+            }
+            setShowNew(false)
+            return
+        }
+
         let formatDate = new Date(taskDate).toJSON()
         const formData = {
             body,
             taskDate: formattedDate(formatDate)
         }
+
         const data = await dispatch(addTaskThunk(formData))
         if (data && data.errors) {
             setErrors(data.errors)
             return
         }
+        
         setShowNew(false);
         return
     }
@@ -63,6 +84,13 @@ function AddTask({ setShowNew }) {
                         onChange={(e) => setTaskDate(e.target.value)}
                     />
                 </div>
+                {submitted && errors.length > 0 && (
+                    <div className="a-t-errors">
+                        {errors.map((e, i) => (
+                            <p key={i}>{e}</p>
+                        ))}
+                    </div>
+                )}
                 <div className="t-new-buttons">
                     <button
                         className={darkMode ? "nb-btn one dark" : "nb-btn one light"}
@@ -72,17 +100,10 @@ function AddTask({ setShowNew }) {
                     <button
                         className="nb-btn two"
                         type="submit"
-                        disabled={body.trim().length > 0 ? false : true}>
+                        disabled={body.trim().length <= 0}>
                         Create Task
                     </button>
                 </div>
-                {submitted && errors.length > 0 && (
-                    <div className="a-t-errors">
-                        {errors.map((e, i) => (
-                            <p key={i}>{e}</p>
-                        ))}
-                    </div>
-                )}
             </div>
         </form>
     )

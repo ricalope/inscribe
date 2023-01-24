@@ -56,4 +56,5 @@
 .tasks-inner-container {
     overflow-y: scroll;
     border-radius: 3px;
+    height: 100%;
 }
