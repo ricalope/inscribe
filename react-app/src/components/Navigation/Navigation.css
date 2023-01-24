@@ -61,7 +61,7 @@
     height: 30px;
     border-radius: 25px;
     background-color: #209CEE;
-    padding: 5px;
+    padding: 10px;
     cursor: pointer;
     font-size: 12px;
     color: white;
@@ -166,10 +166,20 @@
     gap: 20px;
 }
 
+.task {
+    position: relative;
+}
+
 .new-nav-btns {
+    position: absolute;
+    top: 10em;
+    left: 3px;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    box-sizing: border-box;
+    padding: 5px;
+    background-color: black;
 }
 
 .logout-main-div {

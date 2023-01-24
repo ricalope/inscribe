@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { addNotebookThunk } from '../../store/notebook';
 import { DarkModeContext } from '../../context/ThemeContext';
 import './AddNotebook.css';
 
 
 function AddNotebook({ setShowNew }) {
+
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [ title, setTitle ] = useState('');
     const [ error, setError ] = useState('');
@@ -20,6 +23,8 @@ function AddNotebook({ setShowNew }) {
         }
         await dispatch(addNotebookThunk(formData))
         setShowNew(false)
+        history.push('/notebooks')
+        return
     }
 
     useEffect(() => {
