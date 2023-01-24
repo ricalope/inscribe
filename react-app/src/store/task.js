@@ -47,6 +47,7 @@ export const getAllTasksThunk = () => async dispatch => {
 
 export const addTaskThunk = data => async dispatch => {
     const { notebookId, body, taskDate } = data;
+    console.log(taskDate)
     const res = await fetch('/api/tasks', {
         method: "POST",
         headers: { "Content-Type": "application/json" },

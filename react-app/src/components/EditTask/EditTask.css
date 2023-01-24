@@ -28,6 +28,8 @@
 
 .t-d-action {
     padding-left: 20px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .del-task-container {
@@ -113,12 +115,17 @@
     height: 100px;
     width: 100%;
     padding: 5px;
-    border: none;
+    border: 1px solid #969696;
     outline: none;
 }
 
 .t-input-body:focus {
     outline: 1px solid #209CEE;
+}
+
+.tb-container {
+    width: fit-content;
+    position: relative;
 }
 
 .tooltip {
@@ -129,10 +136,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    top: -2.4em;
-    right: 7.8em;
     padding: 10px;
-    margin-top: 10px;
+    margin-top: -7px;
+    margin-left: -135px;
     width: 100px;
 }
 
@@ -141,16 +147,11 @@
     position: absolute;
     width: 12px;
     height: 12px;
-    bottom: 0.6em;
-    left: 4.5em;
+    margin-left: -36px;
     z-index: 1;
     background-color: white;
     box-shadow: 0 0 2px #767676;
     transform: translate(-50%,50%) rotate(45deg);
-}
-
-.outer-tt {
-    position: relative;
 }
 
 .two {
@@ -177,6 +178,14 @@
     cursor: pointer;
 }
 
+.t-dark {
+    box-shadow: 0 0 2px white;
+}
+
+.t-light {
+    box-shadow: 0 0 2px black;
+}
+
 .t-dark:hover {
     background-color: #96969670;
 }
@@ -201,4 +210,23 @@
 
 .errors {
     color: red
+}
+
+.column-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    height: 100%;
+    padding: 5px;
+}
+
+.two:disabled {
+    background-color: #363636;
+    color: #464646;
+}
+
+.two:disabled:hover {
+    background-color: #363636;
+    color: #464646;
+    cursor: not-allowed;
 }

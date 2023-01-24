@@ -51,17 +51,19 @@ function EditTask({ taskId, taskChecked, taskBody, taskDate }) {
                             </div>
                         </td>
                         <td className="t-d-date">
-                            <p>Due {displayDate(taskDate)}</p>
+                            <p>{taskDate ? `Due ${displayDate(taskDate)}` : 'No Due Date'}</p>
                         </td>
                         <td>
                             <div className="t-d-action">
-                                <button
-                                    className={darkMode ? "t-d-btn td-dark" : "t-d-btn td-light"}
-                                    onMouseEnter={() => setShowToolTip(true)}
-                                    onMouseLeave={() => setShowToolTip(false)}
-                                    onClick={() => setShowEdit(true)}>
-                                    <i className="fa-solid fa-ellipsis" />
-                                </button>
+                                <div className="tb-container">
+                                    <button
+                                        className={darkMode ? "t-d-btn td-dark" : "t-d-btn td-light"}
+                                        onMouseEnter={() => setShowToolTip(true)}
+                                        onMouseLeave={() => setShowToolTip(false)}
+                                        onClick={() => setShowEdit(true)}>
+                                        <i className="fa-solid fa-ellipsis" />
+                                    </button>
+                                </div>
                                 {showToolTip && (
                                     <div className="outer-tt">
                                         <div className="tt-arrow one" />

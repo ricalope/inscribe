@@ -93,12 +93,15 @@ function EditOneTask({ taskId, taskBody, taskDate, setShowEdit, setShowDelete })
                         </button>
                         <div className="t-can-sub">
                             <button
-                                type="submit"
+                                type="button"
                                 className={darkMode ? "nb-btn one dark" : "nb-btn one light"}
                                 onClick={() => setShowEdit(false)}>
                                 Cancel
                             </button>
-                            <button type="submit" className="nb-btn two">
+                            <button
+                                type="submit"
+                                className="nb-btn two"
+                                disabled={body.trim().length <= 0}>
                                 Submit
                             </button>
                         </div>

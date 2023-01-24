@@ -7,6 +7,7 @@ import liLogo from '../../assets/linkedin.png';
 import logo from '../../assets/quill.png';
 import LogoutModal from '../auth/LogoutModal';
 import AddNotebookModal from '../AddNotebook/AddNotebookModal';
+import AddTaskModal from '../AddTask/AddTaskModal';
 import { DarkModeContext } from '../../context/ThemeContext';
 import './Navigation.css'
 
@@ -14,7 +15,9 @@ const NavBar = () => {
     const dispatch = useDispatch();
 
     const [ showNew, setShowNew ] = useState(false);
+    const [ showNewTask, setShowNewTask ] = useState(false);
     const [ showLogout, setShowLogout ] = useState(false);
+    const [ showDropDown, setShowDropDown ] = useState(false);
 
     const sessionUser = useSelector(state => state.session.user);
 
@@ -22,7 +25,7 @@ const NavBar = () => {
 
     useEffect(() => {
         localStorage.setItem('DARK_MODE', darkMode)
-    }, [darkMode])
+    }, [ darkMode ])
 
     const themeChange = () => {
         toggleMode();
@@ -37,7 +40,7 @@ const NavBar = () => {
 
     const lengthCheck = (data, len) => {
         if (data.length > len) {
-            return `${data.slice(0,len)}...`
+            return `${data.slice(0, len)}...`
         }
         return data
     }
@@ -67,26 +70,41 @@ const NavBar = () => {
                         </div>
                     </div>
                 </div>
-                <div className="new-nav-btns">
-                    <Link exact="true" to="/notes" id="create-note" onClick={createNote}>
-                        <div className="new-note">
-                            <div>
-                                + New Note
+                <div className="new-note task" onClick={() => setShowDropDown(!showDropDown)}>
+                    + New
+                    {!showDropDown ? <i className="fa-solid fa-caret-down" /> : <i className="fa-solid fa-caret-up" />}
+                </div>
+                {showDropDown && (
+                    <div className="new-nav-btns">
+                        <Link exact="true" to="/notes" id="create-note" onClick={createNote}>
+                            <div className="new-note">
+                                <div>
+                                    + Note
+                                </div>
                             </div>
+                        </Link>
+                        <div className="n-nb-nav">
+                            <button className="new-note book" onClick={() => setShowNew(true)}>
+                                + Notebook
+                            </button>
+                            {showNew && (
+                                <AddNotebookModal
+                                    showNew={showNew}
+                                    setShowNew={setShowNew}
+                                />
+                            )}
                         </div>
-                    </Link>
-                    <div className="n-nb-nav">
-                        <button className="new-note book" onClick={() => setShowNew(true)}>
-                            + New Notebook
-                        </button>
-                        {showNew && (
-                            <AddNotebookModal
-                                showNew={showNew}
-                                setShowNew={setShowNew}
+                        <div className="new-note new-task" onClick={() => setShowNewTask(true)}>
+                            + Task
+                        </div>
+                        {showNewTask && (
+                            <AddTaskModal
+                                showNew={showNewTask}
+                                setShowNew={setShowNewTask}
                             />
                         )}
                     </div>
-                </div>
+                )}
             </div>
             <div className="nav-middle-links">
                 <div className="navlink">
