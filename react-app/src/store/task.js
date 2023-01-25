@@ -4,7 +4,6 @@ const EDIT_TASK = 'tasks/EDIT_TASK';
 const DELETE_TASK = 'tasks/DELETE_TASKS';
 
 
-
 const getAllTasks = tasks => ({
     type: GET_TASKS,
     tasks

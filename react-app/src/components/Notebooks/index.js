@@ -15,7 +15,7 @@ function Notebooks() {
     const dispatch = useDispatch();
 
     const [ showNew, setShowNew ] = useState(false);
-    const [ populated, setPopulated ] = useState(true);
+    const [ empty, setEmpty ] = useState(true);
 
     const notebooksObj = useSelector(state => state.notebooks.allNotebooks);
     const notebooks = Object.values(notebooksObj);
@@ -26,9 +26,9 @@ function Notebooks() {
             await dispatch(getAllNotebooksThunk())
         })()
         if (notebooks.length === 0) {
-            setPopulated(true)
+            setEmpty(true)
         } else if (notebooks.length > 0) {
-            setPopulated(false)
+            setEmpty(false)
         }
     }, [ dispatch, notebooks.length ])
 
@@ -68,7 +68,7 @@ function Notebooks() {
                             )}
                         </div>
                     </div>
-                    {populated ? (
+                    {empty ? (
                         <div className={darkMode ? 'empty-notes dark' : 'empty-notes light'}>
                             <div className="empty-img">
                                 <img src={darkMode ? imgWhite : imgBlack} className="e-img" alt="black empty folder" />

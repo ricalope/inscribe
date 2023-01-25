@@ -1,0 +1,22 @@
+#tags-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #565656eb;
+    color: white;
+    z-index: 100;
+    width: 350px;
+    box-shadow: 6px 0 6px rgba(0,0,0, 0.7);
+    transition: transform .5s cubic-bezier(0, .52, 0, 1);
+    overflow: scroll;
+}
+
+#tags-main.hide {
+    transform: translate3d(-100%,0,0);
+    overflow: hidden;
+}
+
+#tags-main.show {
+    transform: translate3d(200px,0,0);
+}
