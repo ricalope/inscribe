@@ -1,5 +1,6 @@
 const GET_TAGS = 'tags/GET_TAGS';
 const ADD_TAG = 'tags/ADD_TAG';
+const UPDATE_TAG = 'tags/UPDATE_TAG';
 
 
 const getTags = tags => ({
@@ -10,6 +11,12 @@ const getTags = tags => ({
 
 const addTag = tag => ({
     type: ADD_TAG,
+    tag
+})
+
+
+const updateTag = tag => ({
+    type: UPDATE_TAG,
     tag
 })
 
@@ -51,6 +58,27 @@ export const addTagThunk = tag => async dispatch => {
 }
 
 
+export const updateTagThunk = tag => async dispatch => {
+    const { tagId, name, noteId, taskId } = tag;
+    const res = await fetch(`/api/tags/${tagId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, note_id: noteId, task_id: taskId })
+    })
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(updateTag(data))
+        return data
+    } else if (res.status < 500) {
+        const data = await res.json()
+        if (data.errors) {
+            return data
+        }
+    }
+    return ['An error has occurred. Please try again.']
+}
+
+
 const initialState = { allTags: {}, oneTag: {} }
 
 
@@ -62,6 +90,11 @@ const tagsReducer = (state = initialState, action) => {
             return newState
         }
         case ADD_TAG: {
+            const newState = { ...state, allTags: { ...state.allTags }, oneTag: {} }
+            newState.allTags[action.tag.id] = action.tag
+            return newState
+        }
+        case UPDATE_TAG: {
             const newState = { ...state, allTags: { ...state.allTags }, oneTag: {} }
             newState.allTags[action.tag.id] = action.tag
             return newState

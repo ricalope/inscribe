@@ -45,3 +45,25 @@ def create_new_tag():
         return new_tag.to_dict()
 
     return { "errors": validation_errors_to_error_messages(form.errors) }, 401
+
+
+@tag_routes.route('/<int:id>', methods=["PUT"])
+@login_required
+def update_tag_route(id):
+    tag = Tag.query.get(id)
+
+    if not tag:
+        return { "errors": "Tag could not be found. Please try again." }
+
+    form = TagForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        tag.name = form.data['name']
+        tag.task_id = form.data['task_id']
+        tag.note_id = form.data['note_id']
+
+        db.session.commit()
+        return tag.to_dict()
+
+    return { "errors": validation_errors_to_error_messages(form.errors) }, 401

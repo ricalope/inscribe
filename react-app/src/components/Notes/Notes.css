@@ -82,11 +82,12 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    border-radius: 3px;
     overflow: hidden;
 }
 
 div.notes-card:hover {
-    box-shadow:0 0 2px #868686;
+    box-shadow: 2px 2px 2px #868686, 0 0 2px #868686;
 }
 
 .notes-title {

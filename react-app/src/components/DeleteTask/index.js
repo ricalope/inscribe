@@ -18,10 +18,10 @@ function DeleteTask({ taskId, setShowDelete }) {
     return (
         <div className="del-task-container">
             <div className="del-task-header">
-                <h2>Confirm Delete Note?</h2>
+                <h2>Confirm Delete Task?</h2>
             </div>
             <div className="del-task-body">
-                <h5>Please confirm you would like to delete this note.</h5>
+                <h5>Please confirm you would like to delete this task.</h5>
             </div>
             <div className="delete-buttons">
                 <div>
