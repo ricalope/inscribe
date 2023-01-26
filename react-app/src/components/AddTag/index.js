@@ -1,51 +1,51 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { addNotebookThunk } from '../../store/notebook';
+import { addTagThunk } from '../../store/tag';
 import { DarkModeContext } from '../../context/ThemeContext';
-import './AddNotebook.css';
 
 
-function AddNotebook({ setShowNew }) {
+function AddTag({ setShowNew }) {
 
     const dispatch = useDispatch();
-    const history = useHistory();
-
-    const [ title, setTitle ] = useState('');
-    const [ error, setError ] = useState('');
-
     const { darkMode } = useContext(DarkModeContext);
 
-    const onSubmit = async (e) => {
-        e.preventDefault()
-        const formData = {
-            title
+    const [ name, setName ] = useState('');
+    const [ errors, setErrors ] = useState([]);
+    const [ submitted, setSubmitted ] = useState(false);
+
+    useEffect(() => {
+        if (name.trim().length <= 0) {
+            setErrors('Please enter a name for the tag. Name field cannot be empty.')
         }
-        await dispatch(addNotebookThunk(formData))
+        return () => setErrors([])
+    }, [ name.length ])
+
+    const onSubmit = async e => {
+        e.preventDefault()
+        setSubmitted(true)
+
+        if (errors.length > 0) return;
+
+        const formData = {
+            name
+        }
+        await dispatch(addTagThunk(formData))
         setShowNew(false)
-        history.push('/notebooks')
         return
     }
 
-    useEffect(() => {
-        if (title.trim().length === 0 && title) {
-            setError('Please enter a title for your notebook, field cannot be empty.')
-        }
-        return () => setError('');
-    }, [ title ])
-
     return (
-        <div className="add-nb-main-container">
+        <>
             <form onSubmit={onSubmit}>
-                <div className={darkMode ? 'add-nb-form-container dark' : 'add-nb-form-container light'}>
-                    <div className="add-nb-header">
-                        <h3 id="add-h3">Create new notebook</h3>
+                <div className="add-tags-main-container">
+                    <div className="add-tag-header">
+                        <h3>Create new tag</h3>
                     </div>
-                    <div className="add-nb-explainer">
-                        {error.length > 0 ? (
-                            <p id="add-ptag">*{error}</p>
+                    <div className="add-tag-disclaimer">
+                        {submitted && errors.length > 0 ? (
+                            <p>{errors}</p>
                         ) : (
-                            <p>Notebooks are useful for grouping notes around a common topic. They can be private or shared.</p>
+                            <p>Tags allow you to add keywords to your notes and tasks, making them easier to find and browse.</p>
                         )}
                     </div>
                     <div className="label-input">
@@ -55,11 +55,10 @@ function AddNotebook({ setShowNew }) {
                         <div className="add-nb-input">
                             <input
                                 type="text"
-                                name="title"
-                                id="input-add"
-                                placeholder="New Notebook"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
+                                id="add-tag-input"
+                                placeholder="Tag Name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                                 required
                             />
                         </div>
@@ -85,8 +84,8 @@ function AddNotebook({ setShowNew }) {
                     </div>
                 </div>
             </form>
-        </div>
+        </>
     )
 }
 
-export default AddNotebook;
+export default AddTag;

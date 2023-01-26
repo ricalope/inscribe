@@ -9,6 +9,7 @@ import LogoutModal from '../auth/LogoutModal';
 import AddNotebookModal from '../AddNotebook/AddNotebookModal';
 import AddTaskModal from '../AddTask/AddTaskModal';
 import Tags from '../Tags'
+import AddTagModal from '../AddTag/AddTagModal';
 import { DarkModeContext } from '../../context/ThemeContext';
 import './Navigation.css'
 
@@ -20,6 +21,7 @@ const NavBar = () => {
     const [ showLogout, setShowLogout ] = useState(false);
     const [ showDropDown, setShowDropDown ] = useState(false);
     const [ showTags, setShowTags ] = useState(false);
+    const [ showAddTag, setShowAddTag ] = useState(false);
 
     const sessionUser = useSelector(state => state.session.user);
 
@@ -78,7 +80,7 @@ const NavBar = () => {
                         {!showDropDown ? <i className="fa-solid fa-caret-down" /> : <i className="fa-solid fa-caret-up" />}
                     </div>
                     {showDropDown && (
-                        <div className="new-nav-btns">
+                        <div className={`new-nav-btns ${showDropDown ? 'show' : 'hide'}`}>
                             <Link exact="true" to="/notes" id="create-note" onClick={createNote}>
                                 <div className="new-note">
                                     <div>
@@ -153,7 +155,7 @@ const NavBar = () => {
                         </NavLink>
                     </div>
                     <div className="navlink">
-                        <button className="nl-link" onClick={() => setShowTags(!showTags)}>
+                        <button className="nl-link nl-tags" onClick={() => setShowTags(!showTags)}>
                             <div className="nav-inner">
                                 <div><i className="fa-solid fa-hashtag fa-match" /></div>
                                 <p className="p-link">Tags</p>
@@ -189,7 +191,17 @@ const NavBar = () => {
                 </div>
             </div>
             {showTags && (
-                <Tags showTags={showTags} />
+                <Tags
+                    showTags={showTags}
+                    setShowTags={setShowTags}
+                    setShowNew={setShowAddTag}
+                />
+            )}
+            {showAddTag && (
+                <AddTagModal
+                    showNew={showAddTag}
+                    setShowNew={setShowAddTag}
+                />
             )}
         </>
     );
