@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllNotesThunk, addNoteThunk } from '../../store/note';
 import { DarkModeContext } from '../../context/ThemeContext';
 import EditNote from '../EditNote';
+import EditTagModal from '../EditTag/EditTagModal';
 import NavBar from '../Navigation/NavBar';
 import imgBlack from '../../assets/empty-folder-black.png';
 import imgWhite from '../../assets/empty-folder-white.png';
@@ -14,8 +15,7 @@ function Notes() {
     const [ body, setBody ] = useState('');
     const [ noteId, setNoteId ] = useState(0);
     const [ populated, setPopulated ] = useState(true);
-    const [ input, setInput ] = useState('');
-    const [ suggestions, setSuggestions ] = useState([]);
+    const [ showEdit, setShowEdit ] = useState(false);
 
     const dispatch = useDispatch();
     const notesObj = useSelector(state => state.notes.allNotes);
@@ -39,29 +39,6 @@ function Notes() {
             setPopulated(true)
         }
     }, [ dispatch, notes.length ])
-
-    useEffect(() => {
-        (async () => {
-            const res = await fetch('/api/tags')
-            const data = await res.json()
-            const tagNames = data.map(tag => tag.name)
-            setSuggestions(tagNames)
-        })()
-    }, [])
-
-    const handleChange = e => {
-        const value = e.target.value;
-        let matches;
-
-        if (value.length >= 1) {
-            const regex = new RegExp(`${value}`, 'gi')
-            matches = suggestions.filter(name => {
-                return regex.test(name)
-            })
-        }
-        setSuggestions(matches)
-        setInput(value)
-    }
 
     const setFields = data => {
         setNoteId(data.id)
@@ -128,6 +105,20 @@ function Notes() {
                                         <div className="notes-content">
                                             {note.body}
                                         </div>
+                                        <div className="tag-edit-notes">
+                                            <button
+                                                className="edit-tag-btn"
+                                                onClick={() => setShowEdit(!showEdit)}>
+                                                addTag
+                                            </button>
+                                        </div>
+                                        {showEdit && (
+                                            <EditTagModal
+                                                noteId={note.id}
+                                                showEdit={showEdit}
+                                                setShowEdit={setShowEdit}
+                                            />
+                                        )}
                                     </div>
                                 ))}
                             </div>
