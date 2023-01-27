@@ -14,6 +14,7 @@ function Notes() {
     const [ title, setTitle ] = useState('');
     const [ body, setBody ] = useState('');
     const [ noteId, setNoteId ] = useState(0);
+    const [ tagNoteId, setTagNoteId ] = useState(0);
     const [ populated, setPopulated ] = useState(true);
     const [ showEdit, setShowEdit ] = useState(false);
 
@@ -105,20 +106,32 @@ function Notes() {
                                         <div className="notes-content">
                                             {note.body}
                                         </div>
-                                        <div className="tag-edit-notes">
-                                            <button
-                                                className="edit-tag-btn"
-                                                onClick={() => setShowEdit(!showEdit)}>
-                                                addTag
-                                            </button>
+                                        <div className="note-tag-icons">
+                                            <p id="t-card">Tags</p>
+                                            {note.tags.map(tag => (
+                                                <div key={tag.id} className="tag-icons">
+                                                    <p>{tag.name}</p>
+                                                </div>
+                                            ))}
+                                            <div className="tag-edit-notes">
+                                                <button
+                                                    className="edit-tag-btn"
+                                                    onClick={() => {
+                                                        setTagNoteId(note.id)
+                                                        setShowEdit(!showEdit)
+                                                    }}>
+                                                    <i className="fa-solid fa-plus" />
+                                                </button>
+                                            </div>
+                                            {showEdit && (
+                                                <EditTagModal
+                                                    noteId={tagNoteId}
+                                                    showEdit={showEdit}
+                                                    setShowEdit={setShowEdit}
+                                                    noteTags={note.tags}
+                                                />
+                                            )}
                                         </div>
-                                        {showEdit && (
-                                            <EditTagModal
-                                                noteId={note.id}
-                                                showEdit={showEdit}
-                                                setShowEdit={setShowEdit}
-                                            />
-                                        )}
                                     </div>
                                 ))}
                             </div>

@@ -18,17 +18,10 @@ class Tag(db.Model):
     task = db.relationship("Task", back_populates="tag")
 
     def to_dict(self):
-        tag_dict = {
+        return {
             "id": self.id,
             "user_id": self.user_id,
             "name": self.name,
             "note_id": self.note_id,
             "task_id": self.task_id
         }
-        if self.task:
-            tag_dict["tasks"] = self.task.to_dict()
-
-        if self.note:
-            tag_dict["notes"] = self.note.to_dict()
-
-        return tag_dict

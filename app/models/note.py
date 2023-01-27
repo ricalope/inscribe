@@ -34,5 +34,6 @@ class Note(db.Model):
             "title": self.title,
             "body": self.body,
             "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "updated_at": self.updated_at,
+            "tags": [t.to_dict() for t in self.tag]
         }

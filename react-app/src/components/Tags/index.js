@@ -80,7 +80,7 @@ function Tags({ showTags, setShowTags, setShowNew }) {
                 ) : (
                     <div className="empty-tags-container">
                         <div className="empty-tags-image">
-                            <img src={darkMode ? bTag : wTag} className="empty-image" />
+                            <img src={darkMode ? bTag : wTag} className="empty-image" alt="sad tags" />
                         </div>
                         <div className="empty-tags-header">
                             <h3>Find notes and tasks faster with tags.</h3>
