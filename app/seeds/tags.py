@@ -5,20 +5,16 @@ def seed_tags():
     tag_1 = Tag(
         user_id=1,
         name="to-do",
-        task_id=1,
-        note_id=1
     )
 
     tag_2 = Tag(
         user_id=2,
         name="honey-do",
-        note_id=2
     )
 
     tag_3 = Tag(
         user_id=3,
         name="current",
-        task_id=3
     )
 
     db.session.add(tag_1)

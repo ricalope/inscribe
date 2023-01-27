@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllTagsThunk, updateTagThunk } from '../../store/tag';
+import { getAllTagsThunk, updateTagThunk, addTagThunk } from '../../store/tag';
+import { getAllNotesThunk } from '../../store/note';
 import { Hint } from 'react-autocomplete-hint';
 
 
-function EditTag({ setShowEdit, noteId, noteTags }) {
+function EditTag({ setShowEdit, noteId, tagNoteArray }) {
 
     const dispatch = useDispatch();
 
     const tagsObj = useSelector(state => state.tags.allTags);
     const tags = Object.values(tagsObj);
-    const noteTagId = noteTags.map(tag => tag.id);
     const tagNames = tags.map(tag =>  {
         return { id: tag.id, label: tag.name }
     });
-
-    console.log(noteId)
 
     const [ input, setInput ] = useState('');
     const [ tagId, setTagId ] = useState(0);
@@ -33,18 +31,29 @@ function EditTag({ setShowEdit, noteId, noteTags }) {
     }, [ dispatch ])
 
     useEffect(() => {
-        const foundTag = noteTagId.find(tag => tag.id === tagId)
+        const foundTag = tagNoteArray.find(tag => tag.id === tagId)
         console.log(foundTag)
         if (foundTag) {
             setErrors('Tag already added to this note.')
         }
         return () => setErrors([]);
-    }, [ input.length ])
+    }, [ tagId ])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         if (errors.length > 0) return;
+
+        if (tagId === 0) {
+            const data = {
+                name: input,
+                noteId
+            }
+            await dispatch(addTagThunk(data))
+            await dispatch(getAllNotesThunk())
+            setShowEdit(false)
+            return
+        }
 
         const formData = {
             tagId,
@@ -52,7 +61,7 @@ function EditTag({ setShowEdit, noteId, noteTags }) {
             noteId
         }
         await dispatch(updateTagThunk(formData))
-        await
+        await dispatch(getAllNotesThunk())
         setShowEdit(false)
         return
     }
@@ -87,7 +96,7 @@ function EditTag({ setShowEdit, noteId, noteTags }) {
                         </div>
                     )}
                     <div className="edit-tag-btn-container">
-                        <button type="submit" className="e-t-btn" disabled={!!errors.length}>
+                        <button type="submit" className="nb-btn two" disabled={!!errors.length}>
                             add tag
                         </button>
                     </div>

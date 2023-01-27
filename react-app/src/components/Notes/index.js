@@ -14,7 +14,7 @@ function Notes() {
     const [ title, setTitle ] = useState('');
     const [ body, setBody ] = useState('');
     const [ noteId, setNoteId ] = useState(0);
-    const [ tagNoteId, setTagNoteId ] = useState(0);
+    const [ tagNoteArray, setTagNoteArray ] = useState([]);
     const [ populated, setPopulated ] = useState(true);
     const [ showEdit, setShowEdit ] = useState(false);
 
@@ -107,33 +107,35 @@ function Notes() {
                                             {note.body}
                                         </div>
                                         <div className="note-tag-icons">
-                                            <p id="t-card">Tags</p>
-                                            {note.tags.map(tag => (
-                                                <div key={tag.id} className="tag-icons">
-                                                    <p>{tag.name}</p>
-                                                </div>
-                                            ))}
                                             <div className="tag-edit-notes">
                                                 <button
-                                                    className="edit-tag-btn"
+                                                    className={darkMode ? "edit-tag-btn td-dark" : "edit-tag-btn td-light"}
                                                     onClick={() => {
-                                                        setTagNoteId(note.id)
+                                                        setTagNoteArray(note.tags)
                                                         setShowEdit(!showEdit)
                                                     }}>
                                                     <i className="fa-solid fa-plus" />
                                                 </button>
                                             </div>
-                                            {showEdit && (
-                                                <EditTagModal
-                                                    noteId={tagNoteId}
-                                                    showEdit={showEdit}
-                                                    setShowEdit={setShowEdit}
-                                                    noteTags={note.tags}
-                                                />
-                                            )}
+                                            <p id="t-card">Tags</p>
+                                            <div className="tag-icons-container">
+                                                {note.tags.map(tag => (
+                                                    <div key={tag.id} className="tag-icons">
+                                                        {tag.name}
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
+                                {showEdit && (
+                                    <EditTagModal
+                                        noteId={noteId}
+                                        showEdit={showEdit}
+                                        setShowEdit={setShowEdit}
+                                        tagNoteArray={tagNoteArray}
+                                    />
+                                )}
                             </div>
                         )}
                     </div>

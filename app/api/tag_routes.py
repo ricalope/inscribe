@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
-from app.models import db, Tag
+from app.models import db, Tag, Note
 from app.forms import TagForm
 
 
@@ -32,17 +32,23 @@ def create_new_tag():
 
     form['csrf_token'].data = request.cookies['csrf_token']
 
+
     if form.validate_on_submit():
         new_tag = Tag(
             user_id=current_user.get_id(),
-            name=form.data['name'],
-            note_id=form.data['note_id'],
-            task_id=form.data['task_id']
+            name=form.data['name']
         )
+        if form.data['note_id']:
+            tag_note = Note.query.get(form.data['note_id'])
+            db.session.add(new_tag)
+            tag_note.tag.append(new_tag)
+            db.session.commit()
+            return new_tag.to_dict()
+        else:
+            db.session.add(new_tag)
+            db.session.commit()
+            return new_tag.to_dict()
 
-        db.session.add(new_tag)
-        db.session.commit()
-        return new_tag.to_dict()
 
     return { "errors": validation_errors_to_error_messages(form.errors) }, 401
 
@@ -57,13 +63,12 @@ def update_tag_route(id):
 
     form = TagForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    tag_note = Note.query.get(form.data['note_id'])
 
     if form.validate_on_submit():
-        tag.name = form.data['name']
-        tag.task_id = form.data['task_id']
-        tag.note_id = form.data['note_id']
+        tag_note.tag.append(tag)
 
         db.session.commit()
-        return tag.to_dict()
+        return tag_note.to_dict()
 
     return { "errors": validation_errors_to_error_messages(form.errors) }, 401

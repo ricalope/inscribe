@@ -38,11 +38,11 @@ export const getAllTagsThunk = () => async dispatch => {
 
 
 export const addTagThunk = tag => async dispatch => {
-    const { name, noteId, taskId } = tag;
+    const { name, noteId } = tag;
     const res = await fetch('/api/tags', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, note_id: noteId, task_id: taskId })
+        body: JSON.stringify({ name, note_id: noteId })
     })
     if (res.ok) {
         const data = await res.json()
@@ -59,11 +59,11 @@ export const addTagThunk = tag => async dispatch => {
 
 
 export const updateTagThunk = tag => async dispatch => {
-    const { tagId, name, noteId, taskId } = tag;
+    const { tagId, name, noteId } = tag;
     const res = await fetch(`/api/tags/${tagId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, note_id: noteId, task_id: taskId })
+        body: JSON.stringify({ name, note_id: noteId })
     })
     if (res.ok) {
         const data = await res.json()

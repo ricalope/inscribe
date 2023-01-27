@@ -92,10 +92,13 @@
 .add-tags-main-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    width: 500px;
+    gap: 20px;
+    width: 550px;
+    border-radius: 4px;
+    padding: 20px;
 }
 
+#e-t-input,
 #add-tag-input {
     width: 100%;
     height: 40px;
@@ -110,3 +113,18 @@
     font-size: 13px;
     color: #868686;
 }
+
+.edit-tag-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 4px;
+    padding: 20px;
+    width: 300px;
+}
+
+.edit-tag-btn-container {
+    display: flex;
+    justify-content: flex-end;
+}
+

@@ -2,6 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 
 
+
 class Task(db.Model):
     __tablename__ = "tasks"
 
@@ -20,7 +21,6 @@ class Task(db.Model):
 
     user = db.relationship("User", back_populates="task")
     notebook = db.relationship("Notebook", back_populates="task")
-    tag = db.relationship("Tag", back_populates="task")
 
 
     def set_updated_at(self):

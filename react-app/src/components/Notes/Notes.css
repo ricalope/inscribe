@@ -80,6 +80,7 @@
     border-bottom: 1px solid rgba(128, 128, 128, 0.3);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 8px;
     border-radius: 3px;
     overflow: hidden;
@@ -256,23 +257,28 @@ span:hover {
 
 .note-tag-icons {
     display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+}
+
+.tag-icons-container {
+    display: flex;
+    gap: 10px;
     overflow-x: scroll;
-    gap: 5px;
-    padding-top: 20px;
 }
 
 .tag-icons {
-    display: flex;
-    align-items: center;
     background-color: #209CEE;
-    padding: 5px;
-    border-radius: 15px;
+    min-width: fit-content;
+    max-height: 20px;
+    padding: 3px 7px 3px 7px;
+    border-radius: 10px;
     font-size: 12px;
 }
 
 #t-card {
     font-size: 13px;
-    padding-top: 5px;
 }
 
 .edit-tag-btn {

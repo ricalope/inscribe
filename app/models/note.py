@@ -2,6 +2,18 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 
 
+note_tags = db.Table(
+    'note_tags',
+    db.Model.metadata,
+    db.Column('note_id', db.Integer, db.ForeignKey(add_prefix_for_prod("notes.id"))),
+    db.Column('tag_id', db.Integer, db.ForeignKey(add_prefix_for_prod("tags.id")))
+)
+
+
+if environment == "production":
+    note_tags.schema = SCHEMA
+
+
 class Note(db.Model):
     __tablename__ = "notes"
 
@@ -18,7 +30,7 @@ class Note(db.Model):
 
     user = db.relationship("User", back_populates="note")
     notebook = db.relationship("Notebook", back_populates="note")
-    tag = db.relationship("Tag", back_populates="note")
+    tag = db.relationship("Tag", secondary=note_tags, back_populates="note")
 
     def set_updated_at(self):
         self.updated_at = datetime.utcnow()
@@ -35,5 +47,6 @@ class Note(db.Model):
             "body": self.body,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
-            "tags": [t.to_dict() for t in self.tag]
+            "tags": [t.to_dict() for t in self.tag],
+            "tag_id": [t.id for t in self.tag]
         }
