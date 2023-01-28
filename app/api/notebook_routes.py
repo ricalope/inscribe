@@ -71,7 +71,7 @@ def delete_notebook_by_id(id):
 def edit_notebook_by_id(id):
     notebook = Notebook.query.get(id)
     if not notebook:
-        return { "message": "Notebook could not be found" }
+        return { "message": "Notebook could not be found" }, 404
     form = NotebookForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']

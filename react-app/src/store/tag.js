@@ -1,6 +1,7 @@
 const GET_TAGS = 'tags/GET_TAGS';
 const ADD_TAG = 'tags/ADD_TAG';
 const UPDATE_TAG = 'tags/UPDATE_TAG';
+const DELETE_TAG = 'tags/DELETE_TAG';
 
 
 const getTags = tags => ({
@@ -17,6 +18,12 @@ const addTag = tag => ({
 
 const updateTag = tag => ({
     type: UPDATE_TAG,
+    tag
+})
+
+
+const deleteTag = tag => ({
+    type: DELETE_TAG,
     tag
 })
 
@@ -79,6 +86,23 @@ export const updateTagThunk = tag => async dispatch => {
 }
 
 
+export const deleteTagThunk = tagId => async dispatch => {
+    const res = await fetch(`/api/tags/${tagId}`, {
+        method: "DELETE"
+    })
+    if (res.ok) {
+        dispatch(deleteTag(tagId))
+        return
+    } else if (res.status < 500) {
+        const data = await res.json()
+        if (data.errors) {
+            return data
+        }
+    }
+    return ['An error has occurred. Please try again.']
+}
+
+
 const initialState = { allTags: {}, oneTag: {} }
 
 
@@ -97,6 +121,11 @@ const tagsReducer = (state = initialState, action) => {
         case UPDATE_TAG: {
             const newState = { ...state, allTags: { ...state.allTags }, oneTag: {} }
             newState.allTags[action.tag.id] = action.tag
+            return newState
+        }
+        case DELETE_TAG: {
+            const newState = { ...state, allTags: { ...state.allTags }, oneTag: { ...state.oneTag } }
+            delete newState.allTags[action.tagId]
             return newState
         }
         default:

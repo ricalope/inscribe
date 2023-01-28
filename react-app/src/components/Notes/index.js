@@ -39,7 +39,7 @@ function Notes() {
             setNoteId(0)
             setPopulated(true)
         }
-    }, [ dispatch, notes.length ])
+    }, [ dispatch, notes.length, tagNoteArray.length ])
 
     const setFields = data => {
         setNoteId(data.id)

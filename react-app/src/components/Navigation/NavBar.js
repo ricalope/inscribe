@@ -8,6 +8,7 @@ import logo from '../../assets/quill.png';
 import LogoutModal from '../auth/LogoutModal';
 import AddNotebookModal from '../AddNotebook/AddNotebookModal';
 import AddTaskModal from '../AddTask/AddTaskModal';
+import DeleteTagModal from '../DeleteTag/DeleteTagModal';
 import Tags from '../Tags'
 import AddTagModal from '../AddTag/AddTagModal';
 import { DarkModeContext } from '../../context/ThemeContext';
@@ -22,6 +23,8 @@ const NavBar = () => {
     const [ showDropDown, setShowDropDown ] = useState(false);
     const [ showTags, setShowTags ] = useState(false);
     const [ showAddTag, setShowAddTag ] = useState(false);
+    const [ showDel, setShowDel ] = useState(false);
+    const [ tagId, setTagId ] = useState(0)
 
     const sessionUser = useSelector(state => state.session.user);
 
@@ -195,12 +198,21 @@ const NavBar = () => {
                     showTags={showTags}
                     setShowTags={setShowTags}
                     setShowNew={setShowAddTag}
+                    setShowDel={setShowDel}
+                    setTagId={setTagId}
                 />
             )}
             {showAddTag && (
                 <AddTagModal
                     showNew={showAddTag}
                     setShowNew={setShowAddTag}
+                />
+            )}
+            {showDel && (
+                <DeleteTagModal
+                    tagId={tagId}
+                    showDel={showDel}
+                    setShowDel={setShowDel}
                 />
             )}
         </>

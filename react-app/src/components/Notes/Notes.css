@@ -286,3 +286,7 @@ span:hover {
     border: none;
     cursor: pointer;
 }
+
+.edit-tag-btn:hover {
+    color: #209CEE;
+}

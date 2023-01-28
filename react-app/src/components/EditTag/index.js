@@ -11,13 +11,14 @@ function EditTag({ setShowEdit, noteId, tagNoteArray }) {
 
     const tagsObj = useSelector(state => state.tags.allTags);
     const tags = Object.values(tagsObj);
-    const tagNames = tags.map(tag =>  {
+    const tagNames = tags.map(tag => {
         return { id: tag.id, label: tag.name }
     });
 
     const [ input, setInput ] = useState('');
     const [ tagId, setTagId ] = useState(0);
     const [ errors, setErrors ] = useState([]);
+    const [ submitted, setSubmitted ] = useState(false);
 
     const setFields = field => {
         setTagId(field.id)
@@ -32,15 +33,19 @@ function EditTag({ setShowEdit, noteId, tagNoteArray }) {
 
     useEffect(() => {
         const foundTag = tagNoteArray.find(tag => tag.id === tagId)
-        console.log(foundTag)
         if (foundTag) {
             setErrors('Tag already added to this note.')
         }
-        return () => setErrors([]);
-    }, [ tagId ])
+        return () => {
+            setErrors([]);
+            setSubmitted(false);
+        }
+    }, [ tagId, input.length ])
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+
+        setSubmitted(true);
 
         if (errors.length > 0) return;
 
@@ -74,7 +79,16 @@ function EditTag({ setShowEdit, noteId, tagNoteArray }) {
                         <h3>Add Tag</h3>
                     </div>
                     <div className="edit-tag-disclaimer">
-                        <p>Press tab to select existing tag.</p>
+                        {submitted && errors.length > 0 ? (
+                            <div className="errors">
+                                <p>* {errors}</p>
+                            </div>
+                        ) : (
+                            <p>
+                                The search field will populate existing tags.
+                                Press tab to select an existing tag.
+                            </p>
+                        )}
                     </div>
                     <div className="edit-tag-input">
                         <Hint options={tagNames} allowTabFill onFill={value => (
@@ -90,13 +104,8 @@ function EditTag({ setShowEdit, noteId, tagNoteArray }) {
                             />
                         </Hint>
                     </div>
-                    {errors.length > 0 && (
-                        <div className="errors">
-                            <p>{errors}</p>
-                        </div>
-                    )}
                     <div className="edit-tag-btn-container">
-                        <button type="submit" className="nb-btn two" disabled={!!errors.length}>
+                        <button type="submit" className="nb-btn two">
                             add tag
                         </button>
                     </div>

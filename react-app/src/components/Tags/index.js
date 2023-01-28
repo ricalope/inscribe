@@ -7,7 +7,7 @@ import wTag from '../../assets/tag-w.png';
 import './Tags.css';
 
 
-function Tags({ showTags, setShowTags, setShowNew }) {
+function Tags({ showTags, setShowTags, setShowNew, setShowDel, setTagId }) {
 
     const dispatch = useDispatch();
     const { darkMode } = useContext(DarkModeContext);
@@ -18,7 +18,6 @@ function Tags({ showTags, setShowTags, setShowNew }) {
 
     const tagsObj = useSelector(state => state.tags.allTags)
     const tags = Object.values(tagsObj)
-    console.log(tags)
 
     useEffect(() => {
         (async () => {
@@ -50,8 +49,8 @@ function Tags({ showTags, setShowTags, setShowNew }) {
                         <button
                             className="tags-add-btn"
                             onClick={() => {
-                            setShowTags(false)
-                            setShowNew(true)
+                                setShowTags(false)
+                                setShowNew(true)
                             }}>
                             <i className="fa-solid fa-square-plus" />
                         </button>
@@ -73,7 +72,16 @@ function Tags({ showTags, setShowTags, setShowNew }) {
                         </div>
                         {tags.map(tag => (
                             <div key={tag.id} className="tags-name">
-                                <p>{tag.name}</p>
+                                <div className="t-n-dd">
+                                    <div id="t-dd">{tag.name}</div>
+                                    <div id="t-x" onClick={() => {
+                                        setTagId(tag.id)
+                                        setShowTags(false)
+                                        setShowDel(true)}}>
+                                        <span id="t-delete">{tag.name} &nbsp;
+                                        <span id="t-d">x</span></span>
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -86,7 +94,10 @@ function Tags({ showTags, setShowTags, setShowNew }) {
                             <h3>Find notes and tasks faster with tags.</h3>
                         </div>
                         <div className="empty-tags-body">
-                            <h5>Click the <span>+ Add Tag</span> above or here to create a new tag</h5>
+                            <h5>Click the <span onClick={() => {
+                                setShowTags(false)
+                                setShowNew(true)
+                            }}>+ Add Tag</span>above or here to create a new tag</h5>
                         </div>
                     </div>
                 )}

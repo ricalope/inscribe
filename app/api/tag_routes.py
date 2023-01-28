@@ -72,3 +72,16 @@ def update_tag_route(id):
         return tag_note.to_dict()
 
     return { "errors": validation_errors_to_error_messages(form.errors) }, 401
+
+
+@tag_routes.route('/<int:id>', methods=["DELETE"])
+@login_required
+def delete_tag_route(id):
+    tag = Tag.query.get(id)
+
+    if not tag:
+        return { "errors": "Tag could not be found. Please try again." }, 404
+
+    db.session.delete(tag)
+    db.session.commit()
+    return { "message": "successfully deleted" }
