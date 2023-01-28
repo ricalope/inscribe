@@ -77,16 +77,17 @@
     word-wrap: break-word;
     padding: 6px;
     height: 140px;
-    cursor: pointer;
     border-bottom: 1px solid rgba(128, 128, 128, 0.3);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 8px;
+    border-radius: 3px;
     overflow: hidden;
 }
 
 div.notes-card:hover {
-    box-shadow:0 0 2px #868686;
+    box-shadow: 2px 2px 2px #868686, 0 0 2px #868686;
 }
 
 .notes-title {
@@ -252,4 +253,40 @@ span:hover {
 .blank-div {
     border-radius: 5px;
     box-shadow: 0 0 5px #262626;
+}
+
+.note-tag-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+}
+
+.tag-icons-container {
+    display: flex;
+    gap: 10px;
+    overflow-x: scroll;
+}
+
+.tag-icons {
+    background-color: #209CEE;
+    min-width: fit-content;
+    max-height: 20px;
+    padding: 3px 7px 3px 7px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+#t-card {
+    font-size: 13px;
+}
+
+.edit-tag-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-tag-btn:hover {
+    color: #209CEE;
 }

@@ -1,12 +1,20 @@
-from app.models import db, Note, environment, SCHEMA
+from app.models import db, Note, Tag, environment, SCHEMA
 
 
 def seed_notes():
+    tag_4 = Tag(
+        user_id=1,
+        name="coding"
+    )
+
+    db.session.add(tag_4)
+    db.session.commit()
+
     note_1 = Note(
         user_id=1,
         notebook_id=1,
         title="Pick up daughter from school",
-        body="Wifey is going to be a little late getting off of work today so make sure you pick up daughter from school at 4pm"
+        body="Wifey is going to be a little late getting off of work today so make sure you pick up daughter from school at 4pm",
     )
 
     note_2 = Note(
@@ -29,10 +37,18 @@ def seed_notes():
         body="dont forget to get more css done asap"
     )
 
+    note_5 = Note(
+        user_id=1,
+        title="dont forget",
+        body="dont forget to get more css done asap",
+        tag=[tag_4]
+    )
+
     db.session.add(note_1)
     db.session.add(note_2)
     db.session.add(note_3)
     db.session.add(note_4)
+    db.session.add(note_5)
     db.session.commit()
 
 

@@ -93,7 +93,6 @@ function EditTask({ taskId, taskChecked, taskBody, taskDate }) {
                     taskId={taskId}
                     showDelete={showDelete}
                     setShowDelete={setShowDelete}
-                    setShowEdit={setShowEdit}
                 />
             )}
         </>

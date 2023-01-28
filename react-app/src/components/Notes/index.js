@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllNotesThunk, addNoteThunk } from '../../store/note';
 import { DarkModeContext } from '../../context/ThemeContext';
 import EditNote from '../EditNote';
+import EditTagModal from '../EditTag/EditTagModal';
 import NavBar from '../Navigation/NavBar';
 import imgBlack from '../../assets/empty-folder-black.png';
 import imgWhite from '../../assets/empty-folder-white.png';
@@ -13,7 +14,9 @@ function Notes() {
     const [ title, setTitle ] = useState('');
     const [ body, setBody ] = useState('');
     const [ noteId, setNoteId ] = useState(0);
+    const [ tagNoteArray, setTagNoteArray ] = useState([]);
     const [ populated, setPopulated ] = useState(true);
+    const [ showEdit, setShowEdit ] = useState(false);
 
     const dispatch = useDispatch();
     const notesObj = useSelector(state => state.notes.allNotes);
@@ -36,7 +39,7 @@ function Notes() {
             setNoteId(0)
             setPopulated(true)
         }
-    }, [ dispatch, notes.length ])
+    }, [ dispatch, notes.length, tagNoteArray.length ])
 
     const setFields = data => {
         setNoteId(data.id)
@@ -103,8 +106,36 @@ function Notes() {
                                         <div className="notes-content">
                                             {note.body}
                                         </div>
+                                        <div className="note-tag-icons">
+                                            <div className="tag-edit-notes">
+                                                <button
+                                                    className={darkMode ? "edit-tag-btn td-dark" : "edit-tag-btn td-light"}
+                                                    onClick={() => {
+                                                        setTagNoteArray(note.tags)
+                                                        setShowEdit(!showEdit)
+                                                    }}>
+                                                    <i className="fa-solid fa-plus" />
+                                                </button>
+                                            </div>
+                                            <p id="t-card">Tags</p>
+                                            <div className="tag-icons-container">
+                                                {note.tags.map(tag => (
+                                                    <div key={tag.id} className="tag-icons">
+                                                        {tag.name}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
                                     </div>
                                 ))}
+                                {showEdit && (
+                                    <EditTagModal
+                                        noteId={noteId}
+                                        showEdit={showEdit}
+                                        setShowEdit={setShowEdit}
+                                        tagNoteArray={tagNoteArray}
+                                    />
+                                )}
                             </div>
                         )}
                     </div>
