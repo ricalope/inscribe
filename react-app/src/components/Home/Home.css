@@ -205,21 +205,31 @@
     text-shadow: 2px 2px 3px black;
 }
 
+.scratch-add {
+    cursor: pointer;
+}
+
+.scratch-add:hover {
+    color: #209CEE;
+}
+
 .action-wrapper {
     position: absolute;
     top: 30px;
-    left: 310px;
+    left: 300px;
     height: 110px;
     box-shadow: 0 0 4px black;
     border-radius: 4px;
     background-color: white;
 }
 
+.act-clear-div,
 .act-add-div {
     padding: 5px 10px;
     cursor: pointer;
 }
 
+.act-clear-div:hover,
 .act-add-div:hover {
     color: #209CEE;
     background-color: rgba(200,200,200,0.4);
@@ -240,7 +250,7 @@
 }
 
 .act-errors {
-    color: red;
+    color: #209CEE;
     text-align: center;
     border: 1px solid rgb(200, 200, 200);
     border-radius: 4px;

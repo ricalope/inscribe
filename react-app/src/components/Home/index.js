@@ -56,6 +56,12 @@ function Home() {
         await dispatch(addNoteThunk(data))
     }
 
+    const clearScratch = () => {
+        setScratch('')
+        setShowAction(false)
+        localStorage.removeItem('scratchPad')
+    }
+
     const scratchAdd = async () => {
         if (!scratch) {
             setShowErr(true)
@@ -144,6 +150,9 @@ function Home() {
                                 <div className="act-dd">
                                     <div className="act-add-div" onClick={scratchAdd}>
                                         + add to note
+                                    </div>
+                                    <div className="act-clear-div" onClick={clearScratch}>
+                                        - clear scratch
                                     </div>
                                 </div>
                             </div>
