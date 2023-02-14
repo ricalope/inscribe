@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Modal } from '../../context/Modal';
 import { getAllNotesThunk, addNoteThunk } from '../../store/note';
 import { getAllNotebooksThunk } from '../../store/notebook';
 import { DarkModeContext } from '../../context/ThemeContext';
@@ -18,9 +19,13 @@ function Home() {
     const notebooks = Object.values(notebooksObj);
 
     const localScratch = localStorage.getItem('scratchPad');
+
     const [ scratch, setScratch ] = useState(localScratch || '');
     const [ showNew, setShowNew ] = useState(false);
     const [ message, setMessage ] = useState('');
+    const [ showAction, setShowAction ] = useState(false);
+    const [ showErr, setShowErr ] = useState(false);
+    const [ errors, setErrors ] = useState('');
 
     useEffect(() => {
         dispatch(getAllNotesThunk())
@@ -49,6 +54,26 @@ function Home() {
             title: 'Untitled'
         }
         await dispatch(addNoteThunk(data))
+    }
+
+    const clearScratch = () => {
+        setScratch('')
+        setShowAction(false)
+        localStorage.removeItem('scratchPad')
+    }
+
+    const scratchAdd = async () => {
+        if (!scratch) {
+            setShowErr(true)
+            setErrors('Scratch pad is currently empty. Please enter text in order to save to a note.')
+            return
+        }
+        const data = {
+            title: 'Untitled',
+            body: scratch
+        }
+        await dispatch(addNoteThunk(data))
+        setShowAction(false)
     }
 
     notes.sort((a, b) => {
@@ -105,6 +130,9 @@ function Home() {
                     <div className={darkMode ? 'scratch-div sp-dark' : 'scratch-div sp-light'}>
                         <div className="scratch-title">
                             <h4>SCRATCH PAD</h4>
+                            <div className="scratch-add" onClick={() => setShowAction(!showAction)}>
+                                <i class="fa-solid fa-ellipsis" />
+                            </div>
                         </div>
                         <div className="scratch-body">
                             <textarea
@@ -117,7 +145,34 @@ function Home() {
                                 onChange={handleInput}
                             />
                         </div>
+                        {showAction && (
+                            <div className="action-wrapper">
+                                <div className="act-dd">
+                                    <div className="act-add-div" onClick={scratchAdd}>
+                                        + add to note
+                                    </div>
+                                    <div className="act-clear-div" onClick={clearScratch}>
+                                        - clear scratch
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
+                    {showErr && (
+                        <Modal onClose={() => setShowErr(false)}>
+                            <div className="act-errors-wrapper">
+                                <div className="act-err-title">
+                                    Alert
+                                </div>
+                                <div className="act-errors">
+                                    {errors}
+                                </div>
+                                <div className="act-err-close" onClick={() => setShowErr(false)}>
+                                    close
+                                </div>
+                            </div>
+                        </Modal>
+                    )}
                 </div>
                 <div className="home-notebook-container">
                     <div className={darkMode ? 'notebooks-div dark' : 'notebooks-div light'}>
