@@ -54,6 +54,7 @@
 }
 
 .scratch-div {
+    position: relative;
     flex: 1 1 40%;
     height: 350px;
     /* background-color: #FFFFFF; */
@@ -124,7 +125,11 @@
 }
 
 .scratch-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 5px;
+
 }
 
 .scratch-body {
@@ -198,4 +203,54 @@
 
 #top-bar-h1 {
     text-shadow: 2px 2px 3px black;
+}
+
+.action-wrapper {
+    position: absolute;
+    top: 30px;
+    left: 310px;
+    height: 110px;
+    box-shadow: 0 0 4px black;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.act-add-div {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.act-add-div:hover {
+    color: #209CEE;
+    background-color: rgba(200,200,200,0.4);
+}
+
+.act-errors-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 350px;
+    height: 150px;
+    padding: 10px 0;
+}
+
+.act-err-title {
+    font-size: 20px;
+}
+
+.act-errors {
+    color: red;
+    text-align: center;
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.act-err-close {
+    cursor: pointer;
+}
+
+.act-err-close:hover {
+    color: #209CEE;
 }
