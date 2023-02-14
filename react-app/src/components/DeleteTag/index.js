@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteTagThunk, getAllTagsThunk } from '../../store/tag';
+import { deleteTagThunk } from '../../store/tag';
 import { getAllNotesThunk } from '../../store/note';
 import { DarkModeContext } from '../../context/ThemeContext';
 

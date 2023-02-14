@@ -15,22 +15,14 @@ function Notebooks() {
     const dispatch = useDispatch();
 
     const [ showNew, setShowNew ] = useState(false);
-    const [ empty, setEmpty ] = useState(true);
 
     const notebooksObj = useSelector(state => state.notebooks.allNotebooks);
     const notebooks = Object.values(notebooksObj);
     const { darkMode } = useContext(DarkModeContext);
 
     useEffect(() => {
-        (async () => {
-            await dispatch(getAllNotebooksThunk())
-        })()
-        if (notebooks.length === 0) {
-            setEmpty(true)
-        } else if (notebooks.length > 0) {
-            setEmpty(false)
-        }
-    }, [ dispatch, notebooks.length ])
+        dispatch(getAllNotebooksThunk())
+    }, [ dispatch ])
 
     const lengthCheck = (data, len) => {
         if (data.length > len) {
@@ -68,23 +60,7 @@ function Notebooks() {
                             )}
                         </div>
                     </div>
-                    {empty ? (
-                        <div className={darkMode ? 'empty-notes dark' : 'empty-notes light'}>
-                            <div className="empty-img">
-                                <img src={darkMode ? imgWhite : imgBlack} className="e-img" alt="black empty folder" />
-                            </div>
-                            <div className="empty-text">
-                                <p>
-                                    You currently have no notebooks <br />
-                                    Click the <span className="sp-click" onClick={() => setShowNew(true)}>
-                                        + New Notebook</span> button in the side bar or the
-                                    <span className="sp-click" onClick={() => setShowNew(true)}>
-                                        &nbsp;<i className="fa-solid fa-folder-plus" />
-                                    </span> to get started
-                                </p>
-                            </div>
-                        </div>
-                    ) : (
+                    {notebooks.length > 0 ? (
                         <div className={darkMode ? 'notebooks-table dark' : 'notebooks-table light'}>
                             <div className="notebooks-header-column">
                                 <table>
@@ -118,6 +94,22 @@ function Notebooks() {
                                         ))}
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className={darkMode ? 'empty-notes dark' : 'empty-notes light'}>
+                            <div className="empty-img">
+                                <img src={darkMode ? imgWhite : imgBlack} className="e-img" alt="black empty folder" />
+                            </div>
+                            <div className="empty-text">
+                                <p>
+                                    You currently have no notebooks <br />
+                                    Click the <span className="sp-click" onClick={() => setShowNew(true)}>
+                                        + New Notebook</span> button in the side bar or the
+                                    <span className="sp-click" onClick={() => setShowNew(true)}>
+                                        &nbsp;<i className="fa-solid fa-folder-plus" />
+                                    </span> to get started
+                                </p>
                             </div>
                         </div>
                     )}

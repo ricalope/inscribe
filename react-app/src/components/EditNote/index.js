@@ -20,6 +20,7 @@ function EditNote({ noteId, title, body, setTitle, setBody }) {
         }
         await dispatch(editNoteThunk(formData))
         await dispatch(getAllNotesThunk())
+        return
     }
 
     return (

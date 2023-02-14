@@ -74,30 +74,40 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: baseline;
-    padding: 15px;
-    gap: 10px;
+    padding: 15px 0 15px 0;
 }
 
-.navlink>a {
-    color: rgb(150, 150, 150);
-    text-decoration: none;
+.navlink {
+    /* text-decoration: none; */
     display: flex;
     gap: 5px;
     font-size: 15px;
+    padding: 5px 10px;
+    width: 100%;
 }
 
-.navlink>a:hover {
-    color: #209CEE;
+a {
+    text-decoration: none;
+}
+
+.nav-middle-second:hover .navlink:hover,
+.nav-middle-links:hover .navlink:hover {
+    background-color: rgba(200,200,200,0.4);
 }
 
 .p-link {
     font-weight: 300;
 }
 
+.p-link:hover {
+    color: #209CEE;
+}
+
 .nav-inner {
     display: flex;
     align-content: baseline;
     gap: 7px;
+    color: rgb(150, 150, 150);
 }
 
 .nav-footer {
@@ -172,14 +182,15 @@
 
 .new-nav-btns {
     position: absolute;
-    top: 160px;
+    top: 158px;
     left: 5px;
     display: flex;
     flex-direction: column;
     gap: 5px;
     box-sizing: border-box;
-    padding: 5px;
+    padding: 0 5px 5px 5px;
     background-color: black;
+    z-index: 50;
 }
 
 .logout-main-div {
@@ -219,4 +230,9 @@
 
 .nl-tags:hover {
     color: #209CEE;
+}
+
+.nl-link.active .p-link {
+    font-size: 16px;
+    color: #209CEE!important;
 }

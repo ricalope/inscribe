@@ -29,13 +29,12 @@ function OneNotebook() {
     const { darkMode } = useContext(DarkModeContext);
 
     useEffect(() => {
-        (async () => {
-            await dispatch(getAllNotesThunk())
-            const data = await dispatch(getOneNotebookThunk(notebookId))
-            if (data.errors) {
-                setErrors(data)
-            }
-        })()
+        dispatch(getAllNotesThunk())
+        const data = dispatch(getOneNotebookThunk(notebookId))
+        if (data.errors) setErrors(data)
+    }, [ dispatch, notebookId ])
+
+    useEffect(() => {
         if (notes.length > 0) {
             setTitle(notes[ 0 ].title)
             setBody(notes[ 0 ].body)
@@ -47,7 +46,7 @@ function OneNotebook() {
             setNoteId(0)
             setPopulated(true)
         }
-    }, [ dispatch, notes.length, notebookId ])
+    }, [ notes.length, notebookId ])
 
     const setFields = data => {
         setNoteId(data.id)

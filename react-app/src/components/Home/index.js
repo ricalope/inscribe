@@ -23,12 +23,11 @@ function Home() {
     const [ message, setMessage ] = useState('');
 
     useEffect(() => {
-        (async () => {
-            await dispatch(getAllNotesThunk())
-            await dispatch(getAllNotebooksThunk())
-        })()
+        dispatch(getAllNotesThunk())
+        dispatch(getAllNotebooksThunk())
+    }, [ dispatch ])
 
-
+    useEffect(() => {
         const today = new Date()
         const time = today.getHours()
         if (time < 12) {
@@ -38,9 +37,7 @@ function Home() {
         } else {
             setMessage('Good Evening!')
         }
-
-
-    }, [ dispatch ])
+    }, [])
 
     const handleInput = e => {
         localStorage.setItem('scratchPad', e.target.value);
@@ -89,7 +86,10 @@ function Home() {
                         </div>
                         <div className="card-note">
                             {notes.map(note => (
-                                <Link key={note.id} exact="true" to="/notes" className={darkMode ? 'note dark' : 'note light'}>
+                                <Link
+                                    key={note.id}
+                                    exact="true" to="/notes"
+                                    className={darkMode ? 'note dark' : 'note light'}>
                                     <div className="home-nc-div">
                                         <div id="note-text">
                                             <h4 id="nc-title">{note.title}</h4>
@@ -102,7 +102,7 @@ function Home() {
                             ))}
                         </div>
                     </div>
-                    <div className={darkMode ? 'scratch-div dark' : 'scratch-div light'}>
+                    <div className={darkMode ? 'scratch-div sp-dark' : 'scratch-div sp-light'}>
                         <div className="scratch-title">
                             <h4>SCRATCH PAD</h4>
                         </div>
@@ -110,7 +110,7 @@ function Home() {
                             <textarea
                                 type="text"
                                 style={{ resize: 'none' }}
-                                className={darkMode ? 'ta-scratch dark' : 'ta-scratch light'}
+                                className={darkMode ? 'ta-scratch sp-dark' : 'ta-scratch sp-light'}
                                 name="scratch"
                                 placeholder="Start writing..."
                                 value={scratch}
