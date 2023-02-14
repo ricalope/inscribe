@@ -56,13 +56,23 @@
 .scratch-div {
     flex: 1 1 40%;
     height: 350px;
-    background-color: #FFFFFF;
+    /* background-color: #FFFFFF; */
     border-radius: 15px;
     padding: 8px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     box-shadow: 0 0 5px #262626;
+}
+
+.sp-dark {
+    background-color: #464646;
+    color: white;
+}
+
+.sp-light {
+    background-color: #fff3b9;
+    color: #262626;
 }
 
 .home-nc-div,

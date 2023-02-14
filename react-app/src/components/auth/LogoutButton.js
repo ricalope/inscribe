@@ -13,9 +13,9 @@ const LogoutButton = ({ setShowLogout }) => {
 
     const onLogout = async (e) => {
         await dispatch(logout());
-        await history.push('/');
         setShowLogout(false);
         localStorage.removeItem('scratchPad');
+        return history.push('/');
     };
 
     return (

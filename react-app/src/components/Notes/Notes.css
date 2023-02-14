@@ -84,6 +84,7 @@
     gap: 8px;
     border-radius: 3px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 div.notes-card:hover {

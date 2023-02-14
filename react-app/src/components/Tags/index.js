@@ -12,7 +12,6 @@ function Tags({ showTags, setShowTags, setShowNew, setShowDel, setTagId }) {
     const dispatch = useDispatch();
     const { darkMode } = useContext(DarkModeContext);
 
-    const [ populated, setPopulated ] = useState(true);
     const [ style, setStyle ] = useState('');
     const [ search, setSearch ] = useState('');
 
@@ -20,23 +19,17 @@ function Tags({ showTags, setShowTags, setShowNew, setShowDel, setTagId }) {
     const tags = Object.values(tagsObj)
 
     useEffect(() => {
-        (async () => {
-            await dispatch(getAllTagsThunk())
-        })()
+        dispatch(getAllTagsThunk())
+    }, [ dispatch ])
 
-        if (tags.length === 0) {
-            setPopulated(false)
-        } else if (tags.length > 0) {
-            setPopulated(true)
-        }
-
+    useEffect(() => {
         if (showTags) {
             setStyle('show')
         } else if (!showTags) {
             setStyle('hide')
         }
 
-    }, [ dispatch, tags.length, showTags ])
+    }, [ tags.length, showTags ])
 
     return (
         <>
@@ -59,7 +52,7 @@ function Tags({ showTags, setShowTags, setShowNew, setShowDel, setTagId }) {
                         </button>
                     </div>
                 </div>
-                {populated ? (
+                {tags.length > 0 ? (
                     <div className="tags-inner-container">
                         <div className="tags-search-bar">
                             <input

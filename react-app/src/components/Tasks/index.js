@@ -16,19 +16,11 @@ function Tasks() {
     const tasksObj = useSelector(state => state.tasks.allTasks);
     const tasks = Object.values(tasksObj)
 
-    const [ populated, setPopulated ] = useState(true);
     const [ showNew, setShowNew ] = useState(false);
 
     useEffect(() => {
-        (async () => {
-            await dispatch(getAllTasksThunk())
-        })()
-        if (tasks.length > 0) {
-            setPopulated(false)
-        } else if (tasks.length === 0) {
-            setPopulated(true)
-        }
-    }, [ dispatch, tasks.length ])
+        dispatch(getAllTasksThunk())
+    }, [ dispatch ])
 
     return (
         <>
@@ -60,7 +52,7 @@ function Tasks() {
                         </div>
                     </div>
                     <div className={darkMode ? "tasks-inner-container dark" : "tasks-inner-container light"}>
-                        {populated ? (
+                        {tasks.length > 0 ? (
                             <div className="empty-tasks">
 
                             </div>

@@ -15,7 +15,6 @@ function Notes() {
     const [ body, setBody ] = useState('');
     const [ noteId, setNoteId ] = useState(0);
     const [ tagNoteArray, setTagNoteArray ] = useState([]);
-    const [ populated, setPopulated ] = useState(true);
     const [ showEdit, setShowEdit ] = useState(false);
 
     const dispatch = useDispatch();
@@ -25,21 +24,18 @@ function Notes() {
     const { darkMode } = useContext(DarkModeContext);
 
     useEffect(() => {
-        (async () => {
-            await dispatch(getAllNotesThunk())
-        })()
-        if (notes.length > 0) {
-            setTitle(notes[ 0 ].title)
-            setBody(notes[ 0 ].body)
-            setNoteId(notes[ 0 ].id)
-            setPopulated(false)
-        } else if (notes.length === 0) {
-            setTitle('')
-            setBody('')
+        dispatch(getAllNotesThunk())
+    }, [ dispatch ])
+
+    useEffect(() => {
+        if (notes?.length > 0) {
+            setTitle(notes[ 0 ]?.title)
+            setBody(notes[ 0 ]?.body)
+            setNoteId(notes[ 0 ]?.id)
+        } else if (notes?.length === 0) {
             setNoteId(0)
-            setPopulated(true)
         }
-    }, [ dispatch, notes.length, tagNoteArray.length ])
+    }, [ notes.length, tagNoteArray.length ])
 
     const setFields = data => {
         setNoteId(data.id)
@@ -76,42 +72,29 @@ function Notes() {
                             </div>
                         </div>
                         <div id="n-count">
-                            {notes.length} {notes.length === 1 ? 'note' : 'notes'}
+                            {notes?.length} {notes?.length === 1 ? 'note' : 'notes'}
                         </div>
                     </div>
                     <div className="notes-inner-container">
-                        {populated ? (
-                            <div className={darkMode ? 'empty-notes dark' : 'empty-notes light'}>
-                                <div className="empty-img">
-                                    <img src={darkMode ? imgWhite : imgBlack} className="e-img" alt="black empty folder" />
-                                </div>
-                                <div className="empty-text">
-                                    <p>
-                                        You currently have no notes <br />
-                                        Click the <span className="sp-click" onClick={newNote}>
-                                            + New Note</span> button in the side bar to get started
-                                    </p>
-                                </div>
-                            </div>
-                        ) : (
+                        {notes.length > 0 ? (
                             <div className={darkMode ? 'column-notes dark' : 'column-notes light'}>
-                                {notes.map((note, idx) => (
+                                {notes?.map((note, idx) => (
                                     <div key={idx}
                                         className="notes-card"
                                         onClick={() => setFields(note)}
                                     >
                                         <div className="notes-title">
-                                            {note.title}
+                                            {note?.title}
                                         </div>
                                         <div className="notes-content">
-                                            {note.body}
+                                            {note?.body}
                                         </div>
                                         <div className="note-tag-icons">
                                             <div className="tag-edit-notes">
                                                 <button
                                                     className={darkMode ? "edit-tag-btn td-dark" : "edit-tag-btn td-light"}
                                                     onClick={() => {
-                                                        setTagNoteArray(note.tags)
+                                                        setTagNoteArray(note?.tags)
                                                         setShowEdit(!showEdit)
                                                     }}>
                                                     <i className="fa-solid fa-plus" />
@@ -119,9 +102,9 @@ function Notes() {
                                             </div>
                                             <p id="t-card">Tags</p>
                                             <div className="tag-icons-container">
-                                                {note.tags.map(tag => (
-                                                    <div key={tag.id} className="tag-icons">
-                                                        {tag.name}
+                                                {note?.tags.map(tag => (
+                                                    <div key={tag?.id} className="tag-icons">
+                                                        {tag?.name}
                                                     </div>
                                                 ))}
                                             </div>
@@ -137,13 +120,25 @@ function Notes() {
                                     />
                                 )}
                             </div>
+                        ) : (
+                            <div className={darkMode ? 'empty-notes dark' : 'empty-notes light'}>
+                                <div className="empty-img">
+                                    <img src={darkMode ? imgWhite : imgBlack} className="e-img" alt="black empty folder" />
+                                </div>
+                                <div className="empty-text">
+                                    <p>
+                                        You currently have no notes <br />
+                                        Click the <span className="sp-click" onClick={newNote}>
+                                            + New Note</span> button in the side bar to get started
+                                    </p>
+                                </div>
+                            </div>
+
                         )}
                     </div>
                 </div >
                 <div className="edit-column-notes">
-                    {populated ? (
-                        <div className={darkMode ? 'blank-div dark' : 'blank-div light'}></div>
-                    ) : (
+                    {notes.length > 0 ? (
                         <EditNote
                             noteId={noteId}
                             title={title}
@@ -151,6 +146,8 @@ function Notes() {
                             setTitle={setTitle}
                             setBody={setBody}
                         />
+                    ) : (
+                        <div className={darkMode ? 'blank-div dark' : 'blank-div light'} />
                     )}
                 </div>
             </div>
