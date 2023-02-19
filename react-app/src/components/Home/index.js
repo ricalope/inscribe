@@ -131,7 +131,7 @@ function Home() {
                         <div className="scratch-title">
                             <h4>SCRATCH PAD</h4>
                             <div className="scratch-add" onClick={() => setShowAction(!showAction)}>
-                                <i class="fa-solid fa-ellipsis" />
+                                <i className="fa-solid fa-ellipsis" />
                             </div>
                         </div>
                         <div className="scratch-body">
