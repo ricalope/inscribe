@@ -178,7 +178,7 @@
 }
 
 #t-delete > #t-d:hover {
-    color: white;
+    color: red;
     z-index: 999;
     cursor: pointer;
 }

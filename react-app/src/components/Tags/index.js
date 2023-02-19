@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllTagsThunk } from '../../store/tag';
+import { getAllTagsThunk, searchTagsThunk } from '../../store/tag';
 import { DarkModeContext } from '../../context/ThemeContext';
 import bTag from '../../assets/tag-b.png';
 import wTag from '../../assets/tag-w.png';
@@ -15,8 +15,10 @@ function Tags({ showTags, setShowTags, setShowNew, setShowDel, setTagId }) {
     const [ style, setStyle ] = useState('');
     const [ search, setSearch ] = useState('');
 
-    const tagsObj = useSelector(state => state.tags.allTags)
-    const tags = Object.values(tagsObj)
+    const tagsObj = useSelector(state => state.tags.allTags);
+    const searchObj = useSelector(state => state.tags.searchTags);
+    const tags = Object.values(tagsObj);
+    const searchTags = Object.values(searchObj);
 
     useEffect(() => {
         dispatch(getAllTagsThunk())
@@ -30,6 +32,14 @@ function Tags({ showTags, setShowTags, setShowNew, setShowDel, setTagId }) {
         }
 
     }, [ tags.length, showTags ])
+
+    useEffect(() => {
+        if (search.length > 0) {
+            dispatch(searchTagsThunk(search))
+        } else if (search.length === 0) {
+            dispatch(getAllTagsThunk())
+        }
+    }, [search.length])
 
     return (
         <>
@@ -52,9 +62,8 @@ function Tags({ showTags, setShowTags, setShowNew, setShowDel, setTagId }) {
                         </button>
                     </div>
                 </div>
-                {tags.length > 0 ? (
-                    <div className="tags-inner-container">
-                        <div className="tags-search-bar">
+                <div className="tags-inner-container">
+                    <div className="tags-search-bar">
                             <input
                                 className="tags-search"
                                 type="search"
@@ -62,7 +71,10 @@ function Tags({ showTags, setShowTags, setShowNew, setShowDel, setTagId }) {
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                             />
-                        </div>
+                    </div>
+                </div>
+                {tags.length > 0 && searchTags.length === 0 && (
+                    <div className="tags-inner-container">
                         {tags.map(tag => (
                             <div key={tag.id} className="tags-name">
                                 <div className="t-n-dd">
@@ -70,15 +82,38 @@ function Tags({ showTags, setShowTags, setShowNew, setShowDel, setTagId }) {
                                     <div id="t-x" onClick={() => {
                                         setTagId(tag.id)
                                         setShowTags(false)
-                                        setShowDel(true)}}>
+                                        setShowDel(true)
+                                    }}>
                                         <span id="t-delete">{tag.name} &nbsp;
-                                        <span id="t-d">x</span></span>
+                                            <span id="t-d">x</span></span>
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
-                ) : (
+                )}
+                {searchTags.length > 0 && tags.length === 0 && (
+                    <div className="tags-inner-container">
+                        {searchTags.map(tag => (
+                            <div key={tag.id} className="tags-name">
+                                <div className="t-n-dd">
+                                    <div id="t-dd">{tag.name}</div>
+                                    <div id="t-x" onClick={() => {
+                                        setTagId(tag.id)
+                                        setShowTags(false)
+                                        setShowDel(true)
+                                    }}>
+                                        <span id="t-delete">
+                                            {tag.name} &nbsp;
+                                            <span id="t-d">x</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+                {searchTags.length === 0 && tags.length === 0 && (
                     <div className="empty-tags-container">
                         <div className="empty-tags-image">
                             <img src={darkMode ? bTag : wTag} className="empty-image" alt="sad tags" />

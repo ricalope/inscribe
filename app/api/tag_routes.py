@@ -85,3 +85,13 @@ def delete_tag_route(id):
     db.session.delete(tag)
     db.session.commit()
     return { "message": "successfully deleted" }
+
+
+@tag_routes.route('/search')
+@login_required
+def search_all_tags():
+    args = request.args.to_dict()
+    tag_name = args['tagname']
+
+    tags_query = Tag.query.filter(Tag.name.like(f"{tag_name}%")).all()
+    return jsonify([tag.to_dict() for tag in tags_query])

@@ -2,6 +2,7 @@ const GET_TAGS = 'tags/GET_TAGS';
 const ADD_TAG = 'tags/ADD_TAG';
 const UPDATE_TAG = 'tags/UPDATE_TAG';
 const DELETE_TAG = 'tags/DELETE_TAG';
+const SEARCH_TAGS = 'tags/SEARCH_TAGS';
 
 
 const getTags = tags => ({
@@ -25,6 +26,12 @@ const updateTag = tag => ({
 const deleteTag = tag => ({
     type: DELETE_TAG,
     tag
+})
+
+
+const searchTags = tags => ({
+    type: SEARCH_TAGS,
+    tags
 })
 
 
@@ -103,29 +110,44 @@ export const deleteTagThunk = tagId => async dispatch => {
 }
 
 
-const initialState = { allTags: {}, oneTag: {} }
+export const searchTagsThunk = search => async dispatch => {
+    const res = await fetch(`/api/tags/search?tagname=${search}`)
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(searchTags(data))
+        return data
+    }
+}
+
+
+const initialState = { allTags: {}, searchTags: {} }
 
 
 const tagsReducer = (state = initialState, action) => {
     switch(action.type) {
         case GET_TAGS: {
-            const newState = { ...state, allTags: {}, oneTag: {} }
+            const newState = { ...state, allTags: {}, searchTags: {} }
             action.tags.forEach(tag => newState.allTags[tag.id] = tag)
             return newState
         }
         case ADD_TAG: {
-            const newState = { ...state, allTags: { ...state.allTags }, oneTag: {} }
+            const newState = { ...state, allTags: { ...state.allTags }, searchTags: {} }
             newState.allTags[action.tag.id] = action.tag
             return newState
         }
         case UPDATE_TAG: {
-            const newState = { ...state, allTags: { ...state.allTags }, oneTag: {} }
+            const newState = { ...state, allTags: { ...state.allTags }, searchTags: {} }
             newState.allTags[action.tag.id] = action.tag
             return newState
         }
         case DELETE_TAG: {
-            const newState = { ...state, allTags: { ...state.allTags }, oneTag: { ...state.oneTag } }
+            const newState = { ...state, allTags: { ...state.allTags }, searchTags: { ...state.searchTags } }
             delete newState.allTags[action.tagId]
+            return newState
+        }
+        case SEARCH_TAGS: {
+            const newState = { ...state, allTags: {}, searchTags: {} }
+            action.tags.forEach(tag => newState.searchTags[tag.id] = tag)
             return newState
         }
         default:
