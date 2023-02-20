@@ -15,6 +15,7 @@ class Notebook(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     user = db.relationship("User", back_populates="notebook")
+    shortcut = db.relationship("Shortcut", back_populates="notebook")
     note = db.relationship("Note", back_populates="notebook", cascade="all, delete-orphan")
     task = db.relationship("Task", back_populates="notebook", cascade="all, delete-orphan")
 

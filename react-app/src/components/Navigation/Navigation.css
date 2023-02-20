@@ -220,6 +220,7 @@ a {
     height: 100%;
 }
 
+.nl-shortcuts,
 .nl-tags {
     background-color: transparent;
     border: none;
@@ -228,6 +229,7 @@ a {
     cursor: pointer;
 }
 
+.nl-shortcuts:hover,
 .nl-tags:hover {
     color: #209CEE;
 }

@@ -21,6 +21,7 @@ class Task(db.Model):
 
     user = db.relationship("User", back_populates="task")
     notebook = db.relationship("Notebook", back_populates="task")
+    shortcut = db.relationship("Shortcut", back_populates="task")
 
 
     def set_updated_at(self):

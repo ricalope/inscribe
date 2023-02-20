@@ -30,6 +30,7 @@ class Note(db.Model):
 
     user = db.relationship("User", back_populates="note")
     notebook = db.relationship("Notebook", back_populates="note")
+    shortcut = db.relationship("Shortcut", back_populates="note")
     tag = db.relationship("Tag", secondary=note_tags, back_populates="note")
 
     def set_updated_at(self):
