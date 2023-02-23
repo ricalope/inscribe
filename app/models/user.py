@@ -20,7 +20,6 @@ class User(db.Model, UserMixin):
     notebook = db.relationship("Notebook", back_populates="user")
     task = db.relationship("Task", back_populates="user")
     tag = db.relationship("Tag", back_populates="user")
-    shortcut = db.relationship("Shortcut", back_populates="user")
 
     @property
     def password(self):

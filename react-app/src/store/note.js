@@ -99,7 +99,7 @@ export const deleteNoteThunk = noteId => async dispatch => {
 
 const initialState = { allNotes: {}, oneNote: {} }
 
-const notesReducer = (state = initialState, action) => {
+export default function notesReducer(state = initialState, action) {
 
     switch(action.type) {
 
@@ -132,5 +132,3 @@ const notesReducer = (state = initialState, action) => {
             return state
     }
 }
-
-export default notesReducer

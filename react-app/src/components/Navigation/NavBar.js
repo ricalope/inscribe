@@ -9,11 +9,10 @@ import LogoutModal from '../auth/LogoutModal';
 import AddNotebookModal from '../AddNotebook/AddNotebookModal';
 import AddTaskModal from '../AddTask/AddTaskModal';
 import DeleteTagModal from '../DeleteTag/DeleteTagModal';
-import Tags from '../Tags';
-import Shortcuts from '../Shortcuts';
+import Tags from '../Tags'
 import AddTagModal from '../AddTag/AddTagModal';
 import { DarkModeContext } from '../../context/ThemeContext';
-import './Navigation.css';
+import './Navigation.css'
 
 const NavBar = () => {
     const dispatch = useDispatch();
@@ -22,11 +21,10 @@ const NavBar = () => {
     const [ showNewTask, setShowNewTask ] = useState(false);
     const [ showLogout, setShowLogout ] = useState(false);
     const [ showDropDown, setShowDropDown ] = useState(false);
-    const [ showShortcuts, setShowShortcuts ] = useState(false);
     const [ showTags, setShowTags ] = useState(false);
     const [ showAddTag, setShowAddTag ] = useState(false);
     const [ showDel, setShowDel ] = useState(false);
-    const [ tagId, setTagId ] = useState(0);
+    const [ tagId, setTagId ] = useState(0)
 
     const sessionUser = useSelector(state => state.session.user);
 
@@ -126,12 +124,12 @@ const NavBar = () => {
                         </NavLink>
                     </div>
                     <div className="navlink">
-                        <button className="nl-shortcuts nl-link" onClick={() => setShowShortcuts(!showShortcuts)}>
+                        <NavLink to="/coming-soon" exact={true} activeClassName="active" className="nl-link">
                             <div className="nav-inner">
                                 <div><i className="fa-solid fa-star fa-match" /></div>
                                 <p className="p-link one">Shortcuts</p>
                             </div>
-                        </button>
+                        </NavLink>
                     </div>
                     <div className="navlink">
                         <NavLink to="/notes" exact={true} activeClassName="active" className="nl-link">
@@ -195,12 +193,6 @@ const NavBar = () => {
                     </div>
                 </div>
             </div>
-            {showShortcuts && (
-                <Shortcuts
-                    showShortcuts={showShortcuts}
-                    setShowShortcuts={setShowShortcuts}
-                />
-            )}
             {showTags && (
                 <Tags
                     showTags={showTags}

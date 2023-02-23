@@ -5,4 +5,3 @@ from .note import Note
 from .notebook import Notebook
 from .task import Task
 from .tag import Tag
-from .shortcut import Shortcut

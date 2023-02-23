@@ -5,7 +5,6 @@ import notesReducer from './note'
 import notebooksReducer from './notebook';
 import tasksReducer from './task';
 import tagsReducer from './tag';
-import shortcutsReducer from './shortcut';
 
 
 const rootReducer = combineReducers({
@@ -13,8 +12,7 @@ const rootReducer = combineReducers({
   notes: notesReducer,
   notebooks: notebooksReducer,
   tasks: tasksReducer,
-  tags: tagsReducer,
-  shortcuts: shortcutsReducer
+  tags: tagsReducer
 });
 
 
