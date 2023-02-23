@@ -20,7 +20,7 @@
 #tags-main.show {
     -webkit-transform: translateX(550px);
     -ms-transform: translateX(550px);
-    transform: translateX(550px);
+    transform: translateX(550px)
 }
 
 #tags-h2 {

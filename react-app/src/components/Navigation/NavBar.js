@@ -126,6 +126,14 @@ const NavBar = () => {
                         </NavLink>
                     </div>
                     <div className="navlink">
+                        <button className="nl-shortcuts nl-link" onClick={() => setShowShortcuts(!showShortcuts)}>
+                            <div className="nav-inner">
+                                <div><i className="fa-solid fa-star fa-match" /></div>
+                                <p className="p-link one">Shortcuts</p>
+                            </div>
+                        </button>
+                    </div>
+                    <div className="navlink">
                         <NavLink to="/notes" exact={true} activeClassName="active" className="nl-link">
                             <div className="nav-inner">
                                 <div><i className="fa-solid fa-note-sticky fa-match" /></div>
@@ -141,6 +149,8 @@ const NavBar = () => {
                             </div>
                         </NavLink>
                     </div>
+                </div>
+                <div className="nav-middle-second">
                     <div className="navlink">
                         <NavLink to="/notebooks" exact={true} activeClassName="active" className="nl-link">
                             <div className="nav-inner">
@@ -149,24 +159,8 @@ const NavBar = () => {
                             </div>
                         </NavLink>
                     </div>
-                </div>
-                <div className="nav-middle-second">
                     <div className="navlink">
-                        <button className="nl-shortcuts nl-link" onClick={() => {
-                            setShowShortcuts(!showShortcuts)
-                            setShowTags(false)
-                        }}>
-                            <div className="nav-inner">
-                                <div><i className="fa-solid fa-star fa-match" /></div>
-                                <p className="p-link one">Shortcuts</p>
-                            </div>
-                        </button>
-                    </div>
-                    <div className="navlink">
-                        <button className="nl-link nl-tags" onClick={() => {
-                            setShowTags(!showTags)
-                            setShowShortcuts(false)
-                        }}>
+                        <button className="nl-link nl-tags" onClick={() => setShowTags(!showTags)}>
                             <div className="nav-inner">
                                 <div><i className="fa-solid fa-hashtag fa-match" /></div>
                                 <p className="p-link">Tags</p>
@@ -205,7 +199,6 @@ const NavBar = () => {
                 <Shortcuts
                     showShortcuts={showShortcuts}
                     setShowShortcuts={setShowShortcuts}
-                    setShowTags={setShowTags}
                 />
             )}
             {showTags && (
@@ -214,7 +207,6 @@ const NavBar = () => {
                     setShowTags={setShowTags}
                     setShowNew={setShowAddTag}
                     setShowDel={setShowDel}
-                    setShowShortcuts={setShowShortcuts}
                     setTagId={setTagId}
                 />
             )}

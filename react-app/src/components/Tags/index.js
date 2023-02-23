@@ -22,7 +22,7 @@ function Tags({ showTags, setShowTags, setShowNew, setShowDel, setTagId }) {
 
     useEffect(() => {
         dispatch(getAllTagsThunk())
-    }, [])
+    }, [ dispatch ])
 
     useEffect(() => {
         if (showTags) {

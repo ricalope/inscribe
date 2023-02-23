@@ -5,7 +5,6 @@ import { DarkModeContext } from '../../context/ThemeContext';
 import NavBar from '../Navigation/NavBar';
 import AddTaskModal from '../AddTask/AddTaskModal';
 import EditTask from '../EditTask';
-import notask from '../../assets/nt-wht.png';
 import './Tasks.css';
 
 
@@ -53,7 +52,11 @@ function Tasks() {
                         </div>
                     </div>
                     <div className={darkMode ? "tasks-inner-container dark" : "tasks-inner-container light"}>
-                        {tasks.length === 0 ? (
+                        {tasks.length > 0 ? (
+                            <div className="empty-tasks">
+
+                            </div>
+                        ) : (
                             <div className="column-tasks">
                                 {tasks.map((task) => (
                                     <div key={task.id}
@@ -67,21 +70,6 @@ function Tasks() {
                                         />
                                     </div>
                                 ))}
-                            </div>
-                        ) : (
-                            <div className="empty-tasks-wrapper">
-                                <div className="empty-tasks">
-                                    <div className="empty-task-img">
-                                        <img src={notask} className="empty-image" alt="no task" />
-                                    </div>
-                                    <div className="empty-task-body">
-                                        <p className="mt-p">
-                                            There are no tasks currently, click <span className="sp-click" onClick={() => {
-                                                setShowNew(true)
-                                            }}>add task</span> if you would like to create a new one.
-                                        </p>
-                                    </div>
-                                </div>
                             </div>
                         )}
                     </div>
