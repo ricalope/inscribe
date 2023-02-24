@@ -11,6 +11,7 @@ class Notebook(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     title = db.Column(db.Text)
+    starred = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
@@ -30,6 +31,7 @@ class Notebook(db.Model):
             "id": self.id,
             "user_id": self.user_id,
             "title": self.title,
+            "starred": self.starred,
             "notes": [n.to_dict() for n in self.note],
             "user_email": self.user.email,
             "created_at": self.created_at,

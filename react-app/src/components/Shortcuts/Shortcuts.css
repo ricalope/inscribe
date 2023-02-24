@@ -1,0 +1,65 @@
+#shortcuts-main {
+    position: fixed;
+    top: 0;
+    left: -350px;
+    height: 100%;
+    background-color: #565656f3;
+    color: white;
+    z-index: 100;
+    width: 350px;
+    padding: 10px;
+    box-shadow: 6px 0 6px rgba(0,0,0, 0.7);
+    transition: -webkit-transform .5s ease-in-out;
+    transition: transform .5s ease-in-out;
+    -webkit-transform: translateX(-110%);
+    -ms-transform: translateX(-110%);
+    transform: translateX(-110%);
+    overflow: scroll;
+}
+
+#shortcuts-main.show {
+    -webkit-transform: translateX(550px);
+    -ms-transform: translateX(550px);
+    transform: translateX(550px);
+}
+
+.shortcuts-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+
+.sc-close {
+    background-color: transparent;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.sc-close:hover {
+    color: #209CEE;
+}
+
+.shortcuts-inner-container {
+    padding-top: 20px;
+}
+
+.sc-header {
+    padding: 5px;
+    border-bottom: 1px solid gray;
+}
+
+.sc-h4 {
+    font-size: 15px;
+}
+
+.sc-content {
+    padding: 10px 5px;
+}
+
+.sc-p {
+    font-size: 13px;
+}
