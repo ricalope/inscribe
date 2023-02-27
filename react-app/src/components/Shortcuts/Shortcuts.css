@@ -62,4 +62,9 @@
 
 .sc-p {
     font-size: 13px;
+    color: white;
+}
+
+.sc-p:hover {
+    color: #209CEE;
 }
