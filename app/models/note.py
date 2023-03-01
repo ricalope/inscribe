@@ -25,6 +25,7 @@ class Note(db.Model):
     notebook_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("notebooks.id")))
     title = db.Column(db.Text, nullable=False)
     body = db.Column(db.Text, nullable=False)
+    starred = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.Text, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.Text, nullable=False, default=datetime.utcnow)
 
@@ -45,6 +46,7 @@ class Note(db.Model):
             "notebook_id": self.notebook_id,
             "title": self.title,
             "body": self.body,
+            "starred": self.starred,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "tags": [t.to_dict() for t in self.tag],

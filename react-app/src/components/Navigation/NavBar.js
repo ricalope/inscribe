@@ -10,6 +10,7 @@ import AddNotebookModal from '../AddNotebook/AddNotebookModal';
 import AddTaskModal from '../AddTask/AddTaskModal';
 import DeleteTagModal from '../DeleteTag/DeleteTagModal';
 import Tags from '../Tags'
+import Shortcuts from '../Shortcuts';
 import AddTagModal from '../AddTag/AddTagModal';
 import { DarkModeContext } from '../../context/ThemeContext';
 import './Navigation.css'
@@ -23,6 +24,7 @@ const NavBar = () => {
     const [ showDropDown, setShowDropDown ] = useState(false);
     const [ showTags, setShowTags ] = useState(false);
     const [ showAddTag, setShowAddTag ] = useState(false);
+    const [ showShortcuts, setShowShortcuts ] = useState(false);
     const [ showDel, setShowDel ] = useState(false);
     const [ tagId, setTagId ] = useState(0)
 
@@ -124,12 +126,15 @@ const NavBar = () => {
                         </NavLink>
                     </div>
                     <div className="navlink">
-                        <NavLink to="/coming-soon" exact={true} activeClassName="active" className="nl-link">
+                        <button className="nl-tags nl-link" onClick={() => {
+                            setShowShortcuts(!showShortcuts)
+                            setShowTags(false)
+                            }}>
                             <div className="nav-inner">
                                 <div><i className="fa-solid fa-star fa-match" /></div>
                                 <p className="p-link one">Shortcuts</p>
                             </div>
-                        </NavLink>
+                        </button>
                     </div>
                     <div className="navlink">
                         <NavLink to="/notes" exact={true} activeClassName="active" className="nl-link">
@@ -158,7 +163,10 @@ const NavBar = () => {
                         </NavLink>
                     </div>
                     <div className="navlink">
-                        <button className="nl-link nl-tags" onClick={() => setShowTags(!showTags)}>
+                        <button className="nl-link nl-tags" onClick={() => {
+                            setShowTags(!showTags)
+                            setShowShortcuts(false)
+                            }}>
                             <div className="nav-inner">
                                 <div><i className="fa-solid fa-hashtag fa-match" /></div>
                                 <p className="p-link">Tags</p>
@@ -193,6 +201,12 @@ const NavBar = () => {
                     </div>
                 </div>
             </div>
+            {showShortcuts && (
+                <Shortcuts
+                    showShortcuts={showShortcuts}
+                    setShowShortcuts={setShowShortcuts}
+                />
+            )}
             {showTags && (
                 <Tags
                     showTags={showTags}
