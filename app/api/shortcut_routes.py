@@ -10,9 +10,9 @@ shortcut_routes = Blueprint('shortcuts', __name__)
 @shortcut_routes.route('')
 @login_required
 def get_all_shortcuts():
-    notes = Note.query.filter(and_(Note.starred == False, Note.user_id == current_user.get_id())).all()
+    notes = Note.query.filter(and_(Note.starred == True, Note.user_id == current_user.get_id())).all()
     tasks = Task.query.filter(and_(Task.starred == True, Task.user_id == current_user.get_id())).all()
-    notebooks = Notebook.query.filter(and_(Notebook.starred == False, Notebook.user_id == current_user.get_id())).all()
+    notebooks = Notebook.query.filter(and_(Notebook.starred == True, Notebook.user_id == current_user.get_id())).all()
 
     results = { "notes": [], "tasks": [], "notebooks": [] }
 

@@ -75,11 +75,11 @@ export const addNoteThunk = data => async dispatch => {
 }
 
 export const editNoteThunk = data => async dispatch => {
-    const { noteId, title, body } = data
+    const { noteId, title, body, starred } = data
     const res = await fetch(`/api/notes/${noteId}/edit`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, body })
+        body: JSON.stringify({ title, body, starred })
     })
     if (res.ok){
         const data = await res.json()

@@ -291,3 +291,23 @@ span:hover {
 .edit-tag-btn:hover {
     color: #209CEE;
 }
+
+.notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notes-sc {
+    vertical-align: middle;
+}
+
+.icon-a {
+    font-size: 16px;
+    z-index: 10;
+}
+
+.icon-b {
+    font-size: 12px;
+    color: #209CEE;
+}

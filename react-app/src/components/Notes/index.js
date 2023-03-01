@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllNotesThunk, addNoteThunk } from '../../store/note';
+import { getAllNotesThunk, addNoteThunk, editNoteThunk } from '../../store/note';
 import { DarkModeContext } from '../../context/ThemeContext';
 import EditNote from '../EditNote';
 import EditTagModal from '../EditTag/EditTagModal';
@@ -50,6 +50,18 @@ function Notes() {
         await dispatch(addNoteThunk(data))
     }
 
+    const addShortcut = async note => {
+        const data = {
+            noteId: note.id,
+            title,
+            body,
+            starred: !note.starred
+        }
+        await dispatch(editNoteThunk(data))
+        await dispatch(getAllNotesThunk())
+        return
+    }
+
     notes.sort((a, b) => {
         if (new Date(a.created_at) < new Date(b.created_at)) {
             return 1
@@ -83,8 +95,16 @@ function Notes() {
                                         className="notes-card"
                                         onClick={() => setFields(note)}
                                     >
-                                        <div className="notes-title">
-                                            {note?.title}
+                                        <div className="notes-header">
+                                            <div className="notes-title">
+                                                {note?.title}
+                                            </div>
+                                            <div className="notes-sc fa-stack" onClick={() => addShortcut(note)}>
+                                                <i className="fa-regular fa-star fa-stack-1x icon-a" />
+                                                {note.starred === true && (
+                                                    <i className="fa-solid fa-star fa-stack-1x icon-b" />
+                                                )}
+                                            </div>
                                         </div>
                                         <div className="notes-content">
                                             {note?.body}

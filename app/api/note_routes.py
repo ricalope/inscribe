@@ -37,7 +37,8 @@ def post_new_note():
             user_id=current_user.get_id(),
             notebook_id=form.data['notebook_id'],
             title=form.data['title'],
-            body=form.data['body']
+            body=form.data['body'],
+            starred=form.data['starred']
         )
         db.session.add(new_note)
         db.session.commit()
@@ -57,6 +58,7 @@ def edit_note_by_id(id):
     if form.validate_on_submit():
         note.title = form.data['title']
         note.body = form.data['body']
+        note.starred = form.data['starred']
         note.set_updated_at()
         db.session.commit()
         return note.to_dict()
