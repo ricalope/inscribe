@@ -23,9 +23,9 @@ function Notes() {
 
     const { darkMode } = useContext(DarkModeContext);
 
-    useEffect(() => {
-        dispatch(getAllNotesThunk())
-    }, [ dispatch ])
+    // useEffect(() => {
+    //     dispatch(getAllNotesThunk())
+    // }, [ dispatch ])
 
     useEffect(() => {
         if (notes?.length > 0) {
