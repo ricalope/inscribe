@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllNotesThunk, addNoteThunk, editNoteThunk } from '../../store/note';
+import { getAllNotesThunk, addNoteThunk } from '../../store/note';
+import { addNoteSCThunk } from '../../store/shortcut';
 import { DarkModeContext } from '../../context/ThemeContext';
 import EditNote from '../EditNote';
 import EditTagModal from '../EditTag/EditTagModal';
@@ -53,11 +54,9 @@ function Notes() {
     const addShortcut = async note => {
         const data = {
             noteId: note.id,
-            title,
-            body,
             starred: !note.starred
         }
-        await dispatch(editNoteThunk(data))
+        await dispatch(addNoteSCThunk(data))
         await dispatch(getAllNotesThunk())
         return
     }
