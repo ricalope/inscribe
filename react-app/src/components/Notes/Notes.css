@@ -307,7 +307,7 @@ span:hover {
 
 .icon-a {
     font-size: 16px;
-    z-index: 10;
+    z-index: 1;
 }
 
 .icon-a:hover {

@@ -36,10 +36,6 @@ const NavBar = () => {
         localStorage.setItem('DARK_MODE', darkMode)
     }, [ darkMode ])
 
-    useEffect(() => {
-        dispatch(getAllNotesThunk())
-    }, [])
-
     const themeChange = () => {
         toggleMode();
     }

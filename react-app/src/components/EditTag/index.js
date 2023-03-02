@@ -36,6 +36,9 @@ function EditTag({ setShowEdit, noteId, tagNoteArray }) {
         if (foundTag) {
             setErrors('Tag already added to this note.')
         }
+        if(input.trim().length === 0) {
+            setErrors('Input field cannot be empty. Either enter the name of an existing Tag, or add a new Tag.')
+        }
         return () => {
             setErrors([]);
             setSubmitted(false);

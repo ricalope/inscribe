@@ -22,7 +22,7 @@ function Notebooks() {
 
     useEffect(() => {
         dispatch(getAllNotebooksThunk())
-    }, [ dispatch ])
+    }, [ notebooks.length ])
 
     const lengthCheck = (data, len) => {
         if (data.length > len) {
