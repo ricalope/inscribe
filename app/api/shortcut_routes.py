@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 from app.models import db, Note, Task, Notebook
+from app.forms import NoteForm, TaskForm, NotebookForm
 from sqlalchemy import and_
 
 
@@ -27,3 +28,17 @@ def get_all_shortcuts():
         results["notebooks"].append(nb_dict)
 
     return jsonify(results)
+
+
+@shortcut_routes.route('/notes/<int:id>', methods=["PUT"])
+@login_required
+def add_note_shortcut(id):
+    note = Note.query.get(id)
+    form = NoteForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        note.starred = form.data['starred']
+        db.session.commit()
+        return note.to_dict()
