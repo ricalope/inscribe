@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllTasksThunk } from '../../store/task';
+import React, { useState, useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { DarkModeContext } from '../../context/ThemeContext';
 import notask from '../../assets/no-task.png';
 import NavBar from '../Navigation/NavBar';
@@ -11,17 +10,12 @@ import './Tasks.css';
 
 function Tasks() {
 
-    const dispatch = useDispatch();
     const { darkMode } = useContext(DarkModeContext);
 
     const tasksObj = useSelector(state => state.tasks.allTasks);
     const tasks = Object.values(tasksObj)
 
     const [ showNew, setShowNew ] = useState(false);
-
-    useEffect(() => {
-        dispatch(getAllTasksThunk())
-    }, [])
 
     return (
         <>
