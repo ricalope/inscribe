@@ -25,10 +25,6 @@ function Notes() {
     const { darkMode } = useContext(DarkModeContext);
 
     useEffect(() => {
-        dispatch(getAllNotesThunk())
-    }, [ notes.length ])
-
-    useEffect(() => {
         if (notes?.length > 0) {
             setTitle(notes[ 0 ]?.title)
             setBody(notes[ 0 ]?.body)
@@ -82,7 +78,7 @@ function Notes() {
                                 <h1 id="n-h1">NOTES</h1>
                             </div>
                         </div>
-                        <div id="n-count">
+                        <div className="n-count">
                             {notes?.length} {notes?.length === 1 ? 'note' : 'notes'}
                         </div>
                     </div>

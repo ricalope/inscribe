@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getAllNotebooksThunk } from '../../store/notebook';
 import { DarkModeContext } from '../../context/ThemeContext';
 import NavBar from '../Navigation/NavBar';
 import AddNotebookModal from '../AddNotebook/AddNotebookModal';
@@ -12,17 +11,12 @@ import './Notebooks.css';
 
 
 function Notebooks() {
-    const dispatch = useDispatch();
 
     const [ showNew, setShowNew ] = useState(false);
 
     const notebooksObj = useSelector(state => state.notebooks.allNotebooks);
     const notebooks = Object.values(notebooksObj);
     const { darkMode } = useContext(DarkModeContext);
-
-    useEffect(() => {
-        dispatch(getAllNotebooksThunk())
-    }, [])
 
     const lengthCheck = (data, len) => {
         if (data?.length > len) {
@@ -42,7 +36,10 @@ function Notebooks() {
             <NavBar />
             <div className="notebooks-main-container">
                 <div className={darkMode ? 'notebooks-inner dark' : 'notebooks-inner light'}>
-                    <h2>Notebooks</h2>
+                    <div id="n-logo">
+                        <i className="fa-solid fa-book" />
+                        <h2>Notebooks</h2>
+                    </div>
                     <div className="length-new-div">
                         <div className="length-nb">
                             {notebooks.length} {notebooks.length === 1 ? 'notebook' : 'notebooks'}
