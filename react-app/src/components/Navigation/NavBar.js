@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
-import { addNoteThunk } from '../../store/note';
+import { addNoteThunk, getAllNotesThunk } from '../../store/note';
 import ghLogo from '../../assets/github-logo.png';
 import liLogo from '../../assets/linkedin.png';
 import logo from '../../assets/quill.png';

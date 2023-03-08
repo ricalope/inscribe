@@ -46,7 +46,6 @@ export const getAllTasksThunk = () => async dispatch => {
 
 export const addTaskThunk = data => async dispatch => {
     const { notebookId, body, taskDate } = data;
-    console.log(taskDate)
     const res = await fetch('/api/tasks', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -118,7 +117,7 @@ const initialState = { allTasks: {}, oneTask: {} }
 const tasksReducer = (state = initialState, action) => {
     switch(action.type) {
         case GET_TASKS: {
-            const newState = { ...state, allTasks: {}, oneTask: {} }
+            const newState = { ...state, allTasks: {  ...state.allTasks }, oneTask: {} }
             action.tasks.forEach(task => newState.allTasks[task.id] = task)
             return newState;
         }

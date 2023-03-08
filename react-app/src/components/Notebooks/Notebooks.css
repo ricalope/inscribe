@@ -163,9 +163,9 @@ td {
     text-align: center;
 }
 
-td:first-child {
+/* td:first-child {
     text-align: left;
-}
+} */
 
 tr:nth-child(even) {
     background-color: #464646;
@@ -194,4 +194,8 @@ tr:nth-child(even) {
 
 .tr-light:nth-child(even) {
     background-color: #969696;
+}
+
+.nb-contents {
+    display: flex;
 }

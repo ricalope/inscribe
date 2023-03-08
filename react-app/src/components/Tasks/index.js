@@ -21,7 +21,7 @@ function Tasks() {
 
     useEffect(() => {
         dispatch(getAllTasksThunk())
-    }, [ dispatch ])
+    }, [])
 
     return (
         <>

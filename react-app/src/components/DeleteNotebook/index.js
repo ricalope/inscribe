@@ -12,13 +12,10 @@ function DeleteNotebook({ setShowDelete, notebookId }) {
 
     const { darkMode } = useContext(DarkModeContext);
 
-    console.log('deleteNotebook',notebookId)
-
     const onSubmit = async () => {
         await dispatch(deleteNotebookThunk(notebookId))
         await dispatch(getAllNotebooksThunk())
         history.push('/notebooks')
-        // setShowDelete(false)
     }
 
     return (

@@ -54,6 +54,9 @@ export const getAllNotebooksThunk = () => async dispatch => {
 
 export const getOneNotebookThunk = notebookId => async dispatch => {
     const res = await fetch(`/api/notebooks/${notebookId}`)
+
+    console.log("🚀 ~ file: notebook.js:58 ~ getOneNotebookThunk ~ res:", res)
+
     if (res.ok) {
         const data = await res.json()
         dispatch(getNotebook(data))
@@ -136,7 +139,7 @@ const initialState = { allNotebooks: {}, oneNotebook: {} }
 const notebooksReducer = (state = initialState, action) => {
     switch(action.type) {
         case GET_NOTEBOOKS: {
-            const newState = { ...state, allNotebooks: {}, oneNotebook: {} }
+            const newState = { ...state, allNotebooks: { ...state.allNotebooks }, oneNotebook: {} }
             action.notebooks.forEach(nb => newState.allNotebooks[nb.id] = nb)
             return newState
         }
@@ -146,8 +149,11 @@ const notebooksReducer = (state = initialState, action) => {
             return newState
         }
         case GET_NOTEBOOK: {
-            const newState = { ...state, allNotebooks: {}, oneNotebook: {} }
-            newState.oneNotebook[action.notebook.id] = action.notebook
+            console.log(action.notebook)
+            const newState = { ...state, notes: { ...state.notes }, tasks: { ...state.tasks }, oneNotebook: {} }
+            newState.oneNotebook = action.notebook.notebook
+            action.notebook.notes.forEach(n => newState.notes[n.id] = n)
+            action.notebook.tasks.forEach(t => newState.tasks[t.id] = t)
             return newState
         }
         case UPDATE_NOTEBOOK: {

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addTaskThunk } from '../../store/task';
 import { DarkModeContext } from '../../context/ThemeContext';
 
-function AddTask({ setShowNew }) {
+function AddTask({ setShowNew, notebookId }) {
 
     const dispatch = useDispatch();
     const { darkMode } = useContext(DarkModeContext);
@@ -23,9 +23,8 @@ function AddTask({ setShowNew }) {
         if (body.trim().length < 1) {
             setErrors('Task body cannot be empty. Please enter a body for the task.')
         }
-
         return () => setErrors([])
-    }, [ body ])
+    }, [])
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -34,7 +33,7 @@ function AddTask({ setShowNew }) {
         if (errors.length > 0) return
 
         if (!taskDate) {
-            const formData = { body }
+            const formData = { notebookId, body }
             const data = await dispatch(addTaskThunk(formData))
             if (data && data.errors) {
                 setErrors(data.errors)
@@ -46,6 +45,7 @@ function AddTask({ setShowNew }) {
 
         let formatDate = new Date(taskDate).toJSON()
         const formData = {
+            notebookId,
             body,
             taskDate: formattedDate(formatDate)
         }
@@ -55,7 +55,7 @@ function AddTask({ setShowNew }) {
             setErrors(data.errors)
             return
         }
-        
+
         setShowNew(false);
         return
     }

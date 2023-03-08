@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
-from app.models import db, Notebook
+from app.models import db, Notebook, Note, Task
+from sqlalchemy.orm import joinedload
 from app.forms import NotebookForm
 
 
@@ -47,12 +48,21 @@ def post_new_notebook():
 @notebook_routes.route('/<int:id>')
 @login_required
 def get_one_notebook(id):
+    notes = Note.query.filter_by(notebook_id=id).all()
+    tasks = Task.query.filter_by(notebook_id=id).all()
     notebook = Notebook.query.get(id)
+    notes_list = []
+    tasks_list = []
+    t = []
+    for n in notes:
+        n_dict = n.to_dict()
+        notes_list.append(n_dict)
+    for t in tasks:
+        t_dict = t.to_dict()
+        tasks_list.append(t_dict)
 
-    if not notebook:
-        return { "errors": "Notebook could not be found" }, 404
 
-    return notebook.to_dict()
+    return { "notebook": notebook.to_dict(), "notes": notes_list, "tasks": tasks_list }
 
 
 @notebook_routes.route('/<int:id>', methods=["DELETE"])
