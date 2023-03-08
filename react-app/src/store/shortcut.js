@@ -45,7 +45,6 @@ const initialState = { notes: {}, tasks: {}, notebooks: {} }
 const shortcutsReducer = (state = initialState, action) => {
     switch(action.type) {
         case GET_SHORTCUTS: {
-            // console.log(action)
             const newState = { ...state, notes: {}, tasks: {}, notebooks: {} }
             action.shortcuts.notes.forEach(note => newState.notes[note.id] = note)
             action.shortcuts.tasks.forEach(task => newState.tasks[task.id] = task)

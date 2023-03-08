@@ -23,7 +23,7 @@ class Notebook(db.Model):
         self.updated_at = datetime.utcnow()
 
     def __repr__(self):
-        return f"user_id({self.user_id}) title({self.title})"
+        return f"user_id: {self.user_id} title: {self.title}"
 
 
     def to_dict(self):
@@ -32,7 +32,8 @@ class Notebook(db.Model):
             "user_id": self.user_id,
             "title": self.title,
             "starred": self.starred,
-            "notes": [n.to_dict() for n in self.note],
+            "notes": [n.to_dict() for n in self.note if self.note],
+            "tasks": [t.to_dict() for t in self.task if self.note],
             "user_email": self.user.email,
             "created_at": self.created_at,
             "updated_at": self.updated_at

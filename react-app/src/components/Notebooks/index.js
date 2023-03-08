@@ -22,10 +22,10 @@ function Notebooks() {
 
     useEffect(() => {
         dispatch(getAllNotebooksThunk())
-    }, [ notebooks.length ])
+    }, [])
 
     const lengthCheck = (data, len) => {
-        if (data.length > len) {
+        if (data?.length > len) {
             return `${data.slice(0, len)}...`
         }
         return data
@@ -80,7 +80,7 @@ function Notebooks() {
                                                         exact="true" to={`/notebooks/${nb.id}`}
                                                         className={darkMode ? 'nb-one-link td-dark' : 'nb-one-link td-light'}>
                                                         <i className="fa-solid fa-book table-book" />&nbsp;
-                                                        {`${lengthCheck(nb.title, 20)} (${nb.notes.length})`}
+                                                        {`${lengthCheck(nb.title, 20)} (${nb?.notes?.length})`}
                                                     </Link>
                                                 </td>
                                                 <td>{lengthCheck(nb.user_email, 16)}</td>

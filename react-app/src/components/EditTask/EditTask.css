@@ -178,6 +178,10 @@
     cursor: pointer;
 }
 
+.t-d-btn:hover {
+    color: #209CEE;
+}
+
 .t-dark {
     box-shadow: 0 0 2px white;
 }

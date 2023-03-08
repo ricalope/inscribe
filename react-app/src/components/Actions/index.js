@@ -5,6 +5,7 @@ import { DarkModeContext } from '../../context/ThemeContext';
 import { addNoteThunk } from '../../store/note';
 import EditNotebookModal from '../EditNotebook/EditNotebookModal';
 import DeleteNotebookModal from '../DeleteNotebook/DeleteNotebookModal';
+import AddTaskModal from '../AddTask/AddTaskModal';
 import './Actions.css';
 
 
@@ -16,6 +17,7 @@ function Actions({ notebookId }) {
     const [ showAction, setShowAction ] = useState(false);
     const [ showEdit, setShowEdit ] = useState(false);
     const [ showDelete, setShowDelete ] = useState(false);
+    const [ showNew, setShowNew ] = useState(false);
 
     const openMenu = () => {
         if (showAction) return
@@ -29,7 +31,7 @@ function Actions({ notebookId }) {
         }
         document.addEventListener('click', closeMenu)
         return () => document.removeEventListener('click', closeMenu)
-    }, [ showAction, notebookId ]);
+    }, [ showAction ]);
 
     const createNote = async () => {
         const data = {
@@ -45,7 +47,7 @@ function Actions({ notebookId }) {
                 <button
                     className={darkMode ? "actions-button td-dark" : "actions-button td-light"}
                     onClick={openMenu}
-                    >
+                >
                     <i className="fa-solid fa-ellipsis" />
                 </button>
             </div>
@@ -54,6 +56,11 @@ function Actions({ notebookId }) {
                     <Link exact="true" to={`/notebooks/${notebookId}`} className="action-link" onClick={createNote}>
                         <div className={darkMode ? "actions-add-note td-dark" : "actions-add-note td-light"}>
                             <p>Add Note</p>
+                        </div>
+                    </Link>
+                    <Link exact="true" to={`/notebooks/${notebookId}`} className="action-link" onClick={() => setShowNew(true)}>
+                        <div className={darkMode ? "actions-add-note td-dark" : "actions-add-note td-light"}>
+                            <p>Add Task</p>
                         </div>
                     </Link>
                     <div
@@ -69,6 +76,13 @@ function Actions({ notebookId }) {
                         <p>Delete Notebook</p>
                     </div>
                 </div>
+            )}
+            {showNew && (
+                <AddTaskModal
+                    showNew={showNew}
+                    setShowNew={setShowNew}
+                    notebookId={notebookId}
+                />
             )}
             {showEdit && (
                 <EditNotebookModal
