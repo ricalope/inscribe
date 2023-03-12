@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
-import { addNoteThunk, getAllNotesThunk } from '../../store/note';
+import { addNoteThunk } from '../../store/note';
 import ghLogo from '../../assets/github-logo.png';
 import liLogo from '../../assets/linkedin.png';
 import logo from '../../assets/quill.png';
@@ -22,9 +22,9 @@ const NavBar = () => {
     const [ showNewTask, setShowNewTask ] = useState(false);
     const [ showLogout, setShowLogout ] = useState(false);
     const [ showDropDown, setShowDropDown ] = useState(false);
-    const [ showTags, setShowTags ] = useState(false);
+    const [ showTags, setShowTags ] = useState(null);
     const [ showAddTag, setShowAddTag ] = useState(false);
-    const [ showShortcuts, setShowShortcuts ] = useState(false);
+    const [ showShortcuts, setShowShortcuts ] = useState(null);
     const [ showDel, setShowDel ] = useState(false);
     const [ tagId, setTagId ] = useState(0)
 
@@ -52,6 +52,24 @@ const NavBar = () => {
             return `${data.slice(0, len)}...`
         }
         return data
+    }
+
+    const panelCheckSc = () => {
+        if(showTags === true) {
+            setShowTags(false)
+            setShowShortcuts(true)
+        } else {
+            setShowShortcuts(true)
+        }
+    }
+
+    const panelCheckTag = () => {
+        if(showShortcuts === true) {
+            setShowShortcuts(false)
+            setShowTags(true)
+        } else {
+            setShowTags(true)
+        }
     }
 
     return (
@@ -127,9 +145,8 @@ const NavBar = () => {
                     </div>
                     <div className="navlink">
                         <button className="nl-tags nl-link" onClick={() => {
-                            setShowShortcuts(!showShortcuts)
-                            setShowTags(false)
-                            }}>
+                            panelCheckSc()
+                        }}>
                             <div className="nav-inner">
                                 <div><i className="fa-solid fa-star fa-match" /></div>
                                 <p className="p-link one">Shortcuts</p>
@@ -164,9 +181,8 @@ const NavBar = () => {
                     </div>
                     <div className="navlink">
                         <button className="nl-link nl-tags" onClick={() => {
-                            setShowTags(!showTags)
-                            setShowShortcuts(false)
-                            }}>
+                            panelCheckTag()
+                        }}>
                             <div className="nav-inner">
                                 <div><i className="fa-solid fa-hashtag fa-match" /></div>
                                 <p className="p-link">Tags</p>
@@ -201,21 +217,17 @@ const NavBar = () => {
                     </div>
                 </div>
             </div>
-            {showShortcuts && (
-                <Shortcuts
-                    showShortcuts={showShortcuts}
-                    setShowShortcuts={setShowShortcuts}
-                />
-            )}
-            {showTags && (
-                <Tags
-                    showTags={showTags}
-                    setShowTags={setShowTags}
-                    setShowNew={setShowAddTag}
-                    setShowDel={setShowDel}
-                    setTagId={setTagId}
-                />
-            )}
+            <Shortcuts
+                showShortcuts={showShortcuts}
+                setShowShortcuts={setShowShortcuts}
+            />
+            <Tags
+                showTags={showTags}
+                setShowTags={setShowTags}
+                setShowNew={setShowAddTag}
+                setShowDel={setShowDel}
+                setTagId={setTagId}
+            />
             {showAddTag && (
                 <AddTagModal
                     showNew={showAddTag}
