@@ -25,9 +25,9 @@ function Tags({ showTags, setShowTags, setShowNew, setShowDel, setTagId }) {
     }, [ dispatch ])
 
     useEffect(() => {
-        if (showTags) {
+        if (showTags === true) {
             setStyle('show')
-        } else if (!showTags) {
+        } else if (showTags === false) {
             setStyle('hide')
         }
 

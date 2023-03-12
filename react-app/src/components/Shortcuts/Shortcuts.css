@@ -1,4 +1,22 @@
-#shortcuts-main {
+@keyframes slideIn {
+    from {
+        transform: translateX(-250px)
+    }
+    to {
+        transform: translateX(550px)
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(550px)
+    }
+    to {
+        transform: translateX(-250px)
+    }
+}
+
+#sc-main {
     position: fixed;
     top: 0;
     left: -350px;
@@ -9,18 +27,14 @@
     width: 350px;
     padding: 10px;
     box-shadow: 6px 0 6px rgba(0,0,0, 0.7);
-    transition: -webkit-transform .5s ease-in-out;
-    transition: transform .5s ease-in-out;
-    -webkit-transform: translateX(-110%);
-    -ms-transform: translateX(-110%);
-    transform: translateX(-110%);
-    overflow: scroll;
 }
 
-#shortcuts-main.show {
-    -webkit-transform: translateX(550px);
-    -ms-transform: translateX(550px);
-    transform: translateX(550px);
+#sc-main.sc-show {
+    animation: slideIn 300ms linear 0s 1 normal both;
+}
+
+#sc-main.sc-hide {
+    animation: slideOut 300ms linear 0s 1 normal both;
 }
 
 .shortcuts-header {

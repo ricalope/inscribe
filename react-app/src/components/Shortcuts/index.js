@@ -20,16 +20,16 @@ function Shortcuts({ showShortcuts, setShowShortcuts }) {
     }, [ dispatch ])
 
     useEffect(() => {
-        if (showShortcuts) {
-            setStyle('show')
-        } else if (!showShortcuts) {
-            setStyle('hide')
+        if (showShortcuts === true) {
+            setStyle('sc-show')
+        } else if (showShortcuts === false) {
+            setStyle('sc-hide')
         }
     }, [ showShortcuts ])
 
     return (
         <>
-            <div id="shortcuts-main" className={style}>
+            <div id="sc-main" className={style}>
                 <div className="shortcuts-header">
                     <div className="sc-title">
                         <h2>Shortcuts</h2>
