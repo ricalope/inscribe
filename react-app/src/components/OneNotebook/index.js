@@ -9,6 +9,7 @@ import EditNote from '../EditNote';
 import Actions from '../Actions';
 import imgBlack from '../../assets/empty-folder-black.png';
 import imgWhite from '../../assets/empty-folder-white.png';
+import { sortDates } from '../../utils/helpers';
 
 
 function OneNotebook() {
@@ -19,17 +20,14 @@ function OneNotebook() {
     const [ body, setBody ] = useState('');
     const [ noteId, setNoteId ] = useState(0);
 
-    // const notebookObj = useSelector(state => state.notebooks.oneNotebook);
-    // const notesObj = useSelector(state => Object.values(state.notes.allNotes));
-    // const notebook = Object.values(notebookObj);
-    // const notes = notesObj.filter(n => n.notebook_id === +notebookId);
-
     const notebook = useSelector(state => state.notebooks.oneNotebook);
     const notesObj = useSelector(state => state.notebooks.notes);
     const tasksObj = useSelector(state => state.notebooks.tasks);
 
-    const notes = Object.values(notesObj || {})
-    const tasks = Object.values(tasksObj || {})
+    let notes = Object.values(notesObj || {})
+    let tasks = Object.values(tasksObj || {})
+    notes = sortDates(notes)
+    tasks = sortDates(tasks)
 
     const { darkMode } = useContext(DarkModeContext);
 
@@ -64,15 +62,6 @@ function OneNotebook() {
         }
         await dispatch(addNoteThunk(data))
     }
-
-    notes.sort((a, b) => {
-        if (new Date(a.created_at) < new Date(b.created_at)) {
-            return 1
-        } else if (new Date(a.created_at) > new Date(b.created_at)) {
-            return -1
-        }
-        return 0
-    })
 
     const lengthCheck = (data, len) => {
         if (data?.length > len) {

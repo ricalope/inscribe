@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ModalProvider } from './context/Modal'
 import { DarkModeProvider } from './context/ThemeContext';
+import { NoteProvider } from './context/NoteContext';
 import App from './App';
 import configureStore from './store';
 import './index.css';
@@ -15,9 +16,11 @@ function Root() {
         <Provider store={store}>
             <ModalProvider>
                 <DarkModeProvider>
-                    <BrowserRouter>
-                        <App />
-                    </BrowserRouter>
+                    <NoteProvider>
+                        <BrowserRouter>
+                            <App />
+                        </BrowserRouter>
+                    </NoteProvider>
                 </DarkModeProvider>
             </ModalProvider>
         </Provider>

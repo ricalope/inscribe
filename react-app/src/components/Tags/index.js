@@ -21,8 +21,12 @@ function Tags({ showTags, setShowTags, setShowNew, setShowDel, setTagId }) {
     const searchTags = Object.values(searchObj);
 
     useEffect(() => {
-        dispatch(getAllTagsThunk())
-    }, [ dispatch ])
+        (async () => {
+            if(showTags) {
+                await dispatch(getAllTagsThunk())
+            }
+        })()
+    }, [])
 
     useEffect(() => {
         if (showTags === true) {

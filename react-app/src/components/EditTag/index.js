@@ -25,11 +25,11 @@ function EditTag({ setShowEdit, noteId, tagNoteArray }) {
         setInput(field.label)
     }
 
-    useEffect(() => {
-        (async () => {
-            await dispatch(getAllTagsThunk())
-        })()
-    }, [ dispatch ])
+    // useEffect(() => {
+    //     (async () => {
+    //         await dispatch(getAllTagsThunk())
+    //     })()
+    // }, [ dispatch ])
 
     useEffect(() => {
         const foundTag = tagNoteArray.find(tag => tag.id === tagId)

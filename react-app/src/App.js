@@ -11,9 +11,6 @@ import SplashPage from './components/SplashPage';
 import Home from './components/Home';
 import ComingSoon from './components/ComingSoon';
 import PageNotFound from './components/PageNotFound';
-import { getAllNotesThunk } from './store/note';
-import { getAllNotebooksThunk } from './store/notebook';
-import { getAllTasksThunk } from './store/task';
 import { authenticate } from './store/session';
 
 function App() {
@@ -25,12 +22,9 @@ function App() {
     useEffect(() => {
         (async () => {
             await dispatch(authenticate());
-            await dispatch(getAllNotesThunk());
-            await dispatch(getAllTasksThunk());
-            await dispatch(getAllNotebooksThunk());
-            setLoaded(true);
+            await setLoaded(true);
         })();
-    }, [ dispatch ]);
+    }, []);
 
     if (!loaded) {
         return null;

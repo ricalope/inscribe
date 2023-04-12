@@ -17,7 +17,7 @@ function Shortcuts({ showShortcuts, setShowShortcuts }) {
 
     useEffect(() => {
         dispatch(getShortcutsThunk())
-    }, [ dispatch ])
+    }, [])
 
     useEffect(() => {
         if (showShortcuts === true) {
