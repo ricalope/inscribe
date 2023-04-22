@@ -21,8 +21,9 @@ function OneNotebook() {
     const [ noteId, setNoteId ] = useState(0);
 
     const notebook = useSelector(state => state.notebooks.oneNotebook);
-    const notesObj = useSelector(state => state.notebooks.notes);
-    const tasksObj = useSelector(state => state.notebooks.tasks);
+    const notesObj = useSelector(state => state.notebooks.oneNotebook.notes);
+    const tasksObj = useSelector(state => state.notebooks.oneNotebook.tasks);
+
 
     let notes = Object.values(notesObj || {})
     let tasks = Object.values(tasksObj || {})
@@ -61,6 +62,7 @@ function OneNotebook() {
             title: 'Untitled'
         }
         await dispatch(addNoteThunk(data))
+        await dispatch(getOneNotebookThunk(notebookId))
     }
 
     const lengthCheck = (data, len) => {
@@ -91,7 +93,10 @@ function OneNotebook() {
                             </div>
                         </div>
                         <div className="nb-delete-modal">
-                            <Actions notebookId={notebookId} />
+                            <Actions
+                                notebookId={notebookId}
+                                newNote={newNote}
+                            />
                         </div>
                     </div>
                     {notes.length > 0 ? (

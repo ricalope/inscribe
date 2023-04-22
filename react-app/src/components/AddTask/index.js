@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTaskThunk } from '../../store/task';
+import { getOneNotebookThunk } from '../../store/notebook';
 import { DarkModeContext } from '../../context/ThemeContext';
 
 function AddTask({ setShowNew, notebookId }) {
@@ -21,43 +22,44 @@ function AddTask({ setShowNew, notebookId }) {
 
     useEffect(() => {
         if (body.trim().length < 1) {
-            setErrors('Task body cannot be empty. Please enter a body for the task.')
+            setErrors([ 'Task body cannot be empty. Please enter a body for the task.' ])
         }
         return () => setErrors([])
-    }, [])
+    }, [ body.length ])
 
     const onSubmit = async (e) => {
         e.preventDefault();
         setSubmitted(true);
 
-        if (errors.length > 0) return
-
-        if (!taskDate) {
+        if (errors.length > 0) {
+            return
+        } else if (!taskDate) {
             const formData = { notebookId, body }
             const data = await dispatch(addTaskThunk(formData))
             if (data && data.errors) {
-                setErrors(data.errors)
+                setErrors([ data.errors ])
                 return
             }
+            await dispatch(getOneNotebookThunk(notebookId))
             setShowNew(false)
             return
-        }
+        } else {
+            let formatDate = new Date(taskDate).toJSON()
+            const formData = {
+                notebookId,
+                body,
+                taskDate: formattedDate(formatDate)
+            }
 
-        let formatDate = new Date(taskDate).toJSON()
-        const formData = {
-            notebookId,
-            body,
-            taskDate: formattedDate(formatDate)
-        }
-
-        const data = await dispatch(addTaskThunk(formData))
-        if (data && data.errors) {
-            setErrors(data.errors)
+            const data = await dispatch(addTaskThunk(formData))
+            if(data && data.errors) {
+                setErrors([data.errors])
+                return
+            }
+            await dispatch(getOneNotebookThunk(notebookId))
+            setShowNew(false);
             return
         }
-
-        setShowNew(false);
-        return
     }
 
     return (
@@ -84,11 +86,9 @@ function AddTask({ setShowNew, notebookId }) {
                         onChange={(e) => setTaskDate(e.target.value)}
                     />
                 </div>
-                {submitted && errors.length > 0 && (
+                {submitted && errors && (
                     <div className="a-t-errors">
-                        {errors.map((e, i) => (
-                            <p key={i}>{e}</p>
-                        ))}
+                        {errors}
                     </div>
                 )}
                 <div className="t-new-buttons">
@@ -99,8 +99,7 @@ function AddTask({ setShowNew, notebookId }) {
                     </button>
                     <button
                         className="nb-btn two"
-                        type="submit"
-                        disabled={body.trim().length <= 0}>
+                        type="submit">
                         Create Task
                     </button>
                 </div>

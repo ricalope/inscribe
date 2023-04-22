@@ -1,17 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { DarkModeContext } from '../../context/ThemeContext';
-import { addNoteThunk } from '../../store/note';
 import EditNotebookModal from '../EditNotebook/EditNotebookModal';
 import DeleteNotebookModal from '../DeleteNotebook/DeleteNotebookModal';
 import AddTaskModal from '../AddTask/AddTaskModal';
 import './Actions.css';
 
 
-function Actions({ notebookId }) {
-
-    const dispatch = useDispatch();
+function Actions({ notebookId, newNote }) {
 
     const { darkMode } = useContext(DarkModeContext);
     const [ showAction, setShowAction ] = useState(false);
@@ -33,13 +29,13 @@ function Actions({ notebookId }) {
         return () => document.removeEventListener('click', closeMenu)
     }, [ showAction ]);
 
-    const createNote = async () => {
-        const data = {
-            notebookId,
-            title: "Untitled"
-        }
-        await dispatch(addNoteThunk(data))
-    }
+    // const createNote = async () => {
+    //     const data = {
+    //         notebookId,
+    //         title: "Untitled"
+    //     }
+    //     await dispatch(addNoteThunk(data))
+    // }
 
     return (
         <>
@@ -53,7 +49,7 @@ function Actions({ notebookId }) {
             </div>
             {showAction && (
                 <div className={darkMode ? "actions-dropdown nb-dark" : "actions-dropdown nb-light"}>
-                    <Link exact="true" to={`/notebooks/${notebookId}`} className="action-link" onClick={createNote}>
+                    <Link exact="true" to={`/notebooks/${notebookId}`} className="action-link" onClick={newNote}>
                         <div className={darkMode ? "actions-add-note td-dark" : "actions-add-note td-light"}>
                             <p>Add Note</p>
                         </div>
