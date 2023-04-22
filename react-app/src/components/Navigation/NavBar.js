@@ -55,7 +55,7 @@ const NavBar = () => {
     }
 
     const panelCheckSc = () => {
-        if(showTags === true) {
+        if (showTags === true) {
             setShowTags(false)
             setShowShortcuts(true)
         } else {
@@ -64,7 +64,7 @@ const NavBar = () => {
     }
 
     const panelCheckTag = () => {
-        if(showShortcuts === true) {
+        if (showShortcuts === true) {
             setShowShortcuts(false)
             setShowTags(true)
         } else {
@@ -217,17 +217,21 @@ const NavBar = () => {
                     </div>
                 </div>
             </div>
-            <Shortcuts
-                showShortcuts={showShortcuts}
-                setShowShortcuts={setShowShortcuts}
-            />
-            <Tags
-                showTags={showTags}
-                setShowTags={setShowTags}
-                setShowNew={setShowAddTag}
-                setShowDel={setShowDel}
-                setTagId={setTagId}
-            />
+            {showShortcuts && (
+                <Shortcuts
+                    showShortcuts={showShortcuts}
+                    setShowShortcuts={setShowShortcuts}
+                />
+            )}
+            {showTags && (
+                <Tags
+                    showTags={showTags}
+                    setShowTags={setShowTags}
+                    setShowNew={setShowAddTag}
+                    setShowDel={setShowDel}
+                    setTagId={setTagId}
+                />
+            )}
             {showAddTag && (
                 <AddTagModal
                     showNew={showAddTag}

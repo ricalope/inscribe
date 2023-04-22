@@ -21,7 +21,7 @@ function EditOneTask({ taskId, taskBody, taskDate, setShowEdit, setShowDelete })
     }
 
     const [ body, setBody ] = useState(taskBody);
-    const [ date, setDate ] = useState(formattedDate(taskDate));
+    const [ date, setDate ] = useState(formattedDate(taskDate || new Date()));
     const [ errors, setErrors ] = useState([]);
     const [ submitted, setSubmitted ] = useState(false);
 

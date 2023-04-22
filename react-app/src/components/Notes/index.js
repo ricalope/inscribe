@@ -3,39 +3,53 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllNotesThunk, addNoteThunk } from '../../store/note';
 import { addNoteSCThunk } from '../../store/shortcut';
 import { DarkModeContext } from '../../context/ThemeContext';
+import { NoteContext } from '../../context/NoteContext';
 import EditNote from '../EditNote';
 import EditTagModal from '../EditTag/EditTagModal';
 import NavBar from '../Navigation/NavBar';
 import imgBlack from '../../assets/empty-folder-black.png';
 import imgWhite from '../../assets/empty-folder-white.png';
+import { sortDates } from '../../utils/helpers';
 import './Notes.css';
 
 function Notes() {
 
     const [ title, setTitle ] = useState('');
     const [ body, setBody ] = useState('');
-    const [ noteId, setNoteId ] = useState(0);
+    const [ notesId, setNotesId ] = useState(0);
     const [ tagNoteArray, setTagNoteArray ] = useState([]);
     const [ showEdit, setShowEdit ] = useState(false);
 
     const dispatch = useDispatch();
     const notesObj = useSelector(state => state.notes.allNotes);
-    const notes = Object.values(notesObj);
+    let notes = Object.values(notesObj);
+    notes = sortDates(notes)
 
     const { darkMode } = useContext(DarkModeContext);
+    const { noteId } = useContext(NoteContext);
 
     useEffect(() => {
-        if (notes?.length > 0) {
-            setTitle(notes[ 0 ]?.title)
-            setBody(notes[ 0 ]?.body)
-            setNoteId(notes[ 0 ]?.id)
-        } else if (notes?.length === 0) {
-            setNoteId(0)
+        if (notes?.length > 0 && noteId > 0) {
+            setTitle(notesObj[noteId]?.title)
+            setBody(notesObj[noteId]?.body)
+            setNotesId(noteId)
+        } else if(notes?.length > 0 && noteId === 0) {
+            setTitle(notes[0]?.title)
+            setBody(notes[0]?.body)
+            setNotesId(notes[0]?.id)
+        } else if(notes?.length === 0) {
+            setNotesId(0)
         }
     }, [ notes.length, tagNoteArray.length ])
 
+    useEffect(() => {
+        (async () => {
+            await dispatch(getAllNotesThunk())
+        })()
+    }, [])
+
     const setFields = data => {
-        setNoteId(data.id)
+        setNotesId(data.id)
         setTitle(data.title)
         setBody(data.body)
     }
@@ -56,15 +70,6 @@ function Notes() {
         await dispatch(getAllNotesThunk())
         return
     }
-
-    notes.sort((a, b) => {
-        if (new Date(a.created_at) < new Date(b.created_at)) {
-            return 1
-        } else if (new Date(a.created_at) > new Date(b.created_at)) {
-            return -1
-        }
-        return 0
-    })
 
     return (
         <>
@@ -128,7 +133,7 @@ function Notes() {
                                 ))}
                                 {showEdit && (
                                     <EditTagModal
-                                        noteId={noteId}
+                                        noteId={notesId}
                                         showEdit={showEdit}
                                         setShowEdit={setShowEdit}
                                         tagNoteArray={tagNoteArray}
