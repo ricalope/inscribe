@@ -1,21 +1,31 @@
-import React, { useState, useContext } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useContext, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { DarkModeContext } from '../../context/ThemeContext';
 import notask from '../../assets/no-task.png';
 import NavBar from '../Navigation/NavBar';
 import AddTaskModal from '../AddTask/AddTaskModal';
 import EditTask from '../EditTask';
+import { getAllTasksThunk } from '../../store/task';
+import { sortDates } from '../../utils/helpers';
 import './Tasks.css';
 
 
 function Tasks() {
 
     const { darkMode } = useContext(DarkModeContext);
+    const dispatch = useDispatch()
 
     const tasksObj = useSelector(state => state.tasks.allTasks);
-    const tasks = Object.values(tasksObj)
+    let tasks = Object.values(tasksObj)
+    tasks = sortDates(tasks)
 
     const [ showNew, setShowNew ] = useState(false);
+
+    useEffect(() => {
+        (async () => {
+            await dispatch(getAllTasksThunk())
+        })()
+    },[])
 
     return (
         <>

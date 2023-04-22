@@ -2,9 +2,12 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Modal } from '../../context/Modal';
-import { getAllNotesThunk, addNoteThunk } from '../../store/note';
-import { getAllNotebooksThunk } from '../../store/notebook';
+import { sortDates } from '../../utils/helpers';
+import { addNoteThunk } from '../../store/note';
 import { DarkModeContext } from '../../context/ThemeContext';
+import { getAllNotesThunk } from '../../store/note';
+import { getAllNotebooksThunk } from '../../store/notebook';
+import { NoteContext } from '../../context/NoteContext';
 import NavBar from '../Navigation/NavBar';
 import AddNotebookModal from '../AddNotebook/AddNotebookModal';
 import './Home.css';
@@ -15,7 +18,9 @@ function Home() {
     const dispatch = useDispatch();
     const notesObj = useSelector(state => state.notes.allNotes);
     const notebooksObj = useSelector(state => state.notebooks.allNotebooks);
+
     let notes = Object.values(notesObj);
+    notes = sortDates(notes)
     const notebooks = Object.values(notebooksObj);
 
     const localScratch = localStorage.getItem('scratchPad');
@@ -27,12 +32,16 @@ function Home() {
     const [ showErr, setShowErr ] = useState(false);
     const [ errors, setErrors ] = useState('');
 
-    useEffect(() => {
-        dispatch(getAllNotesThunk())
-        dispatch(getAllNotebooksThunk())
-    }, [ dispatch ])
+    const { darkMode } = useContext(DarkModeContext);
+    const { toggleId } = useContext(NoteContext);
+
+    async function fetchData() {
+        await dispatch(getAllNotesThunk());
+        await dispatch(getAllNotebooksThunk());
+    }
 
     useEffect(() => {
+        fetchData();
         const today = new Date()
         const time = today.getHours()
         if (time < 12) {
@@ -43,6 +52,10 @@ function Home() {
             setMessage('Good Evening!')
         }
     }, [])
+
+    const toggleNoteId = id => {
+        toggleId(id)
+    }
 
     const handleInput = e => {
         localStorage.setItem('scratchPad', e.target.value);
@@ -76,17 +89,6 @@ function Home() {
         setShowAction(false)
     }
 
-    notes.sort((a, b) => {
-        if (new Date(a.created_at) < new Date(b.created_at)) {
-            return 1
-        } else if (new Date(a.created_at) > new Date(b.created_at)) {
-            return -1
-        }
-        return 0
-    })
-
-    const { darkMode } = useContext(DarkModeContext);
-
     return (
         <>
             <NavBar />
@@ -114,7 +116,8 @@ function Home() {
                                 <Link
                                     key={note.id}
                                     exact="true" to="/notes"
-                                    className={darkMode ? 'note dark' : 'note light'}>
+                                    className={darkMode ? 'note dark' : 'note light'}
+                                    onClick={() => toggleNoteId(note.id)}>
                                     <div className="home-nc-div">
                                         <div id="note-text">
                                             <h4 id="nc-title">{note.title}</h4>

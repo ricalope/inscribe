@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import DeleteNoteModal from '../DeleteNote/DeleteNoteModal';
 import { DarkModeContext } from '../../context/ThemeContext';
 import { editNoteThunk, getAllNotesThunk } from '../../store/note';
+import { getOneNotebookThunk } from '../../store/notebook';
 
 
 function EditNote({ noteId, title, body, setTitle, setBody }) {
@@ -10,17 +12,30 @@ function EditNote({ noteId, title, body, setTitle, setBody }) {
 
     const [ showDelNote, setShowDelNote ] = useState(false);
     const { darkMode } = useContext(DarkModeContext);
+    const { notebookId } = useParams();
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        const formData = {
-            noteId,
-            title,
-            body
+        if(!notebookId) {
+            const formData = {
+                noteId,
+                title,
+                body
+            }
+            await dispatch(editNoteThunk(formData))
+            await dispatch(getAllNotesThunk())
+            return
+        } else {
+            const formData = {
+                notebookId,
+                noteId,
+                title,
+                body
+            }
+            await dispatch(editNoteThunk(formData))
+            await dispatch(getOneNotebookThunk(notebookId))
+            return
         }
-        await dispatch(editNoteThunk(formData))
-        await dispatch(getAllNotesThunk())
-        return
     }
 
     return (
@@ -49,7 +64,7 @@ function EditNote({ noteId, title, body, setTitle, setBody }) {
                     </div>
                     <div className="edit-btns-div">
                         <div className="edit-del-btn">
-                            <button id="del-btn" onClick={() => setShowDelNote(true)}>
+                            <button type="button" id="del-btn" onClick={() => setShowDelNote(true)}>
                                 Delete
                             </button>
                             {showDelNote && (

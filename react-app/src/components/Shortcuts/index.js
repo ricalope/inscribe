@@ -17,7 +17,7 @@ function Shortcuts({ showShortcuts, setShowShortcuts }) {
 
     useEffect(() => {
         dispatch(getShortcutsThunk())
-    }, [ dispatch ])
+    }, [])
 
     useEffect(() => {
         if (showShortcuts === true) {
@@ -47,7 +47,8 @@ function Shortcuts({ showShortcuts, setShowShortcuts }) {
                         </div>
                         {notes.map(note => (
                             <div key={note.id} className="sc-content">
-                                <Link exact="true" to="/notes">
+                                <Link exact="true" to="/notes" className="sc-link">
+                                    <i className="fa-regular fa-bookmark sc-p" />
                                     <p className="sc-p">{note.title}</p>
                                 </Link>
                             </div>

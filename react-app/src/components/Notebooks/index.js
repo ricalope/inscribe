@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { DarkModeContext } from '../../context/ThemeContext';
 import NavBar from '../Navigation/NavBar';
 import AddNotebookModal from '../AddNotebook/AddNotebookModal';
-import Actions from '../Actions';
+import NotebookCard from './notebookCard';
+import { getAllNotebooksThunk } from '../../store/notebook';
 import imgBlack from '../../assets/empty-folder-black.png';
 import imgWhite from '../../assets/empty-folder-white.png';
 import './Notebooks.css';
@@ -17,19 +17,13 @@ function Notebooks() {
     const notebooksObj = useSelector(state => state.notebooks.allNotebooks);
     const notebooks = Object.values(notebooksObj);
     const { darkMode } = useContext(DarkModeContext);
+    const dispatch = useDispatch()
 
-    const lengthCheck = (data, len) => {
-        if (data?.length > len) {
-            return `${data.slice(0, len)}...`
-        }
-        return data
-    }
-
-    const formatDate = date => {
-        date = new Date(date)
-        const update = new Intl.DateTimeFormat('en-US', { dateStyle: 'short', timeStyle: 'medium' }).format(date)
-        return update
-    }
+    useEffect(() => {
+        (async () => {
+            await dispatch(getAllNotebooksThunk())
+        })()
+    }, [])
 
     return (
         <>
@@ -71,23 +65,11 @@ function Notebooks() {
                                     </thead>
                                     <tbody>
                                         {notebooks.map((nb) => (
-                                            <tr key={nb.id} className={darkMode ? "tr-dark" : "tr-light"}>
-                                                <td>
-                                                    <Link
-                                                        exact="true" to={`/notebooks/${nb.id}`}
-                                                        className={darkMode ? 'nb-one-link td-dark' : 'nb-one-link td-light'}>
-                                                        <i className="fa-solid fa-book table-book" />&nbsp;
-                                                        {`${lengthCheck(nb.title, 20)} (${nb?.notes?.length})`}
-                                                    </Link>
-                                                </td>
-                                                <td>{lengthCheck(nb.user_email, 16)}</td>
-                                                <td>{formatDate(nb.updated_at)}</td>
-                                                <td>
-                                                    <Actions
-                                                        notebookId={nb.id}
-                                                    />
-                                                </td>
-                                            </tr>
+                                            <NotebookCard
+                                                key={nb.id}
+                                                notebook={nb}
+                                                darkMode={darkMode}
+                                            />
                                         ))}
                                     </tbody>
                                 </table>
