@@ -74,9 +74,19 @@
     padding: 10px 5px;
 }
 
+.sc-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .sc-p {
     font-size: 13px;
     color: white;
+}
+
+p.sc-p {
+    padding-top: 2px;
 }
 
 .sc-p:hover {

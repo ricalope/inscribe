@@ -5,6 +5,8 @@ import { Modal } from '../../context/Modal';
 import { sortDates } from '../../utils/helpers';
 import { addNoteThunk } from '../../store/note';
 import { DarkModeContext } from '../../context/ThemeContext';
+import { getAllNotesThunk } from '../../store/note';
+import { getAllNotebooksThunk } from '../../store/notebook';
 import { NoteContext } from '../../context/NoteContext';
 import NavBar from '../Navigation/NavBar';
 import AddNotebookModal from '../AddNotebook/AddNotebookModal';
@@ -33,7 +35,13 @@ function Home() {
     const { darkMode } = useContext(DarkModeContext);
     const { toggleId } = useContext(NoteContext);
 
+    async function fetchData() {
+        await dispatch(getAllNotesThunk());
+        await dispatch(getAllNotebooksThunk());
+    }
+
     useEffect(() => {
+        fetchData();
         const today = new Date()
         const time = today.getHours()
         if (time < 12) {

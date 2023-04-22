@@ -26,7 +26,7 @@ function App() {
         })();
     }, []);
 
-    if (!loaded) {
+    if(!loaded) {
         return null;
     }
 
