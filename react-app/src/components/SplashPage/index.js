@@ -140,7 +140,7 @@ function SplashPage() {
                         <p className="legal">© 2023 Inscribe Corporation. All rights reserved.</p>
                     </div>
                     <div className="sf-legal">
-                        <p className="legal">Happy New Year</p>
+                        <p className="legal">It's so hot here...</p>
                     </div>
                 </div>
             </div>
