@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllNotesThunk, addNoteThunk } from '../../store/note';
 import { addNoteSCThunk } from '../../store/shortcut';
@@ -28,6 +28,8 @@ export default function Notes() {
 
   const { darkMode } = useContext(DarkModeContext);
   const { noteId } = useContext(NoteContext);
+  const prevNoteId = useRef(noteId)
+
 
   useEffect(() => {
     if (notes?.length > 0 && noteId > 0) {
@@ -41,13 +43,14 @@ export default function Notes() {
     } else if (notes?.length === 0) {
       setNotesId(0)
     }
+    prevNoteId.current = noteId
   }, [ notes.length, tagNoteArray.length ])
 
   useEffect(() => {
     (async () => {
       await dispatch(getAllNotesThunk())
     })()
-  }, [ dispatch ])
+  }, [ dispatch, noteId ])
 
   const setFields = data => {
     setNotesId(data.id)
@@ -72,7 +75,7 @@ export default function Notes() {
     return
   }
 
-  console.log(tagNoteArray)
+  console.log(`CurrentNoteId: ${noteId}, PrevNoteId: ${prevNoteId.current}`)
 
   return (
     <>
@@ -100,7 +103,7 @@ export default function Notes() {
                     title={note.title}
                     body={note.body}
                     starred={note.starred}
-                    tags={note.tags}
+                    tags={note?.tags}
                     tagNoteArray={tagNoteArray}
                     setTagNoteArray={setTagNoteArray}
                     showEdit={showEdit}
@@ -174,7 +177,7 @@ export default function Notes() {
 
             )}
           </div>
-        </div >
+        </div>
         <div className="edit-column-notes">
           {notes.length > 0 ? (
             <EditNote

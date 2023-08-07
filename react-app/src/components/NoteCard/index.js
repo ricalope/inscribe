@@ -28,7 +28,7 @@ export default function NoteCard({ note, title, starred, body, darkMode, tags, a
         </div>
         <p id="t-card">Tags</p>
         <div className="tag-icons-container">
-          {note?.tags.map(tag => (
+          {tags.map(tag => (
             <div key={tag?.id} className="tag-icons">
               {tag?.name}
             </div>
