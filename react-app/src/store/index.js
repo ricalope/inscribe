@@ -1,20 +1,20 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
-import notesReducer from './note'
-import notebooksReducer from './notebook';
-import tasksReducer from './task';
-import tagsReducer from './tag';
-import shortcutsReducer from './shortcut';
+// import notesReducer from './note'
+// import notebooksReducer from './notebook';
+// import tasksReducer from './task';
+// import tagsReducer from './tag';
+// import shortcutsReducer from './shortcut';
 
 
 const rootReducer = combineReducers({
   session,
-  notes: notesReducer,
-  notebooks: notebooksReducer,
-  tasks: tasksReducer,
-  tags: tagsReducer,
-  shortcuts: shortcutsReducer
+  // notes: notesReducer,
+  // notebooks: notebooksReducer,
+  // tasks: tasksReducer,
+  // tags: tagsReducer,
+  // shortcuts: shortcutsReducer
 });
 
 

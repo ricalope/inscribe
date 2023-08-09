@@ -16,12 +16,14 @@ import './Home.css';
 function Home() {
 
     const dispatch = useDispatch();
-    const notesObj = useSelector(state => state.notes.allNotes);
-    const notebooksObj = useSelector(state => state.notebooks.allNotebooks);
+    // const notesObj = useSelector(state => state.notes.allNotes);
+    const sessionUser = useSelector(state => state.session.user)
+    // const notebooksObj = useSelector(state => state.notebooks.allNotebooks);
 
-    let notes = Object.values(notesObj);
+    let notes = sessionUser.notes;
+    let notebooks = sessionUser.notebooks;
     notes = sortDates(notes)
-    const notebooks = Object.values(notebooksObj);
+    console.log("🚀 ~ file: index.js:25 ~ Home ~ notes:", notes)
 
     const localScratch = localStorage.getItem('scratchPad');
 
@@ -35,13 +37,13 @@ function Home() {
     const { darkMode } = useContext(DarkModeContext);
     const { toggleId } = useContext(NoteContext);
 
-    async function fetchData() {
-        await dispatch(getAllNotesThunk());
-        await dispatch(getAllNotebooksThunk());
-    }
+    // async function fetchData() {
+    //     await dispatch(getAllNotesThunk());
+    //     await dispatch(getAllNotebooksThunk());
+    // }
 
     useEffect(() => {
-        fetchData();
+        // fetchData();
         const today = new Date()
         const time = today.getHours()
         if (time < 12) {
